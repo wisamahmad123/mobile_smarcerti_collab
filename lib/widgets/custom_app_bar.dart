@@ -19,6 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 170,
       actions: [
         IconButton(
+          padding: EdgeInsets.only(bottom: 100),
           icon: const Icon(Icons.notifications),
           iconSize: 35,
           onPressed: () {
