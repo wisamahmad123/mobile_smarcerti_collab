@@ -88,8 +88,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-
-assets:
+  assets:
     - assets/icons/skills.svg
     - assets/images/skills.png
     - assets/images/static.png
