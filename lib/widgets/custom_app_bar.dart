@@ -1,5 +1,6 @@
 // widgets/custom_app_bar.dart
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/list_notifikasi_pimpinan.dart';
 import 'notifikasi_pop_up.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,18 +20,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 170,
       actions: [
         IconButton(
+          padding: EdgeInsets.only(bottom: 100),
           icon: const Icon(Icons.notifications),
           iconSize: 35,
           onPressed: () {
             // Tampilkan NotificationDialog
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const NotifikasiPopUp(
-                  title: 'Notifikasi',
-                  message: 'popup notif',
-                );
-              },
+            // showDialog(
+            //   context: context,
+            //   builder: (BuildContext context) {
+            //     return const NotifikasiPopUp(
+            //       title: 'Notifikasi',
+            //       message: 'popup notif',
+            //     );
+            //   },
+            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ListNotifikasiPimpinan()),
             );
           },
           color: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/home_dosen.dart';
 import '../pages/home_page.dart';
 
 class LoginForm extends StatefulWidget {
@@ -12,12 +13,17 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nipController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isPimpinan = false;
 
   String? _validateNip(String? value) {
     if (value == null || value.isEmpty) {
       return 'NIP tidak boleh kosong';
     }
-    if (value != '2241') {
+    if (value == 'dosen') {
+      isPimpinan = false;
+    } else if (value == 'pimpinan') {
+      isPimpinan = true;
+    } else {
       return 'NIP tidak sesuai';
     }
     return null;
@@ -74,12 +80,22 @@ class _LoginFormState extends State<LoginForm> {
               height: 60,
               child: ElevatedButton(
                 onPressed: () {
+                 // Cek validasi form terlebih dahulu
                   if (_formKey.currentState!.validate()) {
-                    // Jika validasi sukses, navigasi ke halaman Home
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
+                    // Jika validasi sukses, navigasi sesuai peran (dosen/pimpinan)
+                    if (isPimpinan) {
+                      // Jika pimpinan
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                      );
+                    } else {
+                      // Jika dosen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeDosen()),
+                      );
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
