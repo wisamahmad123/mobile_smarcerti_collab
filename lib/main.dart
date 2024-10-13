@@ -1,5 +1,6 @@
 // main.dart
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/LoadingScreen.dart';
 import 'pages/login_page.dart'; // Import halaman LoginPage
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(), // Halaman pertama adalah LoginPage
+      home: const LoadingScreen(), // Halaman pertama adalah Loadingscreen
     );
   }
 }

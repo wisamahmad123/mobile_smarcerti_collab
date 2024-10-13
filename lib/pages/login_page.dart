@@ -14,9 +14,9 @@ class LoginPage extends StatelessWidget {
             children: [
               ClipOval(
                 child: Image(
-                  image: AssetImage('assets/images/static.png'),
-                  width: 75,
-                  height: 75,
+                  image: AssetImage('assets/images/logo.png'),
+                  width: 100,
+                  height: 100,
                   fit: BoxFit.cover,
                 ),
               ),
