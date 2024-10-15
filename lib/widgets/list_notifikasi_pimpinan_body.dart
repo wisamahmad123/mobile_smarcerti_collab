@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/detail_notifikasi_pimpinan_page.dart';
 
 class ListNotifikasiPimpinanBody extends StatelessWidget {
   const ListNotifikasiPimpinanBody({super.key});
@@ -21,7 +22,13 @@ class ListNotifikasiPimpinanBody extends StatelessWidget {
             ),
             subtitle: const Text(
                 "Intelligent Manufacturing: Internet of Things (IoT), Artificial Intelligence, Digital Transformation into Industry 4.0"),
-            onTap: () {},
+            onTap: () {
+                          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DetailNotifikasiPimpinan()),
+            );
+            },
             trailing: const Icon(
               Icons.arrow_forward_ios,
               size: 35.0,

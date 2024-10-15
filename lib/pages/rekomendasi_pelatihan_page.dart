@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import '../widgets/pimpinan_bottom_nav_bar.dart';
 
-class DelegasiDosenPage extends StatelessWidget {
-  const DelegasiDosenPage({super.key});
+class RekomendasiPelatihanPage extends StatelessWidget {
+  const RekomendasiPelatihanPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Delegasi Dosen'),
+        title: const Text('Rekomendasi Pelatihan'),
       ),
       body: const Center(
-        child: Text('Ini adalah halaman Delegasi Dosen'),
+        child: Text('Ini adalah halaman Rekomendasi Pelatihan'),
       ),
       bottomNavigationBar: const PimpinanBottomNavBar(),
     );
