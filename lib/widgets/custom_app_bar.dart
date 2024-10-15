@@ -49,4 +49,32 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(170);
 }
-//HALOOdvdbddnadsfsdasvsgshkjtlulr4es
+
+class AppBarProfile extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Color(0xFFEF5428), // Warna oranye khusus
+      title: Text(
+        'Change Password',
+        style: TextStyle(
+          fontFamily: 'Poppins', // Menggunakan font Poppins
+          fontSize: 20,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      centerTitle: true, // Memastikan judul berada di tengah
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios_new), // Panah di kiri
+        color: Colors.white,
+        onPressed: () {
+          // Aksi ketika tombol kembali ditekan
+        },
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
