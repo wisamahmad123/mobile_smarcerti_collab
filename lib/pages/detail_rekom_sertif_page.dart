@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
+import 'package:mobile_smarcerti/widgets/detail_rekom_sertifikasi_body.dart';
 import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
-import 'package:mobile_smarcerti/widgets/rekom_pelatihan_body.dart';
 
-class RekomendasiPelatihanPage extends StatelessWidget {
-  const RekomendasiPelatihanPage({super.key});
+
+class DetailRekomSertifPage extends StatelessWidget {
+  const DetailRekomSertifPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: AppBarCustom(title: 'Daftar Rekomendasi Pelatihan'),
-      body:  RekomPelatihanBody(),
+      appBar: AppBarCustom(title: 'Detail Sertifikasi',),
+      body: DetailRekomSertifikasiBody(),
       bottomNavigationBar: DosenBottomNavbar(currentIndex: 0),
     );
   }

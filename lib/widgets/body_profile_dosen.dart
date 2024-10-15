@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../pages/LogoutDialog.dart';
 import '../pages/my_account_dosen.dart';
-import '../widgets/dosen_bottom_navbar.dart';
-import '../widgets/app_bar_profile.dart';
 
 class BodyProfileDosen extends StatelessWidget {
   const BodyProfileDosen({super.key});
