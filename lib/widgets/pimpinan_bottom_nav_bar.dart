@@ -1,7 +1,6 @@
 // widget widgets/pimpimpinan_bottom_nav_bar.dart
 import 'package:flutter/material.dart';
 import '../pages/home_page.dart'; // Import halaman Home
-import '../pages/history_page.dart'; // Import halaman History
 import '../pages/profile_page.dart'; // Import halaman Profile
 
 class PimpinanBottomNavBar extends StatefulWidget {
@@ -23,9 +22,6 @@ class _PimpinanBottomNavBarState extends State<PimpinanBottomNavBar> {
             context, MaterialPageRoute(builder: (context) => const HomePage()));
       } else if (index == 1) {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HistoryPage()));
-      } else if (index == 2) {
-        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const ProfilePage()));
       }
     });
@@ -38,10 +34,6 @@ class _PimpinanBottomNavBarState extends State<PimpinanBottomNavBar> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home, size: 35),
           label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history, size: 35),
-          label: 'History',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person, size: 35),
