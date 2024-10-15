@@ -23,18 +23,18 @@ class DosenBottomNavbar extends StatelessWidget {
       onTap: (index) {
         if (index == 0) {
           // Navigasi ke halaman Home
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomeDosen()),
           );
         }
         if (index == 1) {
           // Navigasi ke halaman Profile
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const ProfileDosen()),
           );
-        }
+        } 
       },
     );
   }

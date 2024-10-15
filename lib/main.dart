@@ -1,8 +1,6 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/LoadingScreen.dart';
-import 'package:mobile_smarcerti/pages/up_bukti_sertifikasi_dosen.dart';
-import 'pages/login_page.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Login Pemimpin',
+      title: 'Login SmartCerTI',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
