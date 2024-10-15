@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/pimpinan_bottom_nav_bar.dart';
+import '../pages/change_password.dart';
 
 class ChangePassword extends StatefulWidget {
   // Perbaikan nama class

@@ -50,26 +50,60 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(170);
 }
 
+// class AppBarProfile extends StatelessWidget implements PreferredSizeWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return AppBar(
+//       backgroundColor: Color(0xFFEF5428), // Warna oranye khusus
+//       title: Text(
+//         'Change Password',
+//         style: TextStyle(
+//           fontFamily: 'Poppins', // Menggunakan font Poppins
+//           fontSize: 20,
+//           color: Colors.white,
+//           fontWeight: FontWeight.bold,
+//         ),
+//       ),
+//       centerTitle: true, // Memastikan judul berada di tengah
+//       leading: IconButton(
+//         icon: Icon(Icons.arrow_back_ios_new), // Panah di kiri
+//         color: Colors.white,
+//         onPressed: () {
+//           // Aksi ketika tombol kembali ditekan
+//         },
+//       ),
+//     );
+//   }
+
+//   @override
+//   Size get preferredSize => Size.fromHeight(kToolbarHeight);
+// }
+
 class AppBarProfile extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Color(0xFFEF5428), // Warna oranye khusus
-      title: Text(
-        'Change Password',
-        style: TextStyle(
-          fontFamily: 'Poppins', // Menggunakan font Poppins
-          fontSize: 20,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start, // Menyusun judul di kiri
+        children: [
+          Text(
+            'Change Password',
+            style: TextStyle(
+              fontFamily: 'Poppins', // Menggunakan font Poppins
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
-      centerTitle: true, // Memastikan judul berada di tengah
+      centerTitle: false, // Mengatur centerTitle menjadi false
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios_new), // Panah di kiri
         color: Colors.white,
         onPressed: () {
-          // Aksi ketika tombol kembali ditekan
+          Navigator.pop(context); // Kembali ke halaman sebelumnya
         },
       ),
     );

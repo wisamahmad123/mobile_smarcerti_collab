@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../pages/home_page.dart'; // Import halaman Home
 import '../pages/profile_page.dart'; // Import halaman Profile
+import '../pages/change_password.dart';
 
 class PimpinanBottomNavBar extends StatefulWidget {
   const PimpinanBottomNavBar({super.key});
@@ -41,8 +42,7 @@ class _PimpinanBottomNavBarState extends State<PimpinanBottomNavBar> {
         ),
       ],
       currentIndex: _selectedIndex, // Indeks yang aktif
-      unselectedItemColor: 
-          const Color.fromARGB(255, 156, 156, 156),
+      unselectedItemColor: const Color.fromARGB(255, 156, 156, 156),
       onTap: _onItemTapped, // Panggil fungsi saat item diklik
       selectedItemColor:
           const Color.fromARGB(255, 239, 84, 40), // Warna item yang dipilih
