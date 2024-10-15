@@ -1,6 +1,7 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/LoadingScreen.dart';
+import 'package:mobile_smarcerti/pages/up_bukti_sertifikasi_dosen.dart';
 import 'pages/login_page.dart'; 
 
 void main() {
