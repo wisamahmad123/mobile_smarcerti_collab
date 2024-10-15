@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../pages/home_dosen.dart';
 import '../pages/profile_dosen.dart'; // Pastikan import ini ada
 import '../widgets/dosen_bottom_navbar.dart';
+import '../pages/change_password.dart';
 
 class DosenBottomNavbar extends StatelessWidget {
   final int currentIndex;

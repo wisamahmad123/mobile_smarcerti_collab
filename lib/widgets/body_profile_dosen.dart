@@ -3,6 +3,7 @@ import '../pages/LogoutDialog.dart';
 import '../pages/my_account_dosen.dart';
 import '../widgets/dosen_bottom_navbar.dart';
 import '../widgets/app_bar_profile.dart';
+import '../pages/change_password.dart';
 
 class BodyProfileDosen extends StatelessWidget {
   const BodyProfileDosen({super.key});
@@ -77,7 +78,7 @@ class BodyProfileDosen extends StatelessWidget {
               ),
             ),
           ),
-           Card(
+          Card(
             color: Colors.white,
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Container(
@@ -100,7 +101,7 @@ class BodyProfileDosen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MyAccountDosen(),
+                        builder: (context) => const ChangePasswordScreen(),
                       ), // Navigate to MyAccountDosen
                     );
                   },
