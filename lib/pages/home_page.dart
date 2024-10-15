@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar:  CustomAppBar(),
-      body:  HomeBody(),
+      body:  HomeBody(role: 'pimpinan'),
       bottomNavigationBar: PimpinanBottomNavBar(),
     );
   }

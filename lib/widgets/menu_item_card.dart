@@ -1,9 +1,9 @@
 // widgets/menu_item_card.dart
-import '../pages/daftar_dosen_page.dart';
-import '../pages/dosen_aktif_page.dart';
-import '../pages/bidang_page.dart';
-import '../pages/dosen_tidak_aktif_page.dart';
-import '../pages/delegasi_dosen_page.dart';
+import '../pages/pelatihan_page.dart';
+import '../pages/sertifikasi_page.dart';
+import '../pages/rekomendasi_sertifikasi_page.dart';
+import '../pages/rekomendasi_pelatihan_page.dart';
+import '../pages/dftr_plthn_sertifikasi_page.dart';
 import '../pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,16 +22,16 @@ class MenuItemCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) {
               // Buat halaman baru berdasarkan teks yang di-klik
-              if (data['text'] == 'Daftar Dosen') {
-                return const DaftarDosenPage();
-              } else if (data['text'] == 'Dosen Aktif') {
-                return const DosenAktifPage();
-              } else if (data['text'] == 'Dosen Tidak Aktif') {
-                return const DosenTidakAktifPage();
-              } else if (data['text'] == 'Bidang') {
-                return const BidangPage();
-              } else if (data['text'] == 'Delegasi Dosen') {
-                return const DelegasiDosenPage();
+              if (data['text'] == 'Pelatihan') {
+                return const PelatihanPage();
+              } else if (data['text'] == 'Sertifikasi') {
+                return const SertifikasiPage();
+              } else if (data['text'] == 'Rekomendasi Pelatihan') {
+                return const RekomendasiPelatihanPage();
+              } else if (data['text'] == 'Rekomendasi Sertifikasi') {
+                return const RekomendasiSertifikasiPage();
+              } else if (data['text'] == 'Daftar Pelatihan dan Sertifikasi Dosen') {
+                return const DftrPlthnSertifikasiPage();
               } else {
                 return const HomePage(); // Default halaman (jika tidak ada yang sesuai)
               }
@@ -58,7 +58,13 @@ class MenuItemCard extends StatelessWidget {
               size: 40.0,
               color: const Color.fromARGB(255, 28, 33, 123),
             ),
-            Text(data['text']),
+            Text(
+              data['text'], 
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 28, 33, 123),
+              ),
+            ),
           ],
         ),
       ),

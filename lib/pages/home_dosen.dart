@@ -10,7 +10,7 @@ class HomeDosen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CustomAppBar(),
-      body: Text('Ini home dosen '),
+      body: HomeBody(role: 'dosen'),
       bottomNavigationBar: DosenBottomNavbar(currentIndex: 0), // Menyertakan currentIndex
     );
   }
