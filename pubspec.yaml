@@ -94,6 +94,7 @@ flutter:
     - assets/images/skills.png
     - assets/images/static.png
     - assets/images/logo.png
+    - assets/images/profile-dosen.jpg
 # Add custom fonts configuration
   fonts:
     - family: RacingSansOne

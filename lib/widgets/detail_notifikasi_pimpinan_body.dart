@@ -116,7 +116,7 @@ class DetailNotifikasiPimpinanBody extends StatelessWidget {
               ],
             ),
           ),
-          height: 475,
+          height: 440,
         ),
         Container(
           padding: EdgeInsets.symmetric(vertical: 20),
@@ -129,7 +129,28 @@ class DetailNotifikasiPimpinanBody extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     side: BorderSide(width: 1.0, color: Color(0xFFEF5428))),
-                onPressed: () {},
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Confirm"),
+                        content: Text("Are you sure?"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                print("No");
+                                Navigator.of(context).pop(false);
+                              },
+                              child: Text("No")),
+                          TextButton(
+                              onPressed: () {
+                                print("Yes");
+                                Navigator.of(context).pop(true);
+                              },
+                              child: Text("Yes"))
+                        ],
+                      );
+                    }),
                 child: Text(
                   "Tolak",
                   style: TextStyle(
@@ -146,7 +167,28 @@ class DetailNotifikasiPimpinanBody extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       backgroundColor: Color(0xFFEF5428)),
-                  onPressed: () {},
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text("Confirm"),
+                          content: Text("Are you sure?"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  print("No");
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text("No")),
+                            TextButton(
+                                onPressed: () {
+                                  print("Yes");
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: Text("Yes"))
+                          ],
+                        );
+                      }),
                   child: Text(
                     "Terima",
                     style: TextStyle(

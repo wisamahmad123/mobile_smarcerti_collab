@@ -1,20 +1,35 @@
-// widgets/home_body.dart
 import 'package:flutter/material.dart';
 import 'menu_item_card.dart';
 import 'analytics_container.dart';
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({super.key});
+  final String role; // Tambahkan parameter untuk role pengguna
+
+  const HomeBody({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> kontainerData = [
-      {'text': 'Daftar Dosen', 'icon': Icons.list},
-      {'text': 'Dosen Aktif', 'icon': Icons.person},
-      {'text': 'Dosen Tidak Aktif', 'icon': Icons.person},
-      {'text': 'Bidang', 'icon': Icons.work},
-      {'text': 'Delegasi Dosen', 'icon': Icons.person},
+    // icon sementara bingung
+    // Data untuk role dosen
+    final List<Map<String, dynamic>> dosenData = [
+      {'text': 'Pelatihan', 'icon': Icons.school_outlined},
+      {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
+      {'text': 'Rekomendasi Pelatihan', 'icon': Icons.star_border_outlined},
+      {'text': 'Rekomendasi Sertifikasi', 'icon': Icons.star_border_outlined},
     ];
+
+    // Data untuk role pimpinan
+    final List<Map<String, dynamic>> pimpinanData = [
+      {'text': 'Pelatihan', 'icon': Icons.school_outlined},
+      {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
+      {'text': 'Rekomendasi Pelatihan', 'icon': Icons.star_border_outlined},
+      {'text': 'Rekomendasi Sertifikasi', 'icon': Icons.star_border_outlined},
+      {'text': 'Daftar Pelatihan dan Sertifikasi Dosen', 'icon': Icons.school_outlined},
+    ];
+
+    // Percabangan berdasarkan role
+    final List<Map<String, dynamic>> kontainerData =
+        (role == 'pimpinan') ? pimpinanData : dosenData;
 
     return Container(
       decoration: const BoxDecoration(
