@@ -9,7 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('''  Hi, Wisam! 
+      title: const Text('''  Hi, Nama! 
   Welcome to SmartCerTI'''),
       titleTextStyle: const TextStyle(
         fontFamily: 'Ramabhadra',
