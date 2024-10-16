@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/LogoutDialog.dart';
+import '../pages/logout_dialog.dart';
 import '../pages/my_account_dosen.dart';
 
 class BodyProfileDosen extends StatelessWidget {
