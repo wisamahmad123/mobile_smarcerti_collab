@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; // Tambahkan untuk memilih gambar
+import '../widgets/popup.dart';
 
 class ChangeProfileScreen extends StatefulWidget {
   @override
@@ -109,6 +110,8 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    SavePopup.showChangeProfileDialog(
+                        context); // Memanggil metode dialog
                     // Handle save action here
                   },
                   style: ElevatedButton.styleFrom(
