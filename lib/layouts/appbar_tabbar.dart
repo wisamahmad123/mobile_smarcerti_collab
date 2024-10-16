@@ -6,7 +6,7 @@ class AppBarTabBar extends StatelessWidget
   final String title;
 
   const AppBarTabBar({Key? key, required this.title})
-      : super(key: key);
+: super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(125);
@@ -14,28 +14,46 @@ class AppBarTabBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        toolbarHeight: 125,
-        centerTitle: true,
-        backgroundColor: Color(0xFFEF5428),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 20.0,
-            color: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+      automaticallyImplyLeading: false, 
+      title: Row(
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 20.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context); // Navigate back to the previous page
+            },
           ),
+          // Move the title closer to the back button using Transform.translate
+          Transform.translate(
+            offset: const Offset(-15, 0), // Adjust the value to move text closer to the icon
+            child: Text(
+              title, // Use dynamic title text here
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 20.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
         ),
+  
         bottom: TabBar(
           tabs: DaftarSertifikasiPage.myTab,
-          indicator: BoxDecoration(
+          indicator: const BoxDecoration(
               // borderRadius: BorderRadius.vertical(),
               border:
                   Border(bottom: BorderSide(color: Colors.white, width: 2))),
           indicatorSize: TabBarIndicatorSize.tab,
-          indicatorPadding: EdgeInsets.only(bottom: 3),
-          labelStyle: TextStyle(
+          indicatorPadding: const EdgeInsets.only(bottom: 3),
+          labelStyle: const TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
-          unselectedLabelStyle: TextStyle(
+          unselectedLabelStyle: const TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
         ));
   }

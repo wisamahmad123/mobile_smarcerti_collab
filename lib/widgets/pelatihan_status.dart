@@ -86,7 +86,7 @@ class PelatihanStatus extends StatelessWidget {
               child: Column(
                 children: [
                   Table(
-                    border: TableBorder.all(),
+                    border: const TableBorder.symmetric(),
                     columnWidths: const {
                       0: FixedColumnWidth(40), // No
                       1: FlexColumnWidth(), // Nama Pelatihan
@@ -103,42 +103,56 @@ class PelatihanStatus extends StatelessWidget {
                           tableCell('Action', isHeader: true),
                         ],
                       ),
-                      for (int i = 1; i <= 10; i++) // Perulangan untuk baris data
-                        TableRow(
-                          children: [
-                            tableCell('$i'),
-                            tableCell('Pelatihan $i'),
-                            tableCell(i % 2 == 0 ? 'Selesai' : 'Belum'),
-                            tableCell('Button $i', isAction: true),
-                          ],
-                        ),
-                    ],
-                  ),
+                      for (int i = 1; i <= 10; i++)  // Perulangan untuk baris data
+                    TableRow(
+                      children: [
+                        tableCell('$i'),
+                        tableCell('Pelatihan $i', onPress: () {
+                          // Navigasi ke halaman DetailPelatihanPage
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DetailPelatihanPage(),
+                            ),
+                          );
+                        }),
+                        tableCell(i % 2 == 0 ? 'Done' : 'On Process', onPress: () {
+                          // 
+                        }),
+                        tableCell('Button $i', isAction: true, onPress: () {
+                          
+                        }),
+                      ],
+                    ),
                 ],
               ),
+                ],
+                  ),
             ),
           ),
         ],
       ),
-    );
+      );    
   }
 
-  Widget tableCell(String content,
-      {bool isHeader = false, bool isAction = false}) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: isAction
-          ? ElevatedButton(
-              onPressed: () {}, // Action for button
-              child: const Icon(Icons.delete),
-            )
-          : Text(
-              content,
-              style: TextStyle(
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? Colors.black : Colors.black87,
+  Widget tableCell(String content, {bool isHeader = false, bool isAction = false, Function()? onPress}) {
+    return InkWell(
+      onTap: onPress,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: isAction
+            ? ElevatedButton(
+                onPressed: onPress,
+                child: const Icon(Icons.delete), // Menggunakan Icon delete
+              )
+            : Text(
+                content,
+                style: TextStyle(
+                  fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                  color: isHeader ? Colors.black : Colors.black87,
+                ),
               ),
-            ),
+      ),
     );
   }
 }
