@@ -13,7 +13,7 @@ class DftrPlthnSertifikasiPage extends StatelessWidget {
       body: const Center(
         child: Text('Ini adalah halaman Daftar Pelatihan dan Sertifikasi Dosen'),
       ),
-      bottomNavigationBar: const PimpinanBottomNavBar(),
+      bottomNavigationBar: const PimpinanBottomNavBar(currentIndex: -1),
     );
   }
 }

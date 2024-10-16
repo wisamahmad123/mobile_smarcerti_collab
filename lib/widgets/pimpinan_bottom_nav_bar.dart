@@ -1,51 +1,43 @@
-// widget widgets/pimpimpinan_bottom_nav_bar.dart
 import 'package:flutter/material.dart';
-import '../pages/home_page.dart'; // Import halaman Home
-import '../pages/profile_page.dart'; // Import halaman Profile
-import '../pages/change_password.dart';
+import '../pages/home_page.dart';
+import '../pages/profile_pimpinan.dart'; // Pastikan import ini ada
 
-class PimpinanBottomNavBar extends StatefulWidget {
-  const PimpinanBottomNavBar({super.key});
 
-  @override
-  _PimpinanBottomNavBarState createState() => _PimpinanBottomNavBarState();
-}
 
-class _PimpinanBottomNavBarState extends State<PimpinanBottomNavBar> {
-  int _selectedIndex = 0; // Index halaman yang dipilih
+class PimpinanBottomNavBar extends StatelessWidget {
+  final int currentIndex;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Perbarui index yang dipilih
-      // Ganti halaman menggunakan Navigator
-      if (index == 0) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
-      } else if (index == 1) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()));
-      }
-    });
-  }
+  const PimpinanBottomNavBar({super.key, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home, size: 35),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person, size: 35),
-          label: 'Profile',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
       ],
-      currentIndex: _selectedIndex, // Indeks yang aktif
-      unselectedItemColor: const Color.fromARGB(255, 156, 156, 156),
-      onTap: _onItemTapped, // Panggil fungsi saat item diklik
-      selectedItemColor:
-          const Color.fromARGB(255, 239, 84, 40), // Warna item yang dipilih
+      backgroundColor: Colors.white,
+      // Untuk halaman tanpa item yang terpilih, buat warna item yang dipilih dan tidak dipilih sama
+      selectedItemColor: currentIndex == -1 ? Colors.grey : const Color.fromARGB(255, 239, 84, 40),
+      unselectedItemColor: Colors.grey, // Warna yang sama untuk item yang tidak dipilih
+      currentIndex: currentIndex == -1 ? 0 : currentIndex, // Set ke 0 jika -1
+      type: BottomNavigationBarType.fixed,
+      onTap: (index) {
+        if (index == 0) {
+          // Navigasi ke halaman Home
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        }
+        if (index == 1) {
+          // Navigasi ke halaman Profile
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfilePimpinan()),
+          );
+        } 
+      },
     );
   }
 }

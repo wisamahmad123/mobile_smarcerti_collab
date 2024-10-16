@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return const Scaffold(
       appBar:  CustomAppBar(),
       body:  HomeBody(role: 'pimpinan'),
-      bottomNavigationBar: PimpinanBottomNavBar(),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: 0),
     );
   }
 }
