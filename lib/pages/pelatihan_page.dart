@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/layouts/appbar_tabbar.dart';
-import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
 import 'package:mobile_smarcerti/widgets/pelatihan_body.dart';
 
