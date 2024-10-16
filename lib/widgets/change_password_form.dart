@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../pages/change_password.dart';
-import '../widgets/dosen_bottom_navbar.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key}); // Menambahkan const constructor
@@ -27,7 +25,7 @@ class _ChangePasswordBodyState extends State<ChangePassword> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 50,
                 backgroundImage: AssetImage(
                     'assets/images/profile-dosen.jpg'), // Ganti dengan path gambar yang sesuai
