@@ -110,7 +110,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    SavePopup.showChangeProfileDialog(
+                    Popup.showChangeProfileDialog(
                         context); // Memanggil metode dialog
                     // Handle save action here
                   },

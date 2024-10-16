@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/change_profile.dart';
 
-class SavePopup {
+class Popup {
   static void showChangeProfileDialog(BuildContext context) {
     showDialog(
       context: context,
