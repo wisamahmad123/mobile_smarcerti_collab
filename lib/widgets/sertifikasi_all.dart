@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/pengajuan_sertifikasi_dosen.dart';
+import 'package:mobile_smarcerti/pages/up_bukti_sertifikasi_dosen.dart';
 
 class SertifikasiAll extends StatelessWidget {
   const SertifikasiAll({super.key});
@@ -32,8 +34,12 @@ class SertifikasiAll extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Aksi ketika tombol "Pengajuan" ditekan
-                  print("Pengajuan ditekan");
+                  // Aksi ketika tombol "Upload" ditekan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PengajuanSertifikasiDosen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
@@ -52,6 +58,11 @@ class SertifikasiAll extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Aksi ketika tombol "Upload" ditekan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UpBuktiSertifikasiDosen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
