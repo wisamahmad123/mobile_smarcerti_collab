@@ -9,7 +9,7 @@ class SertifikasiAll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           // Search bar
@@ -90,6 +90,7 @@ class SertifikasiAll extends StatelessWidget {
 
           // Expanded agar ListView bisa scroll
           Expanded(
+            
             child: ListView.separated(
               separatorBuilder: (context, index) {
                 return const Divider(

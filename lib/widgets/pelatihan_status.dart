@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/detail_pelatihan_page.dart';
+import 'package:mobile_smarcerti/pages/pengajuan_pelatihan_dosen.dart';
 import 'package:mobile_smarcerti/pages/upload_pelatihan_page.dart';
 
 class PelatihanStatus extends StatelessWidget {
@@ -34,8 +35,11 @@ class PelatihanStatus extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Aksi ketika tombol "Pengajuan" ditekan
-                  print("Pengajuan ditekan");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PengajuanPelatihanDosen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
@@ -78,45 +82,63 @@ class PelatihanStatus extends StatelessWidget {
 
           // Expanded agar ListView bisa scroll
           Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return const Divider(
-                  color: Colors.black, // Garis pemisah antar item
-                );
-              },
-              itemCount: 5, // Jumlah item
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const Icon(
-                    Icons.library_books,
-                    size: 35.0,
-                  ),
-                  title: const Text(
-                    "Intelligent Manufacturing: IoT, AI, Digital Transformation", // Judul pelatihan
-                  ),
-                  subtitle: const Text(
-                    "Internet of Things (IoT), Artificial Intelligence, and Digital Transformation into Industry 4.0.", // Deskripsi pelatihan
-                  ),
-                  onTap: () {
-                    // Navigasi ke halaman detail pelatihan
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DetailPelatihanPage(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Table(
+                    border: TableBorder.all(),
+                    columnWidths: const {
+                      0: FixedColumnWidth(40), // No
+                      1: FlexColumnWidth(), // Nama Pelatihan
+                      2: FixedColumnWidth(100), // Status
+                      3: FixedColumnWidth(100), // Action
+                    },
+                    children: [
+                      TableRow(
+                        decoration: BoxDecoration(color: Colors.grey[300]),
+                        children: [
+                          tableCell('No', isHeader: true),
+                          tableCell('Nama Pelatihan', isHeader: true),
+                          tableCell('Status', isHeader: true),
+                          tableCell('Action', isHeader: true),
+                        ],
                       ),
-                    );
-                  },
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 20.0,
+                      for (int i = 1; i <= 10; i++) // Perulangan untuk baris data
+                        TableRow(
+                          children: [
+                            tableCell('$i'),
+                            tableCell('Pelatihan $i'),
+                            tableCell(i % 2 == 0 ? 'Selesai' : 'Belum'),
+                            tableCell('Button $i', isAction: true),
+                          ],
+                        ),
+                    ],
                   ),
-                  contentPadding: const EdgeInsets.all(20),
-                );
-              },
+                ],
+              ),
             ),
-          ), 
+          ),
         ],
       ),
+    );
+  }
+
+  Widget tableCell(String content,
+      {bool isHeader = false, bool isAction = false}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: isAction
+          ? ElevatedButton(
+              onPressed: () {}, // Action for button
+              child: const Icon(Icons.delete),
+            )
+          : Text(
+              content,
+              style: TextStyle(
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? Colors.black : Colors.black87,
+              ),
+            ),
     );
   }
 }
