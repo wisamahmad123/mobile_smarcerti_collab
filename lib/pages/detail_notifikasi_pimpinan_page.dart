@@ -11,7 +11,7 @@ class DetailNotifikasiPimpinan extends StatelessWidget {
     return const Scaffold(
       appBar: AppBarBackButton(),
       body: DetailNotifikasiPimpinanBody(),
-      bottomNavigationBar: PimpinanBottomNavBar(),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
 }

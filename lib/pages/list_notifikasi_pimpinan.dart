@@ -11,7 +11,7 @@ class ListNotifikasiPimpinan extends StatelessWidget {
     return const Scaffold(
       appBar: AppBarBackButton(),
       body: ListNotifikasiPimpinanBody(),
-      bottomNavigationBar: PimpinanBottomNavBar(),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
 }
