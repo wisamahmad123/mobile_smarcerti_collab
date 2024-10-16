@@ -1,6 +1,7 @@
 // widgets/menu_item_card.dart
+import 'package:mobile_smarcerti/pages/sertifikasi_page.dart';
+
 import '../pages/pelatihan_page.dart';
-import '../pages/sertifikasi_page.dart';
 import '../pages/rekomendasi_sertifikasi_page.dart';
 import '../pages/rekomendasi_pelatihan_page.dart';
 import '../pages/dftr_plthn_sertifikasi_page.dart';
@@ -25,7 +26,7 @@ class MenuItemCard extends StatelessWidget {
               if (data['text'] == 'Pelatihan') {
                 return const PelatihanPage();
               } else if (data['text'] == 'Sertifikasi') {
-                return const SertifikasiPage();
+                return DaftarSertifikasiPage();
               } else if (data['text'] == 'Rekomendasi Pelatihan') {
                 return const RekomendasiPelatihanPage();
               } else if (data['text'] == 'Rekomendasi Sertifikasi') {

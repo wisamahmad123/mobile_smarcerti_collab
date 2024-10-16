@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
-import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
+import 'package:mobile_smarcerti/layouts/appbar_tabbar_daftar_sertifikasi.dart';
 import 'package:mobile_smarcerti/widgets/sertifikasi_body.dart';
 
-class SertifikasiPage extends StatelessWidget {
-  const SertifikasiPage({super.key});
+class DaftarSertifikasiPage extends StatelessWidget {
+  static final List<Tab> myTab = [
+    Tab(
+      text: "All",
+    ),
+    Tab(
+      text: "Status",
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: AppBarCustom(title: 'Daftar Sertifikasi'),
-      body: SertifikasiBody(),
-      bottomNavigationBar:  DosenBottomNavbar(currentIndex: 0),
+    return DefaultTabController(
+      length: myTab.length,
+      child: Scaffold(
+        appBar: AppbarTabbarDaftarSertifikasi(),
+        body: SertifikasiBody(),
+      ),
     );
   }
 }

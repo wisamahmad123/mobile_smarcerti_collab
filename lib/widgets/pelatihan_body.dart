@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/detail_pelatihan_page.dart';
+import 'package:mobile_smarcerti/pages/upload_pelatihan_page.dart';
 
 class PelatihanBody extends StatelessWidget {
   const PelatihanBody({super.key});
@@ -21,10 +22,12 @@ class PelatihanBody extends StatelessWidget {
                     print('Menampilkan Semuanya');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 239, 84, 40), 
-                    padding: const EdgeInsets.symmetric(vertical: 15), // Padding tombol
+                    backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15), // Padding tombol
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero, // Membuat tombol berbentuk kotak
+                      borderRadius:
+                          BorderRadius.zero, // Membuat tombol berbentuk kotak
                     ),
                   ),
                   child: const Text(
@@ -34,7 +37,7 @@ class PelatihanBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10), // Jarak antara tombol ALL dan STATUS
-              
+
               // Tombol STATUS
               Expanded(
                 child: ElevatedButton(
@@ -43,10 +46,10 @@ class PelatihanBody extends StatelessWidget {
                     print('Menampilkan dengan Status');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 239, 84, 40), 
-                    padding: const EdgeInsets.symmetric(vertical: 15), 
+                    backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero, 
+                      borderRadius: BorderRadius.zero,
                     ),
                   ),
                   child: const Text(
@@ -57,7 +60,7 @@ class PelatihanBody extends StatelessWidget {
               ),
             ],
           ),
-          
+
           const SizedBox(height: 20), // Spasi antara tombol dan search bar
 
           // Search bar
@@ -73,7 +76,9 @@ class PelatihanBody extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 20), // Spasi antara search bar dan tombol Pengajuan & Upload
+          const SizedBox(
+              height:
+                  20), // Spasi antara search bar dan tombol Pengajuan & Upload
 
           // Button Pengajuan & Upload
           Row(
@@ -85,24 +90,33 @@ class PelatihanBody extends StatelessWidget {
                   print("Pengajuan ditekan");
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 55, 94, 151), // Warna tombol biru
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // Padding tombol
+                  backgroundColor: const Color.fromARGB(
+                      255, 55, 94, 151), // Warna tombol biru
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 15), // Padding tombol
                 ),
                 child: const Text(
                   'Pengajuan',
                   style: TextStyle(color: Colors.white), // Warna teks putih
                 ),
               ),
-              const SizedBox(width: 10), // Jarak antar tombol Pengajuan dan Upload
-              
+              const SizedBox(
+                  width: 10), // Jarak antar tombol Pengajuan dan Upload
+
               ElevatedButton(
                 onPressed: () {
                   // Aksi ketika tombol "Upload" ditekan
-                  print("Upload ditekan");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UploadPelatihanPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 239, 84, 40), // Warna tombol oranye
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15), // Padding tombol
+                  backgroundColor: const Color.fromARGB(
+                      255, 239, 84, 40), // Warna tombol oranye
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 15), // Padding tombol
                 ),
                 child: const Text(
                   'Upload',
