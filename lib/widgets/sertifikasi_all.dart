@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/pengajuan_sertifikasi_dosen.dart';
-import 'package:mobile_smarcerti/pages/up_bukti_sertifikasi_dosen.dart';
 import 'package:mobile_smarcerti/pages/upload_sertifikasi_dosen.dart';
 
 class SertifikasiAll extends StatelessWidget {
@@ -39,7 +38,8 @@ class SertifikasiAll extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PengajuanSertifikasiDosen()),
+                        builder: (context) =>
+                            const PengajuanSertifikasiDosen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -90,7 +90,6 @@ class SertifikasiAll extends StatelessWidget {
 
           // Expanded agar ListView bisa scroll
           Expanded(
-            
             child: ListView.separated(
               separatorBuilder: (context, index) {
                 return const Divider(

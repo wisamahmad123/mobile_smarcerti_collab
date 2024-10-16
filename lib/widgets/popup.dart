@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/change_profile.dart';
 
 class Popup {
   static void showChangeProfileDialog(BuildContext context) {
