@@ -24,11 +24,67 @@ class PelatihanStatus extends StatelessWidget {
               filled: true,
             ),
           ),
-
           const SizedBox(
               height:
                   20), // Spasi antara search bar dan tombol Pengajuan & Upload
-
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  // Aksi ketika tombol "Pengajuan" ditekan
+                  print("Upcoming");
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(110, 40),
+                  maximumSize: Size(110, 40),
+                  backgroundColor: const Color.fromARGB(
+                      100, 239, 84, 40), // Warna tombol biru
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10), // Padding tombol
+                ),
+                child: const Text(
+                  'Upcoming',
+                  style: TextStyle(
+                      color:
+                          Color.fromARGB(255, 239, 84, 40)), // Warna teks putih
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  // Aksi ketika tombol "Upload" ditekan
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(110, 40),
+                  maximumSize: Size(110, 40),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10), // Padding tombol
+                ),
+                child: const Text(
+                  'Ongoing',
+                  style: TextStyle(color: Colors.black), // Warna teks putih
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  // Aksi ketika tombol "Upload" ditekan
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(110, 40),
+                  maximumSize: Size(110, 40),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10), // Padding tombol
+                ),
+                child: const Text(
+                  'Past',
+                  style: TextStyle(color: Colors.black), // Warna teks putih
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+              height:
+                  20), // Spasi antara search bar dan tombol Pengajuan & Upload
           // Button Pengajuan & Upload
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -103,39 +159,43 @@ class PelatihanStatus extends StatelessWidget {
                           tableCell('Action', isHeader: true),
                         ],
                       ),
-                      for (int i = 1; i <= 10; i++)  // Perulangan untuk baris data
-                    TableRow(
-                      children: [
-                        tableCell('$i'),
-                        tableCell('Pelatihan $i', onPress: () {
-                          // Navigasi ke halaman DetailPelatihanPage
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DetailPelatihanPage(),
-                            ),
-                          );
-                        }),
-                        tableCell(i % 2 == 0 ? 'Done' : 'On Process', onPress: () {
-                          // 
-                        }),
-                        tableCell('Button $i', isAction: true, onPress: () {
-                          
-                        }),
-                      ],
-                    ),
+                      for (int i = 1;
+                          i <= 10;
+                          i++) // Perulangan untuk baris data
+                        TableRow(
+                          children: [
+                            tableCell('$i'),
+                            tableCell('Pelatihan $i', onPress: () {
+                              // Navigasi ke halaman DetailPelatihanPage
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DetailPelatihanPage(),
+                                ),
+                              );
+                            }),
+                            tableCell(i % 2 == 0 ? 'Done' : 'On Process',
+                                onPress: () {
+                              //
+                            }),
+                            tableCell('Button $i',
+                                isAction: true, onPress: () {}),
+                          ],
+                        ),
+                    ],
+                  ),
                 ],
               ),
-                ],
-                  ),
             ),
           ),
         ],
       ),
-      );    
+    );
   }
 
-  Widget tableCell(String content, {bool isHeader = false, bool isAction = false, Function()? onPress}) {
+  Widget tableCell(String content,
+      {bool isHeader = false, bool isAction = false, Function()? onPress}) {
     return InkWell(
       onTap: onPress,
       child: Padding(
