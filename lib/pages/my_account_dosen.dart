@@ -10,9 +10,8 @@ class MyAccountDosen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: AppBarCustom(title: 'My Account'), // AppBar yang dipisahkan
-      body: BodyMyAccountDosen(), // Body yang dipisahkan
-      bottomNavigationBar:
-          DosenBottomNavbar(currentIndex: 1), // BottomNav yang dipisahkan
+      body: BodyMyAccountDosen(),               // Body yang dipisahkan
+      bottomNavigationBar: DosenBottomNavbar(currentIndex: 1), // BottomNav yang dipisahkan
     );
   }
 }

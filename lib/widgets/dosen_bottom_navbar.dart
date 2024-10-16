@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../pages/home_dosen.dart';
 import '../pages/profile_dosen.dart'; // Pastikan import ini ada
-import '../widgets/dosen_bottom_navbar.dart';
-import '../pages/change_password.dart';
+
+
 
 class DosenBottomNavbar extends StatelessWidget {
   final int currentIndex;
@@ -17,25 +17,26 @@ class DosenBottomNavbar extends StatelessWidget {
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
       ],
       backgroundColor: Colors.white,
-      selectedItemColor: const Color.fromARGB(255, 239, 84, 40),
-      unselectedItemColor: const Color(0xFF949494),
-      currentIndex: currentIndex,
+      // Untuk halaman tanpa item yang terpilih, buat warna item yang dipilih dan tidak dipilih sama
+      selectedItemColor: currentIndex == -1 ? Colors.grey : const Color.fromARGB(255, 239, 84, 40),
+      unselectedItemColor: Colors.grey, // Warna yang sama untuk item yang tidak dipilih
+      currentIndex: currentIndex == -1 ? 0 : currentIndex, // Set ke 0 jika -1
       type: BottomNavigationBarType.fixed,
       onTap: (index) {
         if (index == 0) {
-          // Jika "Profile" yang dipilih
-          Navigator.push(
+          // Navigasi ke halaman Home
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomeDosen()),
           );
         }
         if (index == 1) {
-          // Jika "Profile" yang dipilih
-          Navigator.push(
+          // Navigasi ke halaman Profile
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const ProfileDosen()),
           );
-        }
+        } 
       },
     );
   }
