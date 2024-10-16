@@ -1,6 +1,6 @@
 // main.dart
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/LoadingScreen.dart';
+import 'package:mobile_smarcerti/pages/loading_screen.dart';
 
 void main() {
   runApp(const MyApp());

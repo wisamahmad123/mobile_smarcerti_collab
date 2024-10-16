@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../pages/login_page.dart';
-import '../widgets/body_profile_dosen.dart';
 
 class LogoutDialog {
   static void showLogoutDialog(BuildContext context) {
