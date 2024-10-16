@@ -23,7 +23,7 @@ class SertifikasiStatus extends StatelessWidget {
           const SizedBox(
               height:
                   20), // Spasi antara search bar dan tombol Pengajuan & Upload
-
+          
           // Button Pengajuan & Upload
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
