@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/sertifikasi_page.dart';
 
-class AppbarTabbarDaftarSertifikasi extends StatelessWidget implements PreferredSizeWidget {
-  const AppbarTabbarDaftarSertifikasi({super.key});
+class AppBarTabBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String title;
+
+  const AppBarTabBar({Key? key, required this.title})
+      : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(125);
@@ -14,8 +18,12 @@ class AppbarTabbarDaftarSertifikasi extends StatelessWidget implements Preferred
         centerTitle: true,
         backgroundColor: Color(0xFFEF5428),
         title: Text(
-          "Daftar Sertifikasi",
-          style: TextStyle(color: Colors.white),
+          title,
+          style: const TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 20.0,
+            color: Colors.white,
+          ),
         ),
         bottom: TabBar(
           tabs: DaftarSertifikasiPage.myTab,

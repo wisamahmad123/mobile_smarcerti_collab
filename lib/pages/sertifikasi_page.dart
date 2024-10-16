@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/layouts/appbar_tabbar_daftar_sertifikasi.dart';
+import 'package:mobile_smarcerti/layouts/appbar_tabbar.dart';
 import 'package:mobile_smarcerti/widgets/sertifikasi_body.dart';
 
 class DaftarSertifikasiPage extends StatelessWidget {
@@ -17,7 +17,7 @@ class DaftarSertifikasiPage extends StatelessWidget {
     return DefaultTabController(
       length: myTab.length,
       child: Scaffold(
-        appBar: AppbarTabbarDaftarSertifikasi(),
+        appBar: AppBarTabBar(title: 'Daftar Sertifikasi'),
         body: SertifikasiBody(),
       ),
     );

@@ -28,7 +28,9 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const PimpinanBottomNavBar(),
+      bottomNavigationBar: const PimpinanBottomNavBar(
+        currentIndex: 1,
+      ),
     );
   }
 }
