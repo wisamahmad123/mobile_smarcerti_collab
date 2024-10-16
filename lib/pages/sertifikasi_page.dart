@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/layouts/appbar_tabbar.dart';
+import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
 import 'package:mobile_smarcerti/widgets/sertifikasi_body.dart';
 
 class DaftarSertifikasiPage extends StatelessWidget {
@@ -19,7 +20,9 @@ class DaftarSertifikasiPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBarTabBar(title: 'Daftar Sertifikasi'),
         body: SertifikasiBody(),
+        bottomNavigationBar: DosenBottomNavbar(currentIndex: 0),
       ),
+      
     );
   }
 }
