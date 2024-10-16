@@ -7,8 +7,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center( // Menggunakan Center agar konten berada di tengah
-        child: SingleChildScrollView( // Membuat scroll agar tidak overflow pada layar kecil
+      body: Center(
+        // Menggunakan Center agar konten berada di tengah
+        child: SingleChildScrollView(
+          // Membuat scroll agar tidak overflow pada layar kecil
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
