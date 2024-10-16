@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/pengajuan_sertifikasi_dosen.dart';
 import 'package:mobile_smarcerti/pages/up_bukti_sertifikasi_dosen.dart';
+import 'package:mobile_smarcerti/pages/upload_sertifikasi_dosen.dart';
 
 class SertifikasiAll extends StatelessWidget {
   const SertifikasiAll({super.key});
@@ -61,7 +62,7 @@ class SertifikasiAll extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const UpBuktiSertifikasiDosen()),
+                        builder: (context) => const UploadSertifikasiDosen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
