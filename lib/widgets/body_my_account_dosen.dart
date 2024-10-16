@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import '../widgets/change_profile.dart';
 
 class BodyMyAccountDosen extends StatelessWidget {
   const BodyMyAccountDosen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( // Add Scaffold to provide a background color
+    return Scaffold(
+      // Add Scaffold to provide a background color
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -47,11 +49,19 @@ class BodyMyAccountDosen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangeProfileScreen(),
+                    ), // Navigate to MyAccountDosen
+                  );
                   // Handle profile change action here
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF375E97), // Use backgroundColor instead of primary
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                  backgroundColor: const Color(
+                      0xFF375E97), // Use backgroundColor instead of primary
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -76,7 +86,8 @@ class LabelField extends StatelessWidget {
   final String label;
   final String initialValue;
 
-  const LabelField({super.key, required this.label, required this.initialValue});
+  const LabelField(
+      {super.key, required this.label, required this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +122,8 @@ class LabelField extends StatelessWidget {
                 color: Color(0xFF375E97),
               ),
               decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 border: InputBorder.none,
               ),
             ),
