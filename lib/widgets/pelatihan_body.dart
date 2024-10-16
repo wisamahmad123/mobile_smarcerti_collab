@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/detail_pelatihan_page.dart';
+import 'package:mobile_smarcerti/pages/pengajuan_pelatihan_dosen.dart';
 import 'package:mobile_smarcerti/pages/upload_pelatihan_page.dart';
 
 class PelatihanBody extends StatelessWidget {
@@ -86,8 +87,12 @@ class PelatihanBody extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Aksi ketika tombol "Pengajuan" ditekan
-                  print("Pengajuan ditekan");
+                  // Aksi ketika tombol "Upload" ditekan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PengajuanPelatihanDosen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
