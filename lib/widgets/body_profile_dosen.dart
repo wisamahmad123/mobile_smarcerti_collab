@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pages/logout_dialog.dart';
 import '../pages/my_account_dosen.dart';
+import '../pages/change_password.dart';
 
 class BodyProfileDosen extends StatelessWidget {
   const BodyProfileDosen({super.key});
@@ -75,7 +76,7 @@ class BodyProfileDosen extends StatelessWidget {
               ),
             ),
           ),
-           Card(
+          Card(
             color: Colors.white,
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Container(
@@ -98,7 +99,7 @@ class BodyProfileDosen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MyAccountDosen(),
+                        builder: (context) => const ChangePasswordScreen(),
                       ), // Navigate to MyAccountDosen
                     );
                   },

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../pages/home_dosen.dart';
-import '../pages/profile_dosen.dart';
+import '../pages/profile_dosen.dart'; // Pastikan import ini ada
+
+
 
 class DosenBottomNavbar extends StatelessWidget {
   final int currentIndex;
