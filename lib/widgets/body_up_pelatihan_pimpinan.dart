@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BodyUpBuktiSertifikasiPimpinan extends StatelessWidget {
-  const BodyUpBuktiSertifikasiPimpinan({super.key});
+class BodyUpBuktiPelatihanPimpinan extends StatelessWidget {
+  const BodyUpBuktiPelatihanPimpinan({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,6 @@ class BodyUpBuktiSertifikasiPimpinan extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const InputField(label: 'No Sertifikat'),
-            const SizedBox(height: 20),
-            const InputField(label: 'Masa Berlaku'),
             const SizedBox(height: 20),
             const InputField(label: 'Tanggal'),
             const SizedBox(height: 20),
