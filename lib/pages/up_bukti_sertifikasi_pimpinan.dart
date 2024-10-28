@@ -11,7 +11,7 @@ class PengajuanSertifikasiDosen extends StatelessWidget {
     return const Scaffold(
       appBar: AppBarCustom(
           title: 'Form Bukti Sertifikasi'), // AppBar yang dipisahkan
-      body: BodyUpBuktiSertifikasiPimpinan(), // Body yang dipisahkan
+      body: BodyUpSertifikasiPimpinan(), // Body yang dipisahkan
       bottomNavigationBar:
           PimpinanBottomNavBar(currentIndex: -1), // BottomNav yang dipisahkan
     );

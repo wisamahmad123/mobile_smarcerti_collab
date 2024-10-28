@@ -9,7 +9,7 @@ class UploadPelatihanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: AppBarCustom(
-        title: "Upload Pelatihan",
+        title: "Tambah Pelatihan",
       ),
       body: UploadPelatihanBody(),
     );

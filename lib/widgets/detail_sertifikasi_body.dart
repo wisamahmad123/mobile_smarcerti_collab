@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/upload_bukti_pelatihan_page.dart';
+import 'package:mobile_smarcerti/pages/up_bukti_sertifikasi_dosen.dart';
 
-class DetailPelatihanBody extends StatelessWidget {
-  const DetailPelatihanBody({super.key});
+class DetailSertifikasiBody extends StatelessWidget {
+  const DetailSertifikasiBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> pelatihanDetails = [
+    List<Map<String, String>> sertifikasiDetails = [
       {
         'title':
             "Elite Cyber Security Lecturer Professional Development Program at TAFE Queensland",
@@ -14,7 +14,7 @@ class DetailPelatihanBody extends StatelessWidget {
         'lokasi': "Surabaya",
         'biaya': "Dibiayai Politeknik Negeri Malang",
         'vendor': "PT. Asia Merdeka",
-        'level pelatihan': "Pelatihan Internasional",
+        'jenis sertifikasi': "Sertifikasi Keahlian", // Update this if necessary
         'jenis bidang': "Cyber Security",
       }
     ];
@@ -24,8 +24,7 @@ class DetailPelatihanBody extends StatelessWidget {
         padding: EdgeInsets.all(15),
         child: Column(
           children: [
-            // Map detail pelatihan ke widget
-            ...pelatihanDetails.map((detail) {
+            ...sertifikasiDetails.map((detail) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,7 +130,7 @@ class DetailPelatihanBody extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      "Level Pelatihan:",
+                      "Jenis Sertifikasi:",
                       style: TextStyle(
                         fontSize: 14,
                         fontFamily: 'Poppins',
@@ -142,7 +141,7 @@ class DetailPelatihanBody extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      detail['level pelatihan']!,
+                      detail['jenis sertifikasi']!,
                       style: TextStyle(
                         fontSize: 14,
                         fontFamily: 'Poppins',
@@ -194,11 +193,11 @@ class DetailPelatihanBody extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UploadBuktiPelatihanPage()),
+                      builder: (context) => const UpBuktiSertifikasiDosen()),
                 );
               },
               child: Text(
-                "Upload Bukti Pelatihan",
+                "Upload Bukti Sertifikasi",
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(

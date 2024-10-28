@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/layouts/app_bar_back_button.dart';
+import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 import 'package:mobile_smarcerti/widgets/upload_bukti_pelatihan_body.dart';
 
 class UploadBuktiPelatihanPage extends StatelessWidget {
@@ -8,7 +8,7 @@ class UploadBuktiPelatihanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarBackButton(),
+       appBar: AppBarCustom(title: 'Form Bukti Pelatihan'),
       body: UploadBuktiPelatihanBody(),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/layouts/appbar_tabbar.dart';
+import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
 import 'package:mobile_smarcerti/widgets/pelatihan_body.dart';
 
@@ -16,13 +16,13 @@ class PelatihanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: myTab.length,
-      child: const Scaffold(
-        appBar: AppBarTabBar(title: 'Daftar Pelatihan'),
-        body: PelatihanBody(),
-        bottomNavigationBar: DosenBottomNavbar(currentIndex: 0),
-      ),
+    return Scaffold(
+      appBar: AppBarCustom(
+          title: 'Daftar Pelatihan'), 
+      body: PelatihanBody(),
+      bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
     );
   }
 }
+    
+       
