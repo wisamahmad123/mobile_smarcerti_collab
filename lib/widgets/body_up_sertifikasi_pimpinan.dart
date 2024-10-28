@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 
-class UploadBuktiPelatihanBody extends StatelessWidget {
-  const UploadBuktiPelatihanBody({super.key});
+class BodyUpSertifikasiPimpinan extends StatelessWidget {
+  const BodyUpSertifikasiPimpinan({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const InputField(label: 'Nomor Sertifikat'),
+            const InputField(label: 'No Sertifikat'),
+            const SizedBox(height: 20),
+            const InputField(label: 'Masa Berlaku'),
             const SizedBox(height: 20),
             const InputField(label: 'Tanggal'),
             const SizedBox(height: 20),
             const FilePickerField(label: 'File'),
             const SizedBox(height: 40),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end, // Menempatkan tombol di sisi kanan
               children: [
                 SizedBox(
-                  width: 120,
+                  width: 120, // Mengatur lebar yang sama untuk tombol Cancel
                   child: OutlinedButton(
                     onPressed: () {
                       // Handle Cancel action
@@ -47,7 +49,7 @@ class UploadBuktiPelatihanBody extends StatelessWidget {
                     ),
                   ),
                 ),
-               const SizedBox(width: 20), // Menambahkan jarak antara kedua tombol
+                const SizedBox(width: 20), // Menambahkan jarak antara kedua tombol
                 SizedBox(
                   width: 120, // Mengatur lebar yang sama untuk tombol Save
                   child: ElevatedButton(
@@ -100,13 +102,20 @@ class InputField extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.grey),
+        Card(
+          color: Colors.white,
+          elevation: 1,
+          margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+            child: TextFormField(
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
             ),
-            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           ),
         ),
       ],
@@ -136,9 +145,9 @@ class FilePickerField extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              flex: 5,
+              flex: 5, // Mengambil 5 bagian dari total 6
               child: Container(
-                height: 50,
+                height: 50, // Tinggi yang sama dengan tombol
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.only(
@@ -157,7 +166,7 @@ class FilePickerField extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 2, // Mengambil 2 bagian dari total 6
               child: ElevatedButton(
                 onPressed: () {
                   // Handle file picker action

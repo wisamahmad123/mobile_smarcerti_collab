@@ -5,300 +5,238 @@ class UploadPelatihanBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        padding: EdgeInsets.all(30),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  child: Text(
-                "Nama Pelatihan",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.number,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  child: Text(
-                "Nama Vendor",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.text,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  child: Text(
-                "Waktu",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.datetime,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  child: Text(
-                "Lokasi",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.text,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  child: Text(
-                "Biaya",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.number,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  child: Text(
-                "level Pelatihan",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.text,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                  child: Text(
-                "Jenis Bidang",
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-              )),
-              TextField(
-                obscureText: false,
-                autocorrect: false,
-                showCursor: true,
-                cursorColor: Color(0xFF375E97),
-
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.text,
-                // textCapitalization: TextCapitalization.words,
-
-                style: TextStyle(color: Color(0xFF375E97), fontSize: 17),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Color(0xFFACACAC),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  "Pilih File",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(350, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const InputField(label: 'Nama Pelatihan'),
+            const SizedBox(height: 20),
+            const InputField(label: 'Nomor Sertifikat'),
+            const SizedBox(height: 20),
+            const DropdownField(label: 'Nama Vendor'),
+            const SizedBox(height: 20),
+            const InputField(label: 'Waktu'),
+            const SizedBox(height: 20),
+            const InputField(label: 'Lokasi'),
+            const SizedBox(height: 20),
+            const InputField(label: 'Biaya'),
+            const SizedBox(height: 20),
+            const DropdownField(label: 'Level Pelatihan'),
+            const SizedBox(height: 20),
+            const DropdownField(label: 'Jenis Bidang Pelatihan'),
+            const SizedBox(height: 20),
+            const FilePickerField(label: 'File'),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  width: 120,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      // Handle Cancel action
+                      print("Cancel button clicked");
+                    },
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 239, 84, 40),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                    backgroundColor: Color(0xFFEF5428)),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-            ],
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 239, 84, 40),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+               const SizedBox(width: 20), // Menambahkan jarak antara kedua tombol
+                SizedBox(
+                  width: 120, // Mengatur lebar yang sama untuk tombol Save
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle Save action
+                      print("Save button clicked");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class InputField extends StatelessWidget {
+  final String label;
+
+  const InputField({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 55, 94, 151),
           ),
         ),
-        height: 525,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          OutlinedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              "Cancel",
-              style: TextStyle(
-                  color: Color(0xFFEF5428),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
+        const SizedBox(height: 5),
+        TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.grey),
             ),
-            style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Color(0xFFEF5428)),
-                minimumSize: Size(120, 50),
-                maximumSize: Size(120, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                )),
+            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              "Save",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-            style: ElevatedButton.styleFrom(
-                minimumSize: Size(120, 50),
-                maximumSize: Size(120, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                backgroundColor: Color(0xFFEF5428)),
-          )
+        ),
+      ],
+    );
+  }
+}
+
+class DropdownField extends StatelessWidget {
+  final String label;
+
+  const DropdownField({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 55, 94, 151),
+          ),
+        ),
+        const SizedBox(height: 5),
+        DropdownButtonFormField<String>(
+        items: const [
+          DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
+          DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
         ],
-      )
-    ]);
+        onChanged: (value) {},
+        dropdownColor: Colors.white, 
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        ),
+      ),
+
+            ],
+          );
+        }
+      }
+
+class FilePickerField extends StatelessWidget {
+  final String label;
+
+  const FilePickerField({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 55, 94, 151),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            Expanded(
+              flex: 5,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  child: Text(
+                    'No file selected',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle file picker action
+                  print("Choose File button clicked");
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  backgroundColor: const Color.fromARGB(255, 55, 94, 151),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  'Choose File',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
