@@ -20,6 +20,7 @@ class _ChangePasswordBodyState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -103,8 +104,8 @@ class _ChangePasswordBodyState extends State<ChangePassword> {
                 },
                 child: const Text('Save'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4676FB), // Warna biru khusus
-                  foregroundColor: Colors.white, // Warna teks putih
+                  backgroundColor: const Color(0xFF375E97),
+                  foregroundColor: Colors.white, 
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 ),

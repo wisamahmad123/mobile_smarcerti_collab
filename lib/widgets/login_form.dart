@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/home_dosen.dart';
-import '../pages/home_page.dart';
+import '../pages/home_pimpinan.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -87,7 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                       // Jika pimpinan
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        MaterialPageRoute(builder: (context) => const HomePimpinan()),
                       );
                     } else {
                       // Jika dosen

@@ -5,7 +5,7 @@ import '../pages/pelatihan_page.dart';
 import '../pages/rekomendasi_sertifikasi_page.dart';
 import '../pages/rekomendasi_pelatihan_page.dart';
 import '../pages/dftr_plthn_sertifikasi_page.dart';
-import '../pages/home_page.dart';
+import '../pages/home_pimpinan.dart';
 import 'package:flutter/material.dart';
 
 class MenuItemCard extends StatelessWidget {
@@ -34,7 +34,7 @@ class MenuItemCard extends StatelessWidget {
               } else if (data['text'] == 'Daftar Pelatihan dan Sertifikasi Dosen') {
                 return const DftrPlthnSertifikasiPage();
               } else {
-                return const HomePage(); // Default halaman (jika tidak ada yang sesuai)
+                return const HomePimpinan(); // Default halaman (jika tidak ada yang sesuai)
               }
             },
           ),

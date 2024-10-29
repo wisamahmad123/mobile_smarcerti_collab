@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart'; // Tambahkan untuk memilih gamb
 import '../widgets/popup.dart';
 
 class ChangeProfileScreen extends StatefulWidget {
+  
   @override
   _ChangeProfileScreenState createState() => _ChangeProfileScreenState();
 }
@@ -38,25 +39,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFEF5428),
-        title: Text(
-          'Change Profile',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 20,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
-          },
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

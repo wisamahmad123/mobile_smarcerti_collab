@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_app_bar.dart';
+import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 import '../widgets/dosen_bottom_navbar.dart';
 import '../widgets/change_password_form.dart';
 
-class ChangePasswordScreen extends StatelessWidget {
-  const ChangePasswordScreen({super.key}); // Tambahkan const constructor
+class ChangePasswordPage extends StatelessWidget {
+  const ChangePasswordPage({super.key}); // Tambahkan const constructor
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarProfile(), // Menggunakan const jika memungkinkan
+      appBar: AppBarCustom(
+        title: "Change Password",
+      ),
       body: const ChangePassword(), // Menggunakan const jika memungkinkan
       bottomNavigationBar: const DosenBottomNavbar(
         currentIndex: 1, // Tambahkan currentIndex yang statis

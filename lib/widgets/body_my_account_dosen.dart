@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/change_profile_page.dart';
 import '../widgets/change_profile.dart';
 
 class BodyMyAccountDosen extends StatelessWidget {
@@ -52,7 +53,7 @@ class BodyMyAccountDosen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ChangeProfileScreen(),
+                      builder: (context) => ChangeProfilePage(),
                     ), // Navigate to MyAccountDosen
                   );
                   // Handle profile change action here
