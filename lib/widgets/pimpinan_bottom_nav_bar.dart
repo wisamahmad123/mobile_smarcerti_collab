@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/home_page.dart';
+import '../pages/home_pimpinan.dart';
 import '../pages/profile_pimpinan.dart'; // Pastikan import ini ada
 
 
@@ -26,7 +26,7 @@ class PimpinanBottomNavBar extends StatelessWidget {
           // Navigasi ke halaman Home
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const HomePimpinan()),
           );
         }
         if (index == 1) {

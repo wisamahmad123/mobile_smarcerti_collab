@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pages/logout_dialog.dart';
 import '../pages/my_account.dart';
-import '../pages/change_password.dart';
+import '../pages/change_password_page.dart';
 
 class BodyProfile extends StatelessWidget {
   const BodyProfile({super.key});
@@ -99,7 +99,7 @@ class BodyProfile extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ChangePasswordScreen(),
+                        builder: (context) => const ChangePasswordPage(),
                       ), // Navigate to MyAccountDosen
                     );
                   },
