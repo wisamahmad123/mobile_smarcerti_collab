@@ -6,7 +6,7 @@ class BodyUpBuktiPelatihanPimpinan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, 
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -19,7 +19,8 @@ class BodyUpBuktiPelatihanPimpinan extends StatelessWidget {
             const FilePickerField(label: 'File'),
             const SizedBox(height: 40),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end, // Menempatkan tombol di sisi kanan
+              mainAxisAlignment:
+                  MainAxisAlignment.end, // Menempatkan tombol di sisi kanan
               children: [
                 SizedBox(
                   width: 120, // Mengatur lebar yang sama untuk tombol Cancel
@@ -47,7 +48,8 @@ class BodyUpBuktiPelatihanPimpinan extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 20), // Menambahkan jarak antara kedua tombol
+                const SizedBox(
+                    width: 20), // Menambahkan jarak antara kedua tombol
                 SizedBox(
                   width: 120, // Mengatur lebar yang sama untuk tombol Save
                   child: ElevatedButton(
