@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 
-class DetailRekomPelatihanBody extends StatelessWidget {
-  const DetailRekomPelatihanBody({super.key});
+class ListSertifikasiDetailBody extends StatelessWidget {
+  const ListSertifikasiDetailBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Data yang akan ditampilkan
-    List<Map<String, String>> rekomPelatihanDetails = [
+    List<Map<String, String>> listSertifikasiDetails = [
       {
         'title':
-            "Intelligent Manufacturing: Internet of Things (IoT), Artificial Intelligence, Digital Transformation into Industry 4.0",
-        'description':
-            "Pelatihan Internasional",
-        'kuota': "5 Orang",
+            "Elite Cyber Security Lecturer Professional Development Program at TAFE Queensland",
         'waktu': "Senin, 7 Oktober 2014 - Jumat, 11 Oktober 2024",
         'lokasi': "Surabaya",
         'biaya': "Dibiayai Politeknik Negeri Malang",
         'vendor': "PT. Asia Merdeka",
-        'bidang minat': " Internet of Things",
-        'mata kuliah': "Mobile Programming",
+        'jenis sertifikasi': "Sertifikasi Keahlian", // Update this if necessary
+        'jenis bidang': "Cyber Security",
       }
     ];
 
@@ -29,7 +26,7 @@ class DetailRekomPelatihanBody extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: rekomPelatihanDetails.map((detail) {
+              children: listSertifikasiDetails.map((detail) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -47,39 +44,12 @@ class DetailRekomPelatihanBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: const Text(
-                        "Description:",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF375E97),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        detail['description']!,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF375E97),
-                        ),
-                      ),
-                    ),
-                    buildDetailItem("Kuota:", detail['kuota']!),
                     buildDetailItem("Waktu:", detail['waktu']!),
                     buildDetailItem("Lokasi:", detail['lokasi']!),
                     buildDetailItem("Biaya:", detail['biaya']!),
                     buildDetailItem("Vendor:", detail['vendor']!),
-                    buildDetailItem("Bidang Minat:", detail['bidang minat']!),
-                    buildDetailItem("Mata Kuliah:", detail['mata kuliah']!),
+                    buildDetailItem("jenis sertifikasi:", detail['jenis sertifikasi']!),
+                    buildDetailItem("jenis bidang:", detail['jenis bidang']!),
                   ],
                 );
               }).toList(),

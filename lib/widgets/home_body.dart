@@ -14,17 +14,13 @@ class HomeBody extends StatelessWidget {
     final List<Map<String, dynamic>> dosenData = [
       {'text': 'Pelatihan', 'icon': Icons.school_outlined},
       {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
-      {'text': 'Rekomendasi Pelatihan', 'icon': Icons.star_border_outlined},
-      {'text': 'Rekomendasi Sertifikasi', 'icon': Icons.star_border_outlined},
     ];
 
     // Data untuk role pimpinan
     final List<Map<String, dynamic>> pimpinanData = [
       {'text': 'Pelatihan', 'icon': Icons.school_outlined},
       {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
-      {'text': 'Rekomendasi Pelatihan', 'icon': Icons.star_border_outlined},
-      {'text': 'Rekomendasi Sertifikasi', 'icon': Icons.star_border_outlined},
-      {'text': 'Daftar Pelatihan dan Sertifikasi Dosen', 'icon': Icons.school_outlined},
+      {'text': 'Daftar Pelatihan dan Sertifikasi Dosen', 'icon': Icons.list_sharp},
     ];
 
     // Percabangan berdasarkan role
@@ -57,7 +53,7 @@ class HomeBody extends StatelessWidget {
               },
             ),
           ),
-          const AnalyticsContainer(),
+          const SizedBox(height: 300, child: AnalyticsContainer()),
         ],
       ),
     );

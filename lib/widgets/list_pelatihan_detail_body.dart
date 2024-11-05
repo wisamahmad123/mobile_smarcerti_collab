@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DetailRekomSertifikasiBody extends StatelessWidget {
-  const DetailRekomSertifikasiBody({super.key});
+class ListPelatihanDetailBody extends StatelessWidget {
+  const ListPelatihanDetailBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Data yang akan ditampilkan
-    List<Map<String, String>> rekomSertifikasiDetails = [
+    List<Map<String, String>> listPelatihanDetails = [
       {
         'title':
             "Intelligent Manufacturing: Internet of Things (IoT), Artificial Intelligence, Digital Transformation into Industry 4.0",
@@ -29,7 +29,7 @@ class DetailRekomSertifikasiBody extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: rekomSertifikasiDetails.map((detail) {
+              children: listPelatihanDetails.map((detail) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

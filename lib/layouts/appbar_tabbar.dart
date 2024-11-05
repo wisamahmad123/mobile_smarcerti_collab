@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/List_daftar_pelatihan_sertifikasi_page.dart';
 import 'package:mobile_smarcerti/pages/sertifikasi_page.dart';
 
 class AppBarTabBar extends StatelessWidget
@@ -35,6 +36,7 @@ class AppBarTabBar extends StatelessWidget
               title, // Use dynamic title text here
               style: const TextStyle(
                 fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
                 fontSize: 20.0,
                 color: Colors.white,
               ),
@@ -44,7 +46,7 @@ class AppBarTabBar extends StatelessWidget
         ),
   
         bottom: TabBar(
-          tabs: DaftarSertifikasiPage.myTab,
+          tabs: ListDaftarPelatihanSertifikasiPage.myTab,
           indicator: const BoxDecoration(
               // borderRadius: BorderRadius.vertical(),
               border:
@@ -52,9 +54,9 @@ class AppBarTabBar extends StatelessWidget
           indicatorSize: TabBarIndicatorSize.tab,
           indicatorPadding: const EdgeInsets.only(bottom: 3),
           labelStyle: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+            fontSize: 22, color: Colors.white),
           unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+            fontSize: 22, color: Colors.white),
         ));
   }
 }
