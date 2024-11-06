@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -10,7 +9,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 239, 84, 40),
-      automaticallyImplyLeading: false, 
+      automaticallyImplyLeading: false,
       title: Row(
         children: [
           IconButton(
@@ -25,7 +24,8 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
           ),
           // Move the title closer to the back button using Transform.translate
           Transform.translate(
-            offset: const Offset(-15, 0), // Adjust the value to move text closer to the icon
+            offset: const Offset(
+                -5, 0), // Adjust the value to move text closer to the icon
             child: Text(
               title, // Use dynamic title text here
               style: const TextStyle(
@@ -41,11 +41,6 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight); // Default AppBar height
+  Size get preferredSize =>
+      const Size.fromHeight(kToolbarHeight); // Default AppBar height
 }
-
-
-
-
-
-
