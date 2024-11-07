@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/list_sertifikas_detail_page.dart';
 import '../pages/list_pelatihan_detail_page.dart'; // Ganti sesuai dengan rute halaman detail sertifikasi Anda
 
 class TabSertifikasi extends StatelessWidget {
@@ -34,14 +35,14 @@ class TabSertifikasi extends StatelessWidget {
                 color: Color.fromARGB(255, 55, 94, 151),
               ),
             ),
-            // onTap: () {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => const ListPelatihanDetailPage(),
-            //     ),
-            //   );
-            // },
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ListSertifikasDetailPage(),
+                ),
+              );
+            },
             trailing: const Icon(
               Icons.arrow_forward_ios,
               size: 20.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/widgets/request_acc_sertifikasi_pimpinan.dart';
 import '../widgets/appbar_tabbar.dart'; // Pastikan path file ini sesuai dengan lokasi file AppBarTabBar
 import '../widgets/pimpinan_bottom_nav_bar.dart'; // BottomNavigationBar untuk dosen
 import '../widgets/tab_pelatihan.dart'; // Widget untuk konten tab Pelatihan
@@ -16,18 +17,13 @@ class RequestPimpinan extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: myTabs.length, // Jumlah tab
-      child: Scaffold(
+      child: const Scaffold(
         appBar: AppBarTabBar(
-          title: 'Daftar Pelatihan & Sertifikasi',
+          title: 'Daftar Request Pelatihan & Sertifikasi',
           tabs: myTabs, // Mengirimkan daftar tab ke AppBarTabBar
         ),
-        body: const TabBarView(
-          children: [
-            TabPelatihan(), // Halaman pertama (Pelatihan)
-            TabSertifikasi(), // Halaman kedua (Sertifikasi)
-          ],
-        ),
-        bottomNavigationBar: const PimpinanBottomNavBar(
+        body: BodyListRequest(),
+        bottomNavigationBar: PimpinanBottomNavBar(
             currentIndex: 1), // BottomNav yang dipisahkan
       ),
     );

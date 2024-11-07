@@ -29,7 +29,7 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PimpinanBottomNavBar(
-        currentIndex: 1,
+        currentIndex: 2,
       ),
     );
   }
