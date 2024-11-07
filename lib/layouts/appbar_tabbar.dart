@@ -54,9 +54,15 @@ class AppBarTabBar extends StatelessWidget
           indicatorSize: TabBarIndicatorSize.tab,
           indicatorPadding: const EdgeInsets.only(bottom: 3),
           labelStyle: const TextStyle(
-            fontSize: 22, color: Colors.white),
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          color: Colors.white,
+        ),
           unselectedLabelStyle: const TextStyle(
-            fontSize: 22, color: Colors.white),
+          fontWeight: FontWeight.normal,
+          fontSize: 16,
+          color: Colors.white70,
+        ),
         ));
   }
 }

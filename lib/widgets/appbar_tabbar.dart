@@ -16,31 +16,15 @@ class AppBarTabBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: const Color(0xFFEF5428),
       automaticallyImplyLeading: false,
-      title: Row(
-        children: [
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 20.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-            },
-          ),
-          Transform.translate(
-            offset: const Offset(-15, 0), // Menggeser teks agar lebih dekat dengan ikon kembali
-            child: Text(
+      title: Text(
               title,
               style: const TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 20.0,
+                fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
-            ),
-          ),
-        ],
-      ),
+            ),     
       bottom: TabBar(
         tabs: tabs,
         indicator: const BoxDecoration(

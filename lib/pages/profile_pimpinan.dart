@@ -11,7 +11,7 @@ class ProfilePimpinan extends StatelessWidget {
     return const Scaffold(
       appBar: AppBarProfile(title: 'Profile'), // AppBar yang dipisahkan
       body: BodyProfile(),               // Body yang dipisahkan
-      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: 1), // BottomNav yang dipisahkan
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: 2), // BottomNav yang dipisahkan
     );
   }
 }
