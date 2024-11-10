@@ -42,7 +42,7 @@ class DetailSertifikasiBody extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      "Waktu:",
+                      "Tanggal:",
                       style: TextStyle(
                         fontSize: 14,
                         fontFamily: 'Poppins',
