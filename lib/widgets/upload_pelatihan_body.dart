@@ -26,7 +26,7 @@ class UploadPelatihanBody extends StatelessWidget {
             const SizedBox(height: 20),
             const DropdownField(label: 'Level Pelatihan'),
             const SizedBox(height: 20),
-            const DropdownField(label: 'Jenis Bidang'),
+            const DropdownField(label: 'Jenis Pelatihan'),
             const SizedBox(height: 20),
             const DropdownField(label: 'Mata Kuliah'),
             const SizedBox(height: 20),
