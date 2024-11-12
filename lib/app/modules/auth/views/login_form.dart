@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/home_dosen.dart';
-import '../pages/home_pimpinan.dart';
+import 'package:mobile_smarcerti/app/hooks/use_auth.dart';
+import 'package:mobile_smarcerti/app/modules/home/views/home_dosen.dart';
+import '../../home/views/home_pimpinan.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -11,33 +12,38 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  bool isPimpinan = false;  
+  
+  final UseAuth _auth = UseAuth();
+
   final TextEditingController _nipController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isPimpinan = false;
+  
 
-  String? _validateNip(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'NIP tidak boleh kosong';
-    }
-    if (value == 'dosen') {
-      isPimpinan = false;
-    } else if (value == 'pimpinan') {
-      isPimpinan = true;
-    } else {
-      return 'NIP tidak sesuai';
-    }
-    return null;
-  }
+  // String? _validateNip(String? value) {
+  //   if (value == null || value.isEmpty) {
+  //     return 'NIP tidak boleh kosong';
+  //   }
+  //   if (value == 'dosen') {
+  //     isPimpinan = false;
+  //   } else if (value == 'pimpinan') {
+  //     isPimpinan = true;
+  //   } else {
+  //     return 'NIP tidak sesuai';
+  //   }
+  //   return null;
+  // }
 
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password tidak boleh kosong';
-    }
-    if (value != '1234') {
-      return 'Password salah';
-    }
-    return null;
-  }
+  // String? _validatePassword(String? value) {
+  //   if (value == null || value.isEmpty) {
+  //     return 'Password tidak boleh kosong';
+  //   }
+  //   if (value != '1234') {
+  //     return 'Password salah';
+  //   }
+  //   return null;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +62,6 @@ class _LoginFormState extends State<LoginForm> {
                 hintText: 'Masukkan NIP',
                 border: OutlineInputBorder(),
               ),
-              validator: _validateNip,
             ),
             const SizedBox(height: 20),
 
@@ -69,7 +74,6 @@ class _LoginFormState extends State<LoginForm> {
                 hintText: 'Masukkan Password',
                 border: OutlineInputBorder(),
               ),
-              validator: _validatePassword,
             ),
 
             const SizedBox(height: 20),
@@ -79,25 +83,7 @@ class _LoginFormState extends State<LoginForm> {
               width: 320,
               height: 60,
               child: ElevatedButton(
-                onPressed: () {
-                 // Cek validasi form terlebih dahulu
-                  if (_formKey.currentState!.validate()) {
-                    // Jika validasi sukses, navigasi sesuai peran (dosen/pimpinan)
-                    if (isPimpinan) {
-                      // Jika pimpinan
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const HomePimpinan()),
-                      );
-                    } else {
-                      // Jika dosen
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const HomeDosen()),
-                      );
-                    }
-                  }
-                },
+                onPressed: _handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF375E97),
                   shape: RoundedRectangleBorder(
@@ -117,6 +103,15 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
+  }
+
+  Future<void> _handleLogin() async {
+    setState(() => _isLoading = true);
+    try {
+      await _auth.login(_nipController.text, _passwordController.text);
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   @override

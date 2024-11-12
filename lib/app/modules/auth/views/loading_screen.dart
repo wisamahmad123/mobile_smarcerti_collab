@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/hooks/use_auth.dart';
 import 'login_page.dart';  // Import halaman login
 
 class LoadingScreen extends StatefulWidget {
@@ -10,15 +12,22 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  final UseAuth _auth = UseAuth();
+
   @override
   void initState() {
     super.initState();
-    // Waktu untuk pindah ke halaman login setelah 3 detik
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),  // Pindah ke halaman login
-      );
+   pref();
+  }
+
+  void pref() async {
+      Future.delayed(const Duration(seconds: 3), () async {
+    if(await _auth.isLoggedIn()){
+      
+      Get.offAllNamed('/login');
+    } else {
+      // Get.offAllNamed('/home');
+    }
     });
   }
 
