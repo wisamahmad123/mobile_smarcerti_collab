@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import '../app/modules/auth/views/login_page.dart';
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 class ProfilePage extends StatelessWidget {
