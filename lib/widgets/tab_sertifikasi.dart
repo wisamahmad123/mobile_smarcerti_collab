@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/list_sertifikas_detail_page.dart';
 import '../pages/list_pelatihan_detail_page.dart'; // Ganti sesuai dengan rute halaman detail sertifikasi Anda
+import '../widgets/detail_acc_pelatihan.dart';
 
 class TabSertifikasi extends StatelessWidget {
   const TabSertifikasi({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class TabSertifikasi extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ListSertifikasDetailPage(),
+                  builder: (context) => const DetailACCPelatihanBody(),
                 ),
               );
             },

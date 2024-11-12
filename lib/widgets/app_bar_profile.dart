@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/pages/list_notifikasi.dart';
 
 class AppBarProfile extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -29,8 +30,11 @@ class AppBarProfile extends StatelessWidget implements PreferredSizeWidget {
           padding: EdgeInsets.only(bottom: 100),
           icon: const Icon(Icons.notifications, color: Colors.white),
           iconSize: 30,
-          onPressed: () {
-            // Handle notification icon press
+           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ListNotifikasi()),
+            );// Handle notification icon press
           },
         ),
       ],
