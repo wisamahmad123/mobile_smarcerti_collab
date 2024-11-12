@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:get/get_core/src/get_main.dart';
-import 'package:mobile_smarcerti/app/data/models/auth_model.dart';
+import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();
   static String? _accessToken;
-  static String? _type;
 
 
   ApiProvider() {
@@ -56,10 +55,10 @@ class ApiProvider {
       },
     ));
   }
-  Future<Response> login(String email, String password) async {
+  Future<Response> login(String username, String password) async {
     try {
       final response = await _dio.post(ApiConstants.baseUrl + 'login', data: {
-        'email': email,
+        'username': username,
         'password': password,
       });
 

@@ -1,30 +1,24 @@
-class User2Model {
-  String? status;
-  List<Users>? users;
+import 'package:mobile_smarcerti/app/data/models/auth_model.dart';
 
-  User2Model({this.status, this.users});
+class UserModel {
+  User? user;
 
-  User2Model.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    if (json['users'] != null) {
-      users = <Users>[];
-      json['users'].forEach((v) {
-        users!.add(new Users.fromJson(v));
-      });
-    }
+  UserModel({this.user});
+
+  UserModel.fromJson(Map<String, dynamic> json) {
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.users != null) {
-      data['users'] = this.users!.map((v) => v.toJson()).toList();
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
 }
 
-class Users {
+class User {
   String? id;
   String? idLevel;
   String? username;
@@ -36,7 +30,7 @@ class Users {
   String? createdAt;
   String? updatedAt;
 
-  Users(
+  User(
       {this.id,
       this.idLevel,
       this.username,
@@ -48,7 +42,7 @@ class Users {
       this.createdAt,
       this.updatedAt});
 
-  Users.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     idLevel = json['id_level'];
     username = json['username'];

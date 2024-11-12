@@ -98,7 +98,7 @@ flutter:
     - assets/icons/skills.svg
     - assets/images/skills.png
     - assets/images/static.png
-    - assets/images/static2.png
+    # - assets/images/static2.png
     - assets/images/logo.png
     - assets/images/profile-dosen.jpg
     - assets/images/pelatihan_1.png

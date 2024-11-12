@@ -1,43 +1,29 @@
 import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/middleware/auth_middleware.dart';
 import 'package:mobile_smarcerti/app/modules/auth/views/login_page.dart';
-import 'package:mobile_smarcerti/widgets/login_form.dart';
+import 'package:mobile_smarcerti/app/modules/home/bindings/home_binding.dart';
+import 'package:mobile_smarcerti/app/modules/home/views/home_pimpinan.dart';
+import 'package:mobile_smarcerti/app/modules/auth/views/login_form.dart';
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 class AppPages {
   static const INITIAL = Routes.HOME;
 
   static final routes = [
+    GetPage(name: '/login', page: () => const LoginPage()),
+    GetPage(name: '/loginForm', page: () => const LoginForm()),
     GetPage(
-        name: '/navbar',
-        page: () => PimpinanBottomNavBar(),
+        name: '/home',
+        page: () => HomePimpinan(),
         binding: HomeBinding(),
-        bindings: [
-          ProfileBinding(),
-          ChatBinding(),
-          PharmacyBinding(),
-          SubscriptionBinding(),
-        ],
         middlewares: [
           AuthMiddleware()
         ]),
-    GetPage(
-        name: '/search', page: () => SearchPage(), binding: SearchBinding()),
-   GetPage(
-  name: '/product/alternative',
-  
-  page: () => AlternativeProductPage(),
-  binding: AlternativeProductBinding(),
-  
-  transition: Transition.rightToLeft,
-  
-),
-    GetPage(
-        name: '/beranda',
-        page: () => HomePage(),
-        binding: HomeBinding(),
-        bindings: [
-          // SubscriptionBinding(), level
-        ]),
+
+    // GetPage(
+    //     name: '/beranda',
+    //     page: () => HomePimpinan(),
+    //     binding: HomeBinding()),
   ];
 }
 

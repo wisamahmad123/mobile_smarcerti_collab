@@ -3,7 +3,7 @@ import 'package:mobile_smarcerti/pages/List_daftar_pelatihan_sertifikasi_page.da
 import 'package:mobile_smarcerti/pages/sertifikasi_page.dart';
 
 import '../pages/pelatihan_page.dart';
-import '../pages/home_pimpinan.dart';
+import '../app/modules/home/views/home_pimpinan.dart';
 import 'package:flutter/material.dart';
 
 class MenuItemCard extends StatelessWidget {

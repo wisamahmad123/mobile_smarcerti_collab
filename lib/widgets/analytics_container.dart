@@ -24,21 +24,21 @@ class AnalyticsContainer extends StatelessWidget {
               image: AssetImage('assets/images/static.png'),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.all(20),
-            height: 250,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.grey,
-                width: 1,
-              ),
-            ),
-            child: const Image(
-              image: AssetImage('assets/images/static2.png'),
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.all(20),
+          //   height: 250,
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(10),
+          //     border: Border.all(
+          //       color: Colors.grey,
+          //       width: 1,
+          //     ),
+          //   ),
+          //   child: const Image(
+          //     image: AssetImage('assets/images/static2.png'),
+          //   ),
+          // ),
         ],
       ),
     );

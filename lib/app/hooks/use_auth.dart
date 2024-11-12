@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UseAuth {
   final ApiProvider _apiService = ApiProvider();
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String username, String password) async {
   try {
-    final response = await _apiService.login(email, password);
+    final response = await _apiService.login(username, password);
     print("Response: $response");
 
     if (response.statusCode == 200 || response.statusCode == 201) {
