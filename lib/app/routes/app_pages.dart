@@ -4,29 +4,27 @@ import 'package:mobile_smarcerti/app/modules/auth/views/login_page.dart';
 import 'package:mobile_smarcerti/app/modules/home/bindings/home_binding.dart';
 import 'package:mobile_smarcerti/app/modules/home/views/home_pimpinan.dart';
 import 'package:mobile_smarcerti/app/modules/auth/views/login_form.dart';
-import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 class AppPages {
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.LOGIN;  // Arahkan ke login sebagai default
 
   static final routes = [
-    GetPage(name: '/login', page: () => const LoginPage()),
-    GetPage(name: '/loginForm', page: () => const LoginForm()),
+    GetPage(name: Routes.LOGIN, page: () => const LoginPage()),
+    GetPage(name: Routes.LOGIN_FORM, page: () => const LoginForm()),
     GetPage(
-        name: '/home',
-        page: () => HomePimpinan(),
-        binding: HomeBinding(),
-        middlewares: [
-          AuthMiddleware()
-        ]),
-
-    // GetPage(
-    //     name: '/beranda',
-    //     page: () => HomePimpinan(),
-    //     binding: HomeBinding()),
+      name: Routes.HOME,
+      page: () => HomePimpinan(),
+      binding: HomeBinding(),
+      middlewares: [
+        AuthMiddleware()
+      ]
+    ),
   ];
 }
 
 class Routes {
-  static const HOME = '/login';
+  static const LOGIN = '/login';
+  static const LOGIN_FORM = '/loginForm';
+  static const HOME = '/home'; // Arahkan ke home page jika login
 }
+                              
