@@ -1,58 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_body.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
+import 'package:mobile_smarcerti/pages/upload_sertifikasi_dosen.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
-import 'services/sertifikasi_api_service.dart';
-import 'detail_sertifikasi_screen.dart';
 
-class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-
-  const AppBarCustom({Key? key, required this.title}) : super(key: key);
+class SertifikasiBody extends StatefulWidget {
+  const SertifikasiBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: const Color.fromARGB(255, 239, 84, 40),
-      automaticallyImplyLeading: false,
-      title: Row(
-        children: [
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 20.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context); // Navigate back to the previous page
-            },
-          ),
-          Transform.translate(
-            offset: const Offset(-5, 0),
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 20.0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  __SertifikasiScreenState createState() => __SertifikasiScreenState();
 }
 
-class SertifikasiDosenScreen extends StatefulWidget {
-  const SertifikasiDosenScreen({super.key});
-
-  @override
-  __SertifikasiDosenScreenState createState() => __SertifikasiDosenScreenState();
-}
-
-class __SertifikasiDosenScreenState extends State<SertifikasiDosenScreen> {
+class __SertifikasiScreenState extends State<SertifikasiBody> {
   late Future<List<dynamic>> _sertifikasiFuture;
 
   @override
@@ -64,7 +23,6 @@ class __SertifikasiDosenScreenState extends State<SertifikasiDosenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarCustom(title: "Daftar Sertifikasi"),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -167,7 +125,7 @@ class __SertifikasiDosenScreenState extends State<SertifikasiDosenScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DetailDosenScreen(
+                                  builder: (context) => DetailSertifikasi(
                                     idSertifikasi: sertifikasi['id_sertifikasi'],
                                   ),
                                 ),

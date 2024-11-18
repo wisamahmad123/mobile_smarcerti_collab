@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/detail_sertifikasi_page.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
 
 class DetailNotifikasiSertifikasiBody extends StatelessWidget {
   const DetailNotifikasiSertifikasiBody({super.key});
@@ -207,11 +207,11 @@ class DetailNotifikasiSertifikasiBody extends StatelessWidget {
             // Elevated button
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DetailSertifikasiPage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const DetailSertifikasiPage()),
+                // );
               },
               child: Text(
                 "Pelatihan",

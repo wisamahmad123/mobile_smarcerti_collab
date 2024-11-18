@@ -1,6 +1,6 @@
 // widgets/menu_item_card.dart
 import 'package:mobile_smarcerti/pages/List_daftar_pelatihan_sertifikasi_page.dart';
-import 'package:mobile_smarcerti/pages/sertifikasi_page.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
 
 import '../pages/pelatihan_page.dart';
 import '../app/modules/home/views/home_pimpinan.dart';

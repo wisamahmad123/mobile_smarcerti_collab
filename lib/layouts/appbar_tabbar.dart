@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/List_daftar_pelatihan_sertifikasi_page.dart';
-import 'package:mobile_smarcerti/pages/sertifikasi_page.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
 
 class AppBarTabBar extends StatelessWidget
     implements PreferredSizeWidget {
