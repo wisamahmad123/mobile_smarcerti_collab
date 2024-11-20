@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/list_pelatihan_detail_page.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/sertifikasi/detail_page/list_sertifikas_detail_page.dart';
 
-class ListPelatihanDosen extends StatelessWidget {
-  const ListPelatihanDosen({super.key});
+class ListSertifikasiDosen extends StatelessWidget {
+  const ListSertifikasiDosen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class ListPelatihanDosen extends StatelessWidget {
                         color: Color.fromARGB(255, 55, 94, 151), 
                       ),
                       title: const Text(
-                        "Intelligent Manufacturing: IoT, AI, Digital Transformation", // Judul pelatihan
+                        "Elite Cyber Security Lecturer Professional Development Program", // Judul pelatihan
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16, // Ukuran font judul
@@ -111,7 +111,7 @@ class ListPelatihanDosen extends StatelessWidget {
                         ),
                       ),
                       subtitle: const Text(
-                        "Internet of Things (IoT), Artificial Intelligence, and Digital Transformation into Industry 4.0.", // Deskripsi pelatihan
+                        "Elite Cyber Security Lecturer Professional Development Program at TAFE Queensland.", // Deskripsi pelatihan
                         style: TextStyle(
                           fontSize: 14, // Ukuran font deskripsi
                           color: Color.fromARGB(255, 55, 94, 151), 
@@ -122,7 +122,7 @@ class ListPelatihanDosen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ListPelatihanDetailPage(),
+                            builder: (context) => const ListSertifikasDetailPage(),
                           ),
                         );
                       },

@@ -23,8 +23,8 @@ class LoginResponse {
 }
 
 class User {
-  String? id;
-  String? idLevel;
+  int? id;
+  int? idLevel;
   String? username;
   String? namaLengkap;
   String? noTelp;
@@ -35,16 +35,16 @@ class User {
   String? updatedAt;
 
   User(
-      {this.id,
-      this.idLevel,
-      this.username,
-      this.namaLengkap,
-      this.noTelp,
-      this.email,
-      this.jenisKelamin,
-      this.avatar,
-      this.createdAt,
-      this.updatedAt});
+      {required this.id,
+        required this.idLevel,
+        required this.username,
+        required this.namaLengkap,
+        required this.noTelp,
+        required this.email,
+        required this.jenisKelamin,
+        required this.avatar,
+        required this.createdAt,
+        required this.updatedAt,});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,7 +60,7 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['id_level'] = this.idLevel;
     data['username'] = this.username;

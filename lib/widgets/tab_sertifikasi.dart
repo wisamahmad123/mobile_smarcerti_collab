@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/list_sertifikas_detail_page.dart';
-import '../pages/list_pelatihan_detail_page.dart'; // Ganti sesuai dengan rute halaman detail sertifikasi Anda
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/sertifikasi/detail_page/list_sertifikas_detail_page.dart';
+import '../app/modules/list_pelatihan_sertifikasi/views/pelatihan/detail_page/list_pelatihan_detail_page.dart'; // Ganti sesuai dengan rute halaman detail sertifikasi Anda
 import '../widgets/detail_acc_pelatihan.dart';
 
 class TabSertifikasi extends StatelessWidget {

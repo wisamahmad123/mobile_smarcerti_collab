@@ -10,17 +10,14 @@ class HomeController extends BaseController {
   final ApiProvider _apiProvider = ApiProvider();
   final error = Rx<String?>(null);
   final userData = Rx<User?>(null);
-  
 
- 
   @override
   void onInit() {
     super.onInit();
     loadUserData();
-      update(); // Force UI update
-    }
+    update(); // Force UI update
+  }
 
-  
   Future<void> refreshData() async {
     try {
       error.value = null;
@@ -33,18 +30,54 @@ class HomeController extends BaseController {
     }
   }
 
-
-  Future<void> loadUserData() async {
-      try{
-        final user = await _apiProvider.getUserData();
-        if(user != null){
-          userData.value = user;
-          print("data user profile ${userData.value!}  ${userData.value?.namaLengkap}");
-        }
-      } catch(e){
-        print("Error load user data: $e");
-        error.value = e.toString();
-      }
+ Future<String?> getNamaLengkap() async {
+  try {
+    // Ambil data user dari API
+    final user = await _apiProvider.getUserData();
+    var nama;
+    // Periksa apakah user data tidak null dan tipe sesuai
+    if (user != null) {
+      // Update namaLengkap pada userData (akses langsung namaLengkap)
+      userData.value?.namaLengkap = nama; // Menugaskan objek User ke userData.user
+    } else {
+      print("User data is null or invalid");
     }
+  } catch (e) {
+    // Log error untuk debugging
+    print("Error in getNamaLengkap: $e");
+  }
+}
+ Future<int?> getLevel() async {
+  try {
+    // Ambil data user dari API
+    final user = await _apiProvider.getUserData();
+    var level;
+    // Periksa apakah user data tidak null dan tipe sesuai
+    if (user != null) {
+      // Update namaLengkap pada userData (akses langsung namaLengkap)
+      userData.value?.idLevel = level; // Menugaskan objek User ke userData.user
+    } else {
+      print("User data is null or invalid");
+    }
+  } catch (e) {
+    // Log error untuk debugging
+    print("Error in getNamaLengkap: $e");
+  }
 }
 
+
+
+  Future<void> loadUserData() async {
+    try {
+      final user = await _apiProvider.getUserData();
+      if (user != null) {
+        userData.value = user;
+        print(
+            "data user profile ${userData.value!}  ${userData.value?.namaLengkap}");
+      }
+    } catch (e) {
+      print("Error load user data: $e");
+      error.value = e.toString();
+    }
+  }
+}

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
-import 'package:mobile_smarcerti/widgets/list_sertifikasi_detail_body.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/pelatihan/detail_page/list_pelatihan_detail_body.dart';
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 
-class ListSertifikasDetailPage extends StatelessWidget {
-  const ListSertifikasDetailPage({super.key});
+class ListPelatihanDetailPage extends StatelessWidget {
+  const ListPelatihanDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: AppBarCustom(title: 'Detail Sertifikasi',),
-      body: ListSertifikasiDetailBody(),
+      appBar: AppBarCustom(title: 'Detail Pelatihan'),
+      body: ListPelatihanDetailBody(),
       bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }

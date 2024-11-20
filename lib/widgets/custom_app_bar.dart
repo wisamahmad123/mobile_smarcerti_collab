@@ -1,27 +1,43 @@
 // widgets/custom_app_bar.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/hooks/use_auth.dart';
+import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
 import 'package:mobile_smarcerti/pages/list_notifikasi.dart';
 
 // import 'notifikasi_pop_up.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  CustomAppBar({super.key});
+  final HomeController userController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('''  Hi, Nama! 
-  Welcome to SmartCerTI'''),
-      titleTextStyle: const TextStyle(
-        fontFamily: 'Ramabhadra',
-        fontSize: 25.0,
-        color: Colors.white,
-      ),
+      title: Obx(() {
+        final user = userController.userData.value?.namaLengkap;
+        return Row(
+          children: [
+            Flexible(
+              child: Text(
+                'Hi, $user!',
+                style: const TextStyle(
+                  fontFamily: 'Ramabhadra',
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
+                overflow: TextOverflow
+                    .visible, // Menjaga teks tetap tampil tanpa elipsis
+              ),
+            ),
+          ],
+        );
+      }),
       backgroundColor: const Color.fromARGB(255, 239, 84, 40),
       toolbarHeight: 170,
       actions: [
         IconButton(
-          padding: EdgeInsets.only(bottom: 100),
+          padding: const EdgeInsets.only(bottom: 100),
           icon: const Icon(Icons.notifications),
           iconSize: 35,
           onPressed: () {
