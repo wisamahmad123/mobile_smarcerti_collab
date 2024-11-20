@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/middleware/auth_middleware.dart';
 import 'package:mobile_smarcerti/app/modules/auth/views/login_page.dart';
 import 'package:mobile_smarcerti/app/modules/home/bindings/home_binding.dart';
+import 'package:mobile_smarcerti/app/modules/home/views/home_dosen.dart';
 import 'package:mobile_smarcerti/app/modules/home/views/home_pimpinan.dart';
 import 'package:mobile_smarcerti/app/modules/auth/views/login_form.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/bindings/listpelatihansertifikasi_binding.dart';
 
 class AppPages {
   static const INITIAL = Routes.LOGIN;  // Arahkan ke login sebagai default
@@ -15,6 +17,25 @@ class AppPages {
       name: Routes.HOME,
       page: () => HomePimpinan(),
       binding: HomeBinding(),
+      bindings: [
+        ListpelatihansertifikasiBinding()
+      ],
+      middlewares: [
+        AuthMiddleware()
+      ]
+    ),
+    GetPage(
+      name: Routes.HOMEPIMPINAN,
+      page: () => HomePimpinan(),
+      binding: HomeBinding(),
+      middlewares: [
+        AuthMiddleware()
+      ]
+    ),
+    GetPage(
+      name: Routes.HOMEDOSEN,
+      page: () => HomeDosen(),
+      binding: HomeBinding(),
       middlewares: [
         AuthMiddleware()
       ]
@@ -25,6 +46,8 @@ class AppPages {
 class Routes {
   static const LOGIN = '/login';
   static const LOGIN_FORM = '/loginForm';
-  static const HOME = '/home'; // Arahkan ke home page jika login
+  static const HOMEPIMPINAN = '/homePimpinan'; // Arahkan ke home pimpinan jika login
+  static const HOMEDOSEN = '/homeDosen'; // Arahkan ke home dosen jika login
+  static const HOME = '/home'; // Arahkan ke home dosen jika login
 }
                               

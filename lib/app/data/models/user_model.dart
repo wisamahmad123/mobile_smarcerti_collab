@@ -30,21 +30,22 @@ class User {
   String? createdAt;
   String? updatedAt;
 
-  User(
-      {this.id,
-      this.idLevel,
-      this.username,
-      this.namaLengkap,
-      this.noTelp,
-      this.email,
-      this.jenisKelamin,
-      this.avatar,
-      this.createdAt,
-      this.updatedAt});
+  User({
+    required this.id,
+    required this.idLevel,
+    required this.username,
+    required this.namaLengkap,
+    required this.noTelp,
+    required this.email,
+    required this.jenisKelamin,
+    required this.avatar,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    idLevel = json['id_level'];
+    id = json['id'].toString();
+    idLevel = json['id_level'].toString();
     username = json['username'];
     namaLengkap = json['nama_lengkap'];
     noTelp = json['no_telp'];
@@ -57,8 +58,8 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['id_level'] = this.idLevel;
+    data['id'] = this.id.toString();
+    data['id_level'] = this.idLevel.toString();
     data['username'] = this.username;
     data['nama_lengkap'] = this.namaLengkap;
     data['no_telp'] = this.noTelp;

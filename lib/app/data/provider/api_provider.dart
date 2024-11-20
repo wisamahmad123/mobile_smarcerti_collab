@@ -11,7 +11,6 @@ class ApiProvider {
   final Dio _dio = Dio();
   static String? _accessToken;
 
-
   ApiProvider() {
     _dio.options.baseUrl = ApiConstants.baseUrl;
 
@@ -62,17 +61,16 @@ class ApiProvider {
         'password': password,
       });
 
-      print("Response status code: ${response.statusCode}");
-      print("Response data: ${response.data}");
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = response.data;
+        print("response user data : ${data['user']}");
         await _saveTokens(
           accessToken: data['token'] ?? '',
-          refreshToken: data['refresh_token'] ?? '',
+          // refreshToken: data['refresh_token'] ?? '',
         );
         // await _saveTypes(type: data['user']['type'] ?? '');
         await saveUserData(data['user'] ?? {});
+        
         return response;
       } else {
         print("Login failed with status code: ${response.statusCode}");
@@ -118,14 +116,12 @@ class ApiProvider {
 
   Future<void> saveUserData(Map<String, dynamic> userData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_id', userData['id'] ?? '');
-    await prefs.setString('user_name', userData['name'] ?? '');
+    await prefs.setString('user_id', userData['user_id'].toString() ?? '');
+    await prefs.setString('user_name', userData['username'] ?? '');
     await prefs.setString('user_email', userData['email'] ?? '');
-    await prefs.setString(
-        'user_profile_picture', userData['profile_picture'] ?? '');
-    await prefs.setString(
-        'conversation_key', userData['conversation_key'] ?? '');
-    await prefs.setString('type', userData['type'] ?? '');
+    await prefs.setString('user_avatar', userData['avatar'] ?? '');
+    await prefs.setString('id_level', userData['id_level'].toString() ?? '');
+    await prefs.setString('nama_lengkap', userData['nama_lengkap'] ?? '');
     await prefs.setString(
         'user_data', json.encode(userData)); // Save complete user data
     print("Cek user data ${userData}");
@@ -142,26 +138,11 @@ class ApiProvider {
     return null;
   }
 
-  // Future<void> _saveTypes({required String type}) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('type', type);
-
-  //   _type = type;
-  //   print("Cek type: ${_type}");
-  // }
-
-  // Future<String?> getType() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final type = prefs.getString('type');
-  //   return type;
-  // }
-
-  // Future<String?> getCurrentUserKey() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final conversationKey = prefs.getString('conversation_key');
-  //   print("cek conversation key ${conversationKey}");
-  //   return conversationKey;
-  // }
+  Future<String?> getLevelId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? type = preferences.getString('id_level');
+    return type;
+  }
 
   Future<void> _saveTokens({
     required String accessToken,

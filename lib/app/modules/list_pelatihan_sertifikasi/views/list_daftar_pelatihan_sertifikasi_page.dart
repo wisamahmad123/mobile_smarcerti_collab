@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/list_daftar_pelatihan_sertifikasi_body.dart';
 import 'package:mobile_smarcerti/layouts/appbar_tabbar.dart';
-import 'package:mobile_smarcerti/widgets/list_daftar_pelatihan_sertifikasi_body.dart';
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 class ListDaftarPelatihanSertifikasiPage extends StatelessWidget {

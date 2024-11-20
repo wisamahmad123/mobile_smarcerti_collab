@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/list_pelatihan_detail_page.dart'; // Ganti sesuai dengan rute halaman detail pelatihan Anda
+import '../app/modules/list_pelatihan_sertifikasi/views/pelatihan/detail_page/list_pelatihan_detail_page.dart'; // Ganti sesuai dengan rute halaman detail pelatihan Anda
 
 class TabPelatihan extends StatelessWidget {
   const TabPelatihan({Key? key}) : super(key: key);

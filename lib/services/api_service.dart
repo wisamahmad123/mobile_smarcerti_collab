@@ -97,7 +97,7 @@ class ApiService {
 
   Future<List<dynamic>> fetchSertifikasi() async {
     try {
-      final response = await _dio.get('/');
+      final response = await _dio.get('/sertifikasis');
       if (response.data['success']) {
         return response.data['data'];
       } else {
@@ -110,7 +110,7 @@ class ApiService {
 
   Future<Map<String, dynamic>> fetchDetailSertifikasi(int id) async {
     try {
-      final response = await _dio.get('/$id');
+      final response = await _dio.get('/sertifikasis/$id');
       if (response.data['success']) {
         return response.data['data'];
       } else {
