@@ -1,105 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
 
 class ListPelatihanDetailBody extends StatelessWidget {
-  const ListPelatihanDetailBody({super.key});
+  final Pelatihan pelatihanDetail; // Objek detail pelatihan
+
+  ListPelatihanDetailBody({
+    super.key,
+    required this.pelatihanDetail,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Data yang akan ditampilkan
-    List<Map<String, String>> listPelatihanDetails = [
-      {
-        'title':
-            "Intelligent Manufacturing: Internet of Things (IoT), Artificial Intelligence, Digital Transformation into Industry 4.0",
-        'description':
-            "Pelatihan Internasional",
-        'kuota': "5 Orang",
-        'waktu': "Senin, 7 Oktober 2014 - Jumat, 11 Oktober 2024",
-        'lokasi': "Surabaya",
-        'biaya': "Dibiayai Politeknik Negeri Malang",
-        'vendor': "PT. Asia Merdeka",
-        'bidang minat': " Internet of Things",
-        'mata kuliah': "Mobile Programming",
-      }
-    ];
-
-    return Column(
-      children: [
-        Container(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: listPelatihanDetails.map((detail) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        detail['title']!,
-                        maxLines: 3,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF375E97),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: const Text(
-                        "Description:",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF375E97),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        detail['description']!,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF375E97),
-                        ),
-                      ),
-                    ),
-                    buildDetailItem("Kuota:", detail['kuota']!),
-                    buildDetailItem("Waktu:", detail['waktu']!),
-                    buildDetailItem("Lokasi:", detail['lokasi']!),
-                    buildDetailItem("Biaya:", detail['biaya']!),
-                    buildDetailItem("Vendor:", detail['vendor']!),
-                    buildDetailItem("Bidang Minat:", detail['bidang minat']!),
-                    buildDetailItem("Mata Kuliah:", detail['mata kuliah']!),
-                  ],
-                );
-              }).toList(),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Nama Pelatihan
+          Container(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(
+              pelatihanDetail.namaPelatihan,
+              maxLines: 3,
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+                color: Color(0xFF375E97),
+              ),
             ),
           ),
-          height: 400,
-        ),
-      ],
+          // Deskripsi Pelatihan
+          buildDetailItem("Level Pelatihan:", pelatihanDetail.levelPelatihan),
+          buildDetailItem("Kuota:", pelatihanDetail.kuotaPeserta),
+          buildDetailItem("Tanggal:", pelatihanDetail.tanggal.toLocal().toString()),
+          buildDetailItem("Lokasi:", pelatihanDetail.lokasi),
+          buildDetailItem("Biaya:", pelatihanDetail.biaya),
+          buildDetailItem("Vendor:", pelatihanDetail.vendorPelatihan.nama),
+          buildDetailItem("Bidang Minat:", pelatihanDetail.bidangMinatPelatihan.isEmpty
+              ? "Tidak ada"
+              : pelatihanDetail.bidangMinatPelatihan.map((e) => e.namaBidangMinat).join(", ")),
+          buildDetailItem("Mata Kuliah:", pelatihanDetail.mataKuliahPelatihan.isEmpty
+              ? "Tidak ada"
+              : pelatihanDetail.mataKuliahPelatihan.map((e) => e.namaMatakuliah).join(", ")),
+        ],
+      ),
     );
   }
 
-  // Method untuk membuat Text dan isinya secara dinamis
+  // Widget untuk menampilkan detail item secara dinamis
   Widget buildDetailItem(String label, String value) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Text(
         "$label $value",
         textAlign: TextAlign.left,
         style: const TextStyle(
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: FontWeight.normal,
           fontFamily: 'Poppins',
           color: Color(0xFF375E97),
@@ -107,6 +65,4 @@ class ListPelatihanDetailBody extends StatelessWidget {
       ),
     );
   }
-
-  }
-
+}

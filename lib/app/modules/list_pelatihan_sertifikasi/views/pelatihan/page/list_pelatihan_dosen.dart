@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/controllers/list_pelatihan_controller.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/pelatihan/detail_page/list_pelatihan_detail_page.dart';
+import 'package:mobile_smarcerti/services/api_service.dart';
+import 'package:mobile_smarcerti/services/list_pelatihan_sertifikasi_service.dart';
 
 class ListPelatihanDosen extends StatelessWidget {
   ListPelatihanDosen({super.key});
@@ -106,10 +108,8 @@ class ListPelatihanDosen extends StatelessWidget {
                     child: Text("Tidak ada pelatihan tersedia."),
                   );
                 }
-
                 // Gabungkan semua 'Datum' dari setiap 'Pelatihan'
                 var allData = controller.pelatihans
-                    .expand((pelatihan) => pelatihan.data)
                     .toList();
 
                 // Print data untuk debugging
@@ -118,12 +118,13 @@ class ListPelatihanDosen extends StatelessWidget {
                 return ListView.builder(
                   itemCount: allData.length, // Jumlah total item
                   itemBuilder: (context, index) {
-                    final datum = allData[index]; // Ambil satu datum
+                    final pelatihan = allData[index]; // Ambil satu datum
 
                     // Print untuk melihat isi objek datum
-                    print("Datum: ${datum.toString()}");
+                    print("data pelatihan: ${pelatihan.toString()}");
 
                     return Card(
+                      color: Colors.white,
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       child: ListTile(
                         leading: const Icon(
@@ -132,27 +133,27 @@ class ListPelatihanDosen extends StatelessWidget {
                           color: Color.fromARGB(255, 55, 94, 151),
                         ),
                         title: Text(
-                          datum.namaPelatihan, // Ambil namaPelatihan
+                          pelatihan.namaPelatihan, // Ambil namaPelatihan
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(
-                          "Lokasi: ${datum.lokasi}\nTanggal: ${datum.tanggal.toLocal()}",
+                          "Lokasi: ${pelatihan.lokasi}\nTanggal: ${pelatihan.tanggal.toLocal()}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {
                           // Print isi dari datum yang dipilih untuk halaman detail
                           print(
-                              "Pelatihan yang dipilih: ${datum.namaPelatihan}");
+                              "Pelatihan yang dipilih: ${pelatihan.namaPelatihan}");
 
                           // Navigasi ke halaman detail pelatihan
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const ListPelatihanDetailPage(),
+                                  ListPelatihanDetailPage(pelatihanDetail: allData[index]),
                             ),
                           );
                         },

@@ -65,22 +65,15 @@ class ListPelatihanSertifikasiService {
         ),
       );
 
-
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
-        final data = response.data['data'];
-
-        // Jika data adalah list, langsung map ke List<Pelatihan>
-        if (data is List) {
-        final pelatihanList = data.map<Pelatihan>((json) => Pelatihan.fromJson(json)).toList();
-print(pelatihanList);
-
-        
-          return data.map<Pelatihan>((json) => Pelatihan.fromJson(json)).toList();
-          
-        } else {
-          throw Exception('Data pelatihan tidak valid');
-        }
+        print(response.data);
+        var json = response.data;
+        final parsed = json['data'].cast<Map<String, dynamic>>();
+        print("parsed data : $parsed");
+        return parsed
+            .map<Pelatihan>((json) => Pelatihan.fromJson(json))
+            .toList();
       } else {
         throw Exception('Failed to load pelatihans');
       }
