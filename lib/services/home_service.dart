@@ -19,5 +19,13 @@ class HomeService {
     String? token = preferences.getString('auth_token');
     return token;
   }
+
+  Future<String?> getNamaLengkap() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? nama = preferences.getString('nama_lengkap');
+    return nama;
+  }
+
+  
 }
 

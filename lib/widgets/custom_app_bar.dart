@@ -10,17 +10,16 @@ import 'package:mobile_smarcerti/pages/list_notifikasi.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({super.key});
   final HomeController userController = Get.put(HomeController());
-
+  
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Obx(() {
-        final user = userController.userData.value?.namaLengkap;
         return Row(
           children: [
             Flexible(
               child: Text(
-                'Hi, $user!',
+                'Hi, ${userController.namaLengkap.value}!',
                 style: const TextStyle(
                   fontFamily: 'Ramabhadra',
                   fontSize: 25.0,
