@@ -56,7 +56,7 @@ class ListPelatihanSertifikasiService {
 
     try {
       final response = await _dio.get(
-        '${ApiConstants.baseUrl}pelatihans',
+        '${ApiConstants.baseUrl}pimpinanPelatihans',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

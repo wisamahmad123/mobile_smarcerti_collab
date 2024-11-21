@@ -52,7 +52,6 @@ class Pelatihan {
   String lokasi;
   String levelPelatihan;
   DateTime tanggal;
-  String buktiPelatihan;
   String kuotaPeserta;
   String biaya;
   VendorPelatihan vendorPelatihan;
@@ -72,7 +71,6 @@ class Pelatihan {
     required this.lokasi,
     required this.levelPelatihan,
     required this.tanggal,
-    required this.buktiPelatihan,
     required this.kuotaPeserta,
     required this.biaya,
     required this.vendorPelatihan,
@@ -94,7 +92,6 @@ class Pelatihan {
         tanggal: json["tanggal"] == null
             ? DateTime.now()
             : DateTime.parse(json["tanggal"]),
-        buktiPelatihan: json["bukti_pelatihan"].toString(),
         kuotaPeserta: json["kuota_peserta"].toString(),
         biaya: json["biaya"].toString(),
         vendorPelatihan: VendorPelatihan.fromJson(json["vendor_pelatihan"] ?? {}),
@@ -125,7 +122,6 @@ class Pelatihan {
         "level_pelatihan": levelPelatihan,
         "tanggal":
             "${tanggal.year.toString().padLeft(4, '0')}-${tanggal.month.toString().padLeft(2, '0')}-${tanggal.day.toString().padLeft(2, '0')}",
-        "bukti_pelatihan": buktiPelatihan,
         "kuota_peserta": kuotaPeserta.toString(),
         "biaya": biaya.toString(),
         "vendor_pelatihan": vendorPelatihan.toJson(),
