@@ -44,6 +44,9 @@ class ListPelatihanDetailBody extends StatelessWidget {
           buildDetailItem("Mata Kuliah:", pelatihanDetail.mataKuliahPelatihan.isEmpty
               ? "Tidak ada"
               : pelatihanDetail.mataKuliahPelatihan.map((e) => e.namaMatakuliah).join(", ")),
+          buildDetailItem("Nama Peserta:", pelatihanDetail.detailPesertaPelatihan.isEmpty
+              ? "Tidak ada"
+              : pelatihanDetail.detailPesertaPelatihan.map((e) => e.namaLengkap).join(", ")),
         ],
       ),
     );

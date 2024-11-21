@@ -18,11 +18,28 @@ class UseAuth {
     }
   }
 
+  Future<String?> getNamaLengkap() async {
+    try {
+      // Ambil data user dari API
+      final user = await _apiService.getUserData();
+
+      // Periksa apakah user data tidak null dan tipe sesuai
+      if (user != null) {
+        // Update namaLengkap pada userData (akses langsung namaLengkap)
+        return user.namaLengkap; // Menugaskan objek User ke userData.user
+      } else {
+        print("User data is null or invalid");
+      }
+    } catch (e) {
+      // Log error untuk debugging
+      print("Error in getNamaLengkap: $e");
+    }
+  }
+
   Future<void> login(String username, String password) async {
-    _initIdLevel();
     try {
       final response = await _apiService.login(username, password);
-
+      await _initIdLevel();
       if (response.statusCode == 200 || response.statusCode == 201) {
         print("Login successful");
         print(userLevel);

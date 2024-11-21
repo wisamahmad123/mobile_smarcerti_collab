@@ -61,6 +61,7 @@ class Pelatihan {
   List<BidangMinatPelatihan> bidangMinatPelatihan;
   List<MataKuliahPelatihan> mataKuliahPelatihan;
   List<DetailPesertaPelatihan> detailPesertaPelatihan;
+  
 
   Pelatihan({
     required this.idPelatihan,
