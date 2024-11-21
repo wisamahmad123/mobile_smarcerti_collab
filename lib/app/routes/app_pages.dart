@@ -6,6 +6,7 @@ import 'package:mobile_smarcerti/app/modules/home/views/home_dosen.dart';
 import 'package:mobile_smarcerti/app/modules/home/views/home_pimpinan.dart';
 import 'package:mobile_smarcerti/app/modules/auth/views/login_form.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/bindings/listpelatihansertifikasi_binding.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/list_daftar_pelatihan_sertifikasi_page.dart';
 
 class AppPages {
   static const INITIAL = Routes.LOGIN;  // Arahkan ke login sebagai default
@@ -28,6 +29,9 @@ class AppPages {
       name: Routes.HOMEPIMPINAN,
       page: () => HomePimpinan(),
       binding: HomeBinding(),
+      bindings: [
+        ListpelatihansertifikasiBinding()
+      ],
       middlewares: [
         AuthMiddleware()
       ]
@@ -40,6 +44,7 @@ class AppPages {
         AuthMiddleware()
       ]
     ),
+    GetPage(name: Routes.LISTPS, page: () => const ListDaftarPelatihanSertifikasiPage()),
   ];
 }
 
@@ -49,5 +54,6 @@ class Routes {
   static const HOMEPIMPINAN = '/homePimpinan'; // Arahkan ke home pimpinan jika login
   static const HOMEDOSEN = '/homeDosen'; // Arahkan ke home dosen jika login
   static const HOME = '/home'; // Arahkan ke home dosen jika login
+  static const LISTPS = '/listPS'; // Arahkan ke home dosen jika login
 }
                               

@@ -7,43 +7,43 @@ import 'package:mobile_smarcerti/app/data/models/mata_kuliah_pelatihan_model.dar
 import 'package:mobile_smarcerti/app/data/models/periode_model.dart';
 import 'package:mobile_smarcerti/app/data/models/vendor_pelatihan_model.dart';
 
-Pelatihan pelatihanFromJson(String str) => Pelatihan.fromJson(json.decode(str));
+// Pelatihan pelatihanFromJson(String str) => Pelatihan.fromJson(json.decode(str));
 
-String pelatihanToJson(Pelatihan data) => json.encode(data.toJson());
+// String pelatihanToJson(Pelatihan data) => json.encode(data.toJson());
+
+// class Pelatihan {
+//   final bool success;
+//   final String message;
+//   final List<Datum> data;
+
+//   Pelatihan({
+//     required this.success,
+//     required this.message,
+//     required this.data,
+//   });
+
+//   factory Pelatihan.fromJson(Map<String, dynamic> json) => Pelatihan(
+//         success: json["success"] ?? false,
+//         message: json["message"] ?? "",
+//         data: json["data"] == null
+//             ? []
+//             : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+//       );
+
+//   Map<String, dynamic> toJson() => {
+//         "success": success,
+//         "message": message,
+//         "data": List<dynamic>.from(data.map((x) => x.toJson())),
+//       };
+
+//   // Override toString() to return a meaningful string representation
+//   @override
+//   String toString() {
+//     return 'Pelatihan(success: $success, message: $message, dataCount: ${data.length})';
+//   }
+// }
 
 class Pelatihan {
-  final bool success;
-  final String message;
-  final List<Datum> data;
-
-  Pelatihan({
-    required this.success,
-    required this.message,
-    required this.data,
-  });
-
-  factory Pelatihan.fromJson(Map<String, dynamic> json) => Pelatihan(
-        success: json["success"] ?? false,
-        message: json["message"] ?? "",
-        data: json["data"] == null
-            ? []
-            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "success": success,
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
-
-  // Override toString() to return a meaningful string representation
-  @override
-  String toString() {
-    return 'Pelatihan(success: $success, message: $message, dataCount: ${data.length})';
-  }
-}
-
-class Datum {
   String idPelatihan;
   String idVendorPelatihan;
   String idJenisPelatihan;
@@ -62,7 +62,7 @@ class Datum {
   List<MataKuliahPelatihan> mataKuliahPelatihan;
   List<DetailPesertaPelatihan> detailPesertaPelatihan;
 
-  Datum({
+  Pelatihan({
     required this.idPelatihan,
     required this.idVendorPelatihan,
     required this.idJenisPelatihan,
@@ -82,18 +82,18 @@ class Datum {
     required this.detailPesertaPelatihan,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Pelatihan.fromJson(Map<String, dynamic> json) => Pelatihan(
         idPelatihan: json["id_pelatihan"].toString(),
         idVendorPelatihan: json["id_vendor_pelatihan"].toString(),
         idJenisPelatihan: json["id_jenis_pelatihan"].toString(),
         idPeriode: json["id_periode"].toString(),
-        namaPelatihan: json["nama_pelatihan"] ?? "",
-        lokasi: json["lokasi"] ?? "",
-        levelPelatihan: json["level_pelatihan"] ?? "",
+        namaPelatihan: json["nama_pelatihan"].toString(),
+        lokasi: json["lokasi"].toString(),
+        levelPelatihan: json["level_pelatihan"].toString(),
         tanggal: json["tanggal"] == null
             ? DateTime.now()
             : DateTime.parse(json["tanggal"]),
-        buktiPelatihan: json["bukti_pelatihan"] ?? "",
+        buktiPelatihan: json["bukti_pelatihan"].toString(),
         kuotaPeserta: json["kuota_peserta"].toString(),
         biaya: json["biaya"].toString(),
         vendorPelatihan: VendorPelatihan.fromJson(json["vendor_pelatihan"] ?? {}),

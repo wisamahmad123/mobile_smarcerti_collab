@@ -7,7 +7,7 @@ import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:mobile_smarcerti/services/list_pelatihan_sertifikasi_service.dart';
 
 class ListPelatihanController extends BaseController {
-  final ListPelatihanSertifikasiService _listPelatihanSertifikasiService = ListPelatihanSertifikasiService(ApiService());
+  final ListPelatihanSertifikasiService lspService = ListPelatihanSertifikasiService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
   RxList<Pelatihan> pelatihans = <Pelatihan>[].obs;
   RxBool isLoading = false.obs;
@@ -30,15 +30,16 @@ class ListPelatihanController extends BaseController {
   Future<void> loadPelatihans() async {
     try {
       isLoading.value = true;
-      pelatihans.value = await _listPelatihanSertifikasiService.getPelatihans();
+      var data = await lspService.getPelatihans(); // Panggil fungsi API
+      if (data.isNotEmpty) {
+        pelatihans.assignAll(data); // Masukkan data ke dalam observable
+      } else {
+        pelatihans.clear(); // Pastikan tidak ada data lama
+      }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Gagal memuat daftar pelatihan: ${e.toString()}',
-        backgroundColor: Colors.red.shade100,
-      );
+      print("Error saat mengambil pelatihan: $e");
     } finally {
-      isLoading.value = false;
+      isLoading.value = false; // Pastikan loading selesai
     }
   }
 
