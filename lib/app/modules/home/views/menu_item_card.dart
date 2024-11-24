@@ -1,8 +1,6 @@
-// widgets/menu_item_card.dart
 
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/list_daftar_pelatihan_sertifikasi_page.dart';
-
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
 import '../../../../pages/pelatihan_page.dart';
 import 'home_pimpinan.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +19,10 @@ class MenuItemCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              // Buat halaman baru berdasarkan teks yang di-klik
               if (data['text'] == 'Pelatihan') {
                 return const PelatihanPage();
               } else if (data['text'] == 'Sertifikasi') {
-                return DaftarSertifikasiPage();
+                return const SertifikasiPage();
               } else if (data['text'] == 'Daftar Pelatihan dan Sertifikasi Dosen') {
                 return const ListDaftarPelatihanSertifikasiPage();
               } else {
@@ -55,7 +52,7 @@ class MenuItemCard extends StatelessWidget {
               color: const Color.fromARGB(255, 28, 33, 123),
             ),
             Text(
-              data['text'], 
+              data['text'],
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color.fromARGB(255, 28, 33, 123),
@@ -67,4 +64,3 @@ class MenuItemCard extends StatelessWidget {
     );
   }
 }
-

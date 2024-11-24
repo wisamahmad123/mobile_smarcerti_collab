@@ -1,8 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_body.dart';
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
-import 'package:mobile_smarcerti/pages/upload_sertifikasi_dosen.dart';
-import 'package:mobile_smarcerti/services/api_service.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/page/list_sertifikasi.dart';
+
+class SertifikasiBody extends StatelessWidget {
+  const SertifikasiBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
+      body:  ListSertifikasi(), // Menampilkan ListSertifikasi sebagai body halaman
+    );
+  }
+}
+
+
+/*class SertifikasiBody extends StatelessWidget {
+  final Sertifikasi sertifikasiDetail; // Objek detail sertifikasi
+
+  SertifikasiBody({
+    super.key,
+    required this.sertifikasiDetail,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Nama Sertifikasi
+          Container(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(
+              sertifikasiDetail.namaSertifikasi,
+              maxLines: 3,
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+                color: Color(0xFF375E97),
+              ),
+            ),
+          ),
+
+          // Deskripsi Pelatihan
+          buildDetailItem("Jenis Pelatihan:", sertifikasiDetail.jenis),
+          buildDetailItem("Kuota:", sertifikasiDetail.kuotaPeserta),
+          buildDetailItem("Tanggal:", sertifikasiDetail.tanggal.toLocal().toString()),
+          buildDetailItem("Biaya:", sertifikasiDetail.biaya),
+          buildDetailItem("Vendor:", sertifikasiDetail.vendorSertifikasi.nama),
+          buildDetailItem("Bidang Minat:", sertifikasiDetail.bidangMinatSertifikasi.isEmpty
+              ? "Tidak ada"
+              : sertifikasiDetail.bidangMinatSertifikasi.map((e) => e.namaBidangMinat).join(", ")),
+          buildDetailItem("Mata Kuliah:", sertifikasiDetail.mataKuliahSertifikasi.isEmpty
+              ? "Tidak ada"
+              : sertifikasiDetail.mataKuliahSertifikasi.map((e) => e.namaMatakuliah).join(", ")),
+          buildDetailItem("Nama Peserta:", sertifikasiDetail.detailPesertaSertifikasi.isEmpty
+              ? "Tidak ada"
+              : sertifikasiDetail.detailPesertaSertifikasi.map((e) => e.namaLengkap).join(", ")),
+        ],
+      ),
+    );
+  }
+
+  // Widget untuk menampilkan detail item secara dinamis
+  Widget buildDetailItem(String label, String value) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Text(
+        "$label $value",
+        textAlign: TextAlign.left,
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+          fontFamily: 'Poppins',
+          color: Color(0xFF375E97),
+        ),
+      ),
+    );
+  }
+}
 
 class SertifikasiBody extends StatefulWidget {
   const SertifikasiBody({super.key});
@@ -150,4 +229,4 @@ class __SertifikasiScreenState extends State<SertifikasiBody> {
       ),
     );
   }
-}
+}*/
