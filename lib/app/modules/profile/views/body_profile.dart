@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import '../pages/logout_dialog.dart';
-import '../pages/my_account.dart';
-import '../pages/change_password_page.dart';
+import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/modules/profile/controllers/profile_controller.dart';
+import '../../../../pages/logout_dialog.dart';
+import '../../my_account/views/my_account.dart';
+import '../../../../pages/change_password_page.dart';
 
 class BodyProfile extends StatelessWidget {
-  const BodyProfile({super.key});
+  BodyProfile({super.key});
+  final ProfileController controller = Get.put((ProfileController()));
 
   @override
   Widget build(BuildContext context) {
@@ -16,34 +19,23 @@ class BodyProfile extends StatelessWidget {
           Center(
             child: CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage('assets/images/profile-dosen.jpg'),
+              backgroundImage: controller.avatarUrl.isNotEmpty
+                  ? NetworkImage(controller.avatarUrl.value) // Gambar dari URL
+                  : AssetImage('assets/images/profile-dosen.jpg')
+                      as ImageProvider, // Gambar default
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
-            'Dyalifia Balqis',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 55, 94, 151),
-            ),
-          ),
-          const SizedBox(height: 5),
-          const Text(
-            '2241760085',
-            style: TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(255, 55, 94, 151),
-            ),
-          ),
-          const SizedBox(height: 5),
-          const Text(
-            'Data Mining | Database',
-            style: TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(255, 55, 94, 151),
-            ),
-          ),
+          Obx(() {
+            return Text(
+              '${controller.namaLengkap.value}',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 55, 94, 151),
+              ),
+            );
+          }),
           const SizedBox(height: 20),
           Card(
             color: Colors.white,

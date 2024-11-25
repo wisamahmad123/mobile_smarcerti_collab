@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app/modules/home/views/home_pimpinan.dart';
-import '../pages/profile_pimpinan.dart'; // Pastikan import ini ada
+import '../app/modules/profile/views/profile_pimpinan.dart'; // Pastikan import ini ada
 import '../pages/request_acc_page.dart'; // Pastikan import ini ada
 
 class PimpinanBottomNavBar extends StatelessWidget {

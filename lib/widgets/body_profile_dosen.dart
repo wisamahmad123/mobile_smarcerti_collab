@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/pages/change_password_page.dart';
-import 'package:mobile_smarcerti/pages/my_account.dart';
+import 'package:mobile_smarcerti/app/modules/my_account/views/my_account.dart';
 import '../pages/logout_dialog.dart';
-import '../pages/my_account.dart';
+import '../app/modules/my_account/views/my_account.dart';
 
 class BodyProfileDosen extends StatelessWidget {
   const BodyProfileDosen({super.key});
