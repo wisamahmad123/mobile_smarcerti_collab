@@ -68,6 +68,45 @@ if (response.statusCode == 200) {
     }
   }
 
+  Future<Sertifikasi> getSertifikasiById(int id) async {
+  final token = await getToken();
+  if (token == null) {
+    print('Error: Token not found');
+    throw Exception("Token not found");
+  }
+
+  try {
+    final response = await _dio.get(
+      '${ApiConstants.baseUrl}sertifikasis/$id',  // Menggunakan ID sertifikasi dalam URL
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      // Pastikan data yang diterima ada
+      var json = response.data;
+      if (json != null && json['data'] != null) {
+        var parsed = json['data'];
+        print("Parsed data: $parsed");
+
+        // Mengembalikan objek Sertifikasi
+        return Sertifikasi.fromJson(parsed);
+      } else {
+        throw Exception('Data sertifikasi tidak ditemukan');
+      }
+    } else {
+      throw Exception('Failed to load sertifikasi. Status code: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error fetching sertifikasi by ID: $e');
+    throw Exception('Error fetching sertifikasi by ID: $e');
+  }
+}
+
 
 
 }

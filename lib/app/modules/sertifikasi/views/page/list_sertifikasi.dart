@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
-// import 'package:mobile_smarcerti/app/modules/sertifikasi/views/page/list_sertifikasi_detail.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
 
 class ListSertifikasi extends StatelessWidget {
   ListSertifikasi({super.key});
@@ -32,8 +32,7 @@ class ListSertifikasi extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                    width: 10), // Spasi antara search dan tombol filter
+                const SizedBox(width: 10), // Spasi antara search dan tombol filter
 
                 // Tombol Filter
                 Container(
@@ -129,14 +128,16 @@ class ListSertifikasi extends StatelessWidget {
                             color: Color.fromARGB(255, 55, 94, 151),
                             ),
                         ),
-                        /*onTap: () {
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ListSertifikasiDetail(idSertifikasi: allData[index]?.idSertifikasi ?? ''),
+                              builder: (context) => DetailSertifikasiPage(
+                                idSertifikasi: sertifikasi.idSertifikasi,
+                              ),
                             ),
                           );
-                        },*/
+                        },
 
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
