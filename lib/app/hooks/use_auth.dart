@@ -44,9 +44,9 @@ class UseAuth {
         print("Login successful");
         print(userLevel);
         if (userLevel == "2") {
-          Get.offAllNamed('/homeDosen');
-        } else if (userLevel == "3") {
           Get.offAllNamed('/homePimpinan');
+        } else if (userLevel == "3") {
+          Get.offAllNamed('/homeDosen');
         }
         // Get.offAllNamed('/home'); // Navigate to the home page
       } else {

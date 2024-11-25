@@ -58,14 +58,12 @@ class DetailPesertaPelatihanPivot {
     int idPelatihan;
     int userId;
     int idDetailPesertaPelatihan;
-    dynamic noPelatihan;
     dynamic buktiPelatihan;
 
     DetailPesertaPelatihanPivot({
         required this.idPelatihan,
         required this.userId,
         required this.idDetailPesertaPelatihan,
-        this.noPelatihan,
         this.buktiPelatihan,
     });
 
@@ -73,7 +71,6 @@ class DetailPesertaPelatihanPivot {
         idPelatihan: json["id_pelatihan"] ?? 0,
         userId: json["user_id"] ?? 0,
         idDetailPesertaPelatihan: json["id_detail_peserta_pelatihan"] ?? 0,
-        noPelatihan: json["no_pelatihan"],
         buktiPelatihan: json["bukti_pelatihan"],
     );
 
@@ -81,7 +78,6 @@ class DetailPesertaPelatihanPivot {
         "id_pelatihan": idPelatihan,
         "user_id": userId,
         "id_detail_peserta_pelatihan": idDetailPesertaPelatihan,
-        "no_pelatihan": noPelatihan,
         "bukti_pelatihan": buktiPelatihan,
     };
 }
