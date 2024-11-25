@@ -8,7 +8,7 @@ import 'package:mobile_smarcerti/app/data/models/periode_model.dart';
 import 'package:mobile_smarcerti/app/data/models/vendor_sertifikasi_model.dart';
 
 class Sertifikasi {
-  String idSertifikasi;
+  int idSertifikasi;
   String idVendorSertifikasi;
   String idJenisSertifikasi;
   String idPeriode;
@@ -45,7 +45,7 @@ class Sertifikasi {
   });
 
   factory Sertifikasi.fromJson(Map<String, dynamic> json) => Sertifikasi(
-        idSertifikasi: json["id_sertifikasi"].toString(),
+        idSertifikasi: json["id_sertifikasi"],
         idVendorSertifikasi: json["id_vendor_sertifikasi"].toString(),
         idJenisSertifikasi: json["id_jenis_sertifikasi"].toString(),
         idPeriode: json["id_periode"].toString(),
