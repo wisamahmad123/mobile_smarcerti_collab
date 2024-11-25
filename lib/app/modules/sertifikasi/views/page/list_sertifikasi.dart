@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/page/list_sertifikasi_detail.dart';
+// import 'package:mobile_smarcerti/app/modules/sertifikasi/views/page/list_sertifikasi_detail.dart';
 
 class ListSertifikasi extends StatelessWidget {
   ListSertifikasi({super.key});

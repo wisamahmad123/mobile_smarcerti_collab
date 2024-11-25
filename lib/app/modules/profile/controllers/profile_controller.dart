@@ -1,60 +1,60 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
-import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
-import 'package:mobile_smarcerti/services/list_pelatihan_sertifikasi_service.dart';
+import 'package:mobile_smarcerti/services/profile_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ListPelatihanController extends BaseController {
-  final ListPelatihanSertifikasiService lspService =
-      ListPelatihanSertifikasiService(ApiService());
+class ProfileController extends BaseController {
+  final ProfileService _profileService = ProfileService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
-  RxList<Pelatihan> pelatihans = <Pelatihan>[].obs;
-  RxList<Sertifikasi> sertifikasis = <Sertifikasi>[].obs;
+  final profiles = Rx<User?>(null);
+  var namaLengkap = ''.obs; // State reaktif untuk nama lengkap
+  var avatarUrl = ''.obs; // State reaktif untuk nama lengkap
+  RxList<User> myAccount = <User>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    initializeData();
+    // initializeData();
+    update();
+    loadNamaLengkap();
+    loadAvatarUrl();
   }
 
   Future<void> initializeData() async {
     try {
-      await loadPelatihans();
-      await loadSertifikasis();
+      await loadProfiles();
     } catch (e) {
       handleError(e);
     }
   }
 
-  Future<void> loadPelatihans() async {
-    try {
-      isLoading.value = true;
-      var data = await lspService.getPelatihans(); // Panggil fungsi API
-      if (data.isNotEmpty) {
-        pelatihans.assignAll(data); // Masukkan data ke dalam observable
-      } else {
-        pelatihans.clear(); // Pastikan tidak ada data lama
-      }
-    } catch (e) {
-      print("Error saat mengambil pelatihan: $e");
-    } finally {
-      isLoading.value = false; // Pastikan loading selesai
-    }
+  Future<void> loadNamaLengkap() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? nama = prefs.getString('nama_lengkap');
+    namaLengkap.value = nama ?? 'User'; // Update nilai reaktif
   }
 
-  Future<void> loadSertifikasis() async {
+  Future<void> loadAvatarUrl() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? avatar = prefs.getString('avatarUrl');
+    print('Avatar URL from SharedPreferences: $avatar'); // Debugging
+    avatarUrl.value = avatar ?? ''; // Update nilai reaktif
+  }
+
+  Future<void> loadProfiles() async {
     try {
       isLoading.value = true;
-      var data = await lspService.getSertifikasis(); // Panggil fungsi API
+      var data = await _profileService.getProfiles(); // Panggil fungsi API
       if (data.isNotEmpty) {
-        sertifikasis.assignAll(data); // Masukkan data ke dalam observable
+        print('Full avatar URL: $avatarUrl'); // URL lengkap
+        myAccount.assignAll(data); // Masukkan data ke dalam observable
       } else {
-        sertifikasis.clear(); // Pastikan tidak ada data lama
+        myAccount.clear(); // Pastikan tidak ada data lama
       }
     } catch (e) {
       print("Error saat mengambil pelatihan: $e");
