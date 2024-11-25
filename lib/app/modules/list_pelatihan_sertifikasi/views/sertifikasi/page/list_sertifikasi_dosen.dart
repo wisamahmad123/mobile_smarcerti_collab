@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/controllers/list_pelatihan_controller.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/sertifikasi/detail_page/list_sertifikas_detail_page.dart';
 
 class ListSertifikasiDosen extends StatelessWidget {
-  const ListSertifikasiDosen({super.key});
+  ListSertifikasiDosen({super.key});
+  final ListPelatihanController controller = Get.put(ListPelatihanController());
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +32,9 @@ class ListSertifikasiDosen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10), // Spasi antara search dan tombol filter
-                
+                const SizedBox(
+                    width: 10), // Spasi antara search dan tombol filter
+
                 // Filter button wrapped in a container for style
                 Container(
                   height: 54, // Set height to match TextField
@@ -88,58 +92,82 @@ class ListSertifikasiDosen extends StatelessWidget {
             const SizedBox(height: 10), // Spasi antara search dan ListView
 
             // Expanded agar ListView bisa scroll
+            // Daftar Pelatihan
             Expanded(
-              child: ListView.builder(
-                itemCount: 5, // Jumlah item
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: Colors.white,
-                    margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10), // Margin untuk kartu
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.library_books,
-                        size: 35.0,
-                        color: Color.fromARGB(255, 55, 94, 151), 
-                      ),
-                      title: const Text(
-                        "Elite Cyber Security Lecturer Professional Development Program", // Judul pelatihan
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 16, // Ukuran font judul
-                          color: Color.fromARGB(255, 55, 94, 151), 
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        "Elite Cyber Security Lecturer Professional Development Program at TAFE Queensland.", // Deskripsi pelatihan
-                        style: TextStyle(
-                          fontSize: 14, // Ukuran font deskripsi
-                          color: Color.fromARGB(255, 55, 94, 151), 
-                        ),
-                      ),
-                      onTap: () {
-                        // Navigasi ke halaman detail pelatihan
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ListSertifikasDetailPage(),
-                          ),
-                        );
-                      },
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20.0,
-                        color: Color.fromARGB(255, 55, 94, 151), 
-                      ),
-                      contentPadding: const EdgeInsets.all(20),
-                    ),
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
-                },
-              ),
+                }
+
+                if (controller.sertifikasis.isEmpty) {
+                  return const Center(
+                    child: Text("Tidak ada pelatihan tersedia."),
+                  );
+                }
+                // Gabungkan semua 'Datum' dari setiap 'Pelatihan'
+                var allData = controller.sertifikasis.toList();
+
+                // Print data untuk debugging
+                print("Isi allData: $allData");
+
+                return ListView.builder(
+                  itemCount: allData.length, // Jumlah total item
+                  itemBuilder: (context, index) {
+                    final sertifikasi = allData[index]; // Ambil satu datum
+
+                    // Print untuk melihat isi objek datum
+                    print("data pelatihan: ${sertifikasi.toString()}");
+
+                    return Card(
+                      color: Colors.white,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.library_books,
+                          size: 35.0,
+                          color: Color.fromARGB(255, 55, 94, 151),
+                        ),
+                        title: Text(
+                          sertifikasi.namaSertifikasi, // Ambil namaPelatihan
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal()}",
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        onTap: () {
+                          // Print isi dari datum yang dipilih untuk halaman detail
+                          print(
+                              "Pelatihan yang dipilih: ${sertifikasi.namaSertifikasi}");
+
+                          // Navigasi ke halaman detail pelatihan
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListSertifikasDetailPage(
+                                  sertifikasiDetail: allData[index]),
+                            ),
+                          );
+                        },
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20.0,
+                          color: Color.fromARGB(255, 55, 94, 151),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
           ],
         ),
       ),
     );
   }
-  }
+}
