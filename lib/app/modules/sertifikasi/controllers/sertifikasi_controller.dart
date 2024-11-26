@@ -14,6 +14,9 @@ class SertifikasiController extends BaseController {
   RxList<Sertifikasi> sertifikasis = <Sertifikasi>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
+  // Deklarasi sertifikasiDetail di controller
+  Rx<Sertifikasi?> sertifikasiDetail = Rx<Sertifikasi?>(null);
+
 
   @override
   void onInit() {
@@ -42,6 +45,22 @@ class SertifikasiController extends BaseController {
       print("Error saat mengambil sertifikasi: $e");
     } finally {
       isLoading.value = false; // Pastikan loading selesai
+    }
+  }
+
+  // Fungsi untuk memuat detail sertifikasi berdasarkan ID
+  Future<void> loadSertifikasiById(int id) async {
+    isLoading.value = true; // Menandakan loading dimulai
+    try {
+      // Memanggil fungsi API untuk mendapatkan sertifikasi berdasarkan ID
+      Sertifikasi sertifikasi = await lspService.getSertifikasiById(id);
+      sertifikasiDetail.value = sertifikasi; // Menyimpan data sertifikasi
+    } catch (e) {
+      // Jika terjadi error, cetak error dan reset nilai sertifikasiDetail
+      print('Error: $e');
+      sertifikasiDetail.value = null;
+    } finally {
+      isLoading.value = false; // Menandakan loading selesai
     }
   }
 
