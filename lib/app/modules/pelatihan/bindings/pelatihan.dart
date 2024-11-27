@@ -11,4 +11,5 @@ class PelatihanBinding  implements Bindings{
   Get.lazyPut(() => PelatihanService(Get.find<ApiService>()));
   Get.lazyPut(() => PelatihanController());
   }
+  
 }

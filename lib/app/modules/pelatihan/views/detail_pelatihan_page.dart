@@ -15,5 +15,6 @@ class DetailPelatihanPage extends StatelessWidget {
       body: ListPelatihanDetail(idPelatihan: idPelatihan), // Mengirimkan idSertifikasi
       bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
     );
+    
   }
 }

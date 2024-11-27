@@ -15,6 +15,7 @@ class PelatihanController extends BaseController {
   RxBool isLoading = false.obs; // Indikator loading
   RxString errorMessage = ''.obs; // Pesan error
   Rx<PelatihanUser?> pelatihanDetail = Rx<PelatihanUser?>(null); // Detail pelatihan
+  
 
   @override
   void onInit() {

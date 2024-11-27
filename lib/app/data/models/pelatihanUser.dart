@@ -47,6 +47,7 @@ class PelatihanUser {
     required this.detailPesertaPelatihan,
   });
 
+
   factory PelatihanUser.fromJson(Map<String, dynamic> json) => PelatihanUser(
         idPelatihan: json["id_pelatihan"],
         idVendorPelatihan: json["id_vendor_pelatihan"].toString(),

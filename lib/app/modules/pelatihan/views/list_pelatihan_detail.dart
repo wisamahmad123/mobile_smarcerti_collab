@@ -129,6 +129,7 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
               //         );
               //       }
               //     },
+              
               //     child: Row(
               //       children: [
               //         Icon(

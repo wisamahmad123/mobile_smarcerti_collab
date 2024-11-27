@@ -104,6 +104,7 @@ class ListPelatihan extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final pelatihan = allData[index];
 
+
                     return Card(
                       color: Colors.white,
                       margin: const EdgeInsets.symmetric(vertical: 8),

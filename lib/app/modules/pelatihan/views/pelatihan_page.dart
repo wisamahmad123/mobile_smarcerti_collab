@@ -34,4 +34,5 @@ class PelatihanPage extends StatelessWidget {
     );
   }
   
+  
 }
