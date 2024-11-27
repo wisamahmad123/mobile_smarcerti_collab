@@ -12,5 +12,6 @@ class ListpelatihansertifikasiBinding  implements Bindings{
   Get.lazyPut(() => ApiService());
   Get.lazyPut(() => ListPelatihanSertifikasiService(Get.find<ApiService>()));
   Get.lazyPut(() => ListPelatihanController());
+  
   }
 }

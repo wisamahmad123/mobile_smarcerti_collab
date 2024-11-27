@@ -1,7 +1,8 @@
 
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/list_daftar_pelatihan_sertifikasi_page.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
-import '../../../../pages/pelatihan_page.dart';
+import 'package:mobile_smarcerti/app/modules/pelatihan/views/pelatihan_page.dart';
+// import '../../../../pages/pelatihan_page.dart';
 import 'home_pimpinan.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class MenuItemCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) {
               if (data['text'] == 'Pelatihan') {
-                return const PelatihanPage();
+                return PelatihanPage();
               } else if (data['text'] == 'Sertifikasi') {
                 return const SertifikasiPage();
               } else if (data['text'] == 'Daftar Pelatihan dan Sertifikasi Dosen') {
