@@ -6,6 +6,7 @@ import 'package:mobile_smarcerti/app/modules/pelatihan/views/pelatihan_page.dart
 import 'home_pimpinan.dart';
 import 'package:flutter/material.dart';
 
+
 class MenuItemCard extends StatelessWidget {
   final Map<String, dynamic> data;
 
