@@ -54,13 +54,13 @@ class Pelatihan {
   DateTime tanggal;
   String kuotaPeserta;
   String biaya;
+  String status;
   VendorPelatihan vendorPelatihan;
   JenisPelatihan jenisPelatihan;
   Periode periode;
   List<BidangMinatPelatihan> bidangMinatPelatihan;
   List<MataKuliahPelatihan> mataKuliahPelatihan;
   List<DetailPesertaPelatihan> detailPesertaPelatihan;
-  
 
   Pelatihan({
     required this.idPelatihan,
@@ -73,6 +73,7 @@ class Pelatihan {
     required this.tanggal,
     required this.kuotaPeserta,
     required this.biaya,
+    required this.status,
     required this.vendorPelatihan,
     required this.jenisPelatihan,
     required this.periode,
@@ -94,22 +95,23 @@ class Pelatihan {
             : DateTime.parse(json["tanggal"]),
         kuotaPeserta: json["kuota_peserta"].toString(),
         biaya: json["biaya"].toString(),
-        vendorPelatihan: VendorPelatihan.fromJson(json["vendor_pelatihan"] ?? {}),
-        jenisPelatihan:
-            JenisPelatihan.fromJson(json["jenis_pelatihan"] ?? {}),
+        status: json["status_pelatihan"].toString(),
+        vendorPelatihan:
+            VendorPelatihan.fromJson(json["vendor_pelatihan"] ?? {}),
+        jenisPelatihan: JenisPelatihan.fromJson(json["jenis_pelatihan"] ?? {}),
         periode: Periode.fromJson(json["periode"] ?? {}),
         bidangMinatPelatihan: json["bidang_minat_pelatihan"] == null
             ? []
-            : List<BidangMinatPelatihan>.from(
-                json["bidang_minat_pelatihan"].map((x) => BidangMinatPelatihan.fromJson(x))),
+            : List<BidangMinatPelatihan>.from(json["bidang_minat_pelatihan"]
+                .map((x) => BidangMinatPelatihan.fromJson(x))),
         mataKuliahPelatihan: json["mata_kuliah_pelatihan"] == null
             ? []
-            : List<MataKuliahPelatihan>.from(
-                json["mata_kuliah_pelatihan"].map((x) => MataKuliahPelatihan.fromJson(x))),
+            : List<MataKuliahPelatihan>.from(json["mata_kuliah_pelatihan"]
+                .map((x) => MataKuliahPelatihan.fromJson(x))),
         detailPesertaPelatihan: json["detail_peserta_pelatihan"] == null
             ? []
-            : List<DetailPesertaPelatihan>.from(
-                json["detail_peserta_pelatihan"].map((x) => DetailPesertaPelatihan.fromJson(x))),
+            : List<DetailPesertaPelatihan>.from(json["detail_peserta_pelatihan"]
+                .map((x) => DetailPesertaPelatihan.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -140,5 +142,3 @@ class Pelatihan {
     return 'Datum(idPelatihan: $idPelatihan, namaPelatihan: $namaPelatihan)';
   }
 }
-
-

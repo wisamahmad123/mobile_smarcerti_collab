@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/widgets/request_acc_sertifikasi_pimpinan.dart';
-import '../widgets/appbar_tabbar.dart'; // Pastikan path file ini sesuai dengan lokasi file AppBarTabBar
-import '../widgets/pimpinan_bottom_nav_bar.dart'; // BottomNavigationBar untuk dosen
-import '../widgets/tab_pelatihan.dart'; // Widget untuk konten tab Pelatihan
-import '../widgets/tab_sertifikasi.dart'; // Widget untuk konten tab Sertifikasi
+import 'package:mobile_smarcerti/app/modules/requestAcc/view/request_acc_sertifikasi_pimpinan.dart';
+import '../../../../widgets/appbar_tabbar.dart'; // Pastikan path file ini sesuai dengan lokasi file AppBarTabBar
+import '../../../../widgets/pimpinan_bottom_nav_bar.dart'; // BottomNavigationBar untuk dosen
+import 'pelatihan/tab_pelatihan.dart'; // Widget untuk konten tab Pelatihan
+import 'sertifikasi/tab_sertifikasi.dart'; // Widget untuk konten tab Sertifikasi
 
 class RequestPimpinan extends StatelessWidget {
   const RequestPimpinan({super.key});

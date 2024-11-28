@@ -57,7 +57,7 @@ class ListPelatihanController extends BaseController {
         sertifikasis.clear(); // Pastikan tidak ada data lama
       }
     } catch (e) {
-      print("Error saat mengambil pelatihan: $e");
+      print("Error saat mengambil sertifikasi: $e");
     } finally {
       isLoading.value = false; // Pastikan loading selesai
     }

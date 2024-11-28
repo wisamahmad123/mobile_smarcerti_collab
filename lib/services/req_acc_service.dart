@@ -6,10 +6,10 @@ import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ListPelatihanSertifikasiService {
+class ReqAccService {
   final ApiService apiService;
 
-  ListPelatihanSertifikasiService(this.apiService);
+  ReqAccService(this.apiService);
   final Dio _dio = Dio()
     ..options = BaseOptions(
       validateStatus: (status) {
@@ -26,14 +26,14 @@ class ListPelatihanSertifikasiService {
     return token;
   }
 
-  // Fungsi untuk mendapatkan data pelatihan dosen
-  Future<List<Pelatihan>> getPelatihans() async {
+  // Fungsi untuk mendapatkan data req pelatihan
+  Future<List<Pelatihan>> getReqPelatihans() async {
     final token = await getToken(); // Ambil token dari helper atau auth service
     if (token == null) throw Exception("Token not found");
 
     try {
       final response = await _dio.get(
-        '${ApiConstants.baseUrl}pimpinanPelatihans',
+        '${ApiConstants.baseUrl}penerimaanPelatihans',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -43,28 +43,31 @@ class ListPelatihanSertifikasiService {
       );
 
       if (response.statusCode == 200) {
-        // Mengakses data yang berada dalam pelatihans -> data        
+        // Mengakses data yang berada dalam pelatihans -> data
+        print(response.data);
         var json = response.data;
         final parsed = json['data'].cast<Map<String, dynamic>>();
+        print("parsed data : $parsed");
         return parsed
             .map<Pelatihan>((json) => Pelatihan.fromJson(json))
             .toList();
       } else {
-        throw Exception('Failed to load pelatihans');
+        throw Exception('Failed to load req pelatihans');
       }
     } catch (e) {
-      throw Exception('Error fetching pelatihans: $e');
+      print('Error fetching pelatihans: $e');
+      throw Exception('Error fetching req pelatihans: $e');
     }
   }
 
   // Fungsi untuk mendapatkan data sertifikasi dosen
-  Future<List<Sertifikasi>> getSertifikasis() async {
+  Future<List<Sertifikasi>> getReqSertifikasis() async {
     final token = await getToken(); // Ambil token dari helper atau auth service
     if (token == null) throw Exception("Token not found");
 
     try {
       final response = await _dio.get(
-        '${ApiConstants.baseUrl}pimpinanSertifikasis',
+        '${ApiConstants.baseUrl}penerimaanSertifikasis',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -83,11 +86,11 @@ class ListPelatihanSertifikasiService {
             .map<Sertifikasi>((json) => Sertifikasi.fromJson(json))
             .toList();
       } else {
-        throw Exception('Failed to load sertifikasis');
+        throw Exception('Failed to load req sertifikasis');
       }
     } catch (e) {
       print('Error fetching sertifikasis: $e');
-      throw Exception('Error fetching sertifikasis: $e');
+      throw Exception('Error fetching req sertifikasis: $e');
     }
   }
 }

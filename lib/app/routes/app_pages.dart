@@ -7,6 +7,8 @@ import 'package:mobile_smarcerti/app/modules/home/views/home_pimpinan.dart';
 import 'package:mobile_smarcerti/app/modules/auth/views/login_form.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/bindings/listpelatihansertifikasi_binding.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/list_daftar_pelatihan_sertifikasi_page.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/bindings/reqAcc_binding.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/view/request_acc_page.dart';
 
 class AppPages {
   static const INITIAL = Routes.LOGIN;  // Arahkan ke login sebagai default
@@ -30,7 +32,8 @@ class AppPages {
       page: () => HomePimpinan(),
       binding: HomeBinding(),
       bindings: [
-        ListpelatihansertifikasiBinding()
+        ListpelatihansertifikasiBinding(),
+        ReqaccBinding(),
       ],
       middlewares: [
         AuthMiddleware()
@@ -45,6 +48,7 @@ class AppPages {
       ]
     ),
     GetPage(name: Routes.LISTPS, page: () => const ListDaftarPelatihanSertifikasiPage()),
+    GetPage(name: Routes.REQACC, page: () => const RequestPimpinan()),
   ];
 }
 
@@ -55,5 +59,6 @@ class Routes {
   static const HOMEDOSEN = '/homeDosen'; // Arahkan ke home dosen jika login
   static const HOME = '/home'; // Arahkan ke home dosen jika login
   static const LISTPS = '/listPS'; // Arahkan ke home dosen jika login
+  static const REQACC = '/reqACC'; // Arahkan ke home dosen jika login
 }
                               

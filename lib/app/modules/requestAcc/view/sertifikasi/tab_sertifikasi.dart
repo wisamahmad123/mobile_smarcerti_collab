@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/controllers/list_pelatihan_controller.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/sertifikasi/detail_page/list_sertifikas_detail_page.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/controller/req_acc_controller.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/view/sertifikasi/req_sertif_detail_page.dart';
 
-class ListSertifikasiDosen extends StatelessWidget {
-  ListSertifikasiDosen({super.key});
-  final ListPelatihanController controller = Get.put(ListPelatihanController());
+class TabSertifikasi extends StatelessWidget {
+  TabSertifikasi({super.key});
+  final ReqAccController controller = Get.put(ReqAccController());
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,7 @@ class ListSertifikasiDosen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ListSertifikasDetailPage(
+                              builder: (context) => ReqSertifDetailPage(
                                   sertifikasiDetail: allData[index]),
                             ),
                           );
