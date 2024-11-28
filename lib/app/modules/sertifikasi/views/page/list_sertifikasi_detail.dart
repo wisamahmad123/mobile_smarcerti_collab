@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:mobile_smarcerti/services/pdf_service.dart';
 
 class ListSertifikasiDetail extends StatefulWidget {
   final int idSertifikasi;
@@ -14,36 +14,17 @@ class ListSertifikasiDetail extends StatefulWidget {
 
 class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
   final SertifikasiController controller = Get.put(SertifikasiController());
+  final PdfService pdfService = PdfService(); // Inisialisasi PdfService
 
-@override
-void initState() {
-  super.initState();
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    // Kode yang membutuhkan update setelah build selesai
-    controller.loadSertifikasiById(widget.idSertifikasi);
-  });
-}
-
-
-  Future<void> _openPdf(String fileName) async {
-    final Uri fileUrl = Uri.parse("http://192.168.110.220:8000/storage/bukti_sertifikasi$fileName"); // Pastikan fileUrl adalah Uri
-
-    if (await canLaunchUrl(fileUrl)) {
-      await launchUrl(
-        fileUrl,
-        mode: LaunchMode.externalApplication,
-      );
-    } else {
-      print("Tidak dapat membuka file PDF: $fileUrl");
-      Get.snackbar(
-        "Error",
-        "Tidak dapat membuka file PDF",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.7),
-        colorText: Colors.white,
-      );
-    }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.loadSertifikasiById(widget.idSertifikasi);
+    });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,36 +88,33 @@ void initState() {
                     : 'Tidak tersedia',
               ),
               const SizedBox(height: 10),
-             // Bukti Sertifikasi (PDF) with Icon
-              if (sertifikasi.detailPesertaSertifikasi.isNotEmpty && sertifikasi.detailPesertaSertifikasi[0].pivot != null)
+              // Bukti Sertifikasi (PDF) with Icon
+              if (sertifikasi.detailPesertaSertifikasi.isNotEmpty &&
+                  sertifikasi.detailPesertaSertifikasi[0].pivot != null)
                 GestureDetector(
                   onTap: () async {
-                    final baseUrl = "http://192.168.110.220:8000/storage/bukti_sertifikasi"; // Base URL untuk file PDF
-                    final fileName = sertifikasi.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi;
-                    final fileUrl = "$baseUrl/$fileName";
-
-                    if (await canLaunch(fileUrl)) {
-                      await launch(fileUrl); // Membuka file di browser atau aplikasi PDF.
+                    final fileName =
+                        sertifikasi.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi ?? 'tidak tersedia';
+                    final fileUrl =
+                        'http://192.168.100.122:8000/storage/bukti_sertifikasi/$fileName'; // Ganti dengan URL server Anda
+                    if (fileName != 'tidak tersedia') {
+                      final controller = Get.find<SertifikasiController>();
+                      await controller.downloadPdf(fileName, fileUrl); // Panggil dengan fileName dan fileUrl
                     } else {
-                      print("Tidak dapat membuka file PDF: $fileUrl");
                       Get.snackbar(
                         "Error",
-                        "Tidak dapat membuka file PDF",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.red.withOpacity(0.7),
+                        "File bukti sertifikasi tidak tersedia.",
+                        backgroundColor: Colors.redAccent,
                         colorText: Colors.white,
                       );
                     }
                   },
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.picture_as_pdf, // Menambahkan ikon PDF
-                        color: Color.fromARGB(255, 55, 94, 151),
-                      ),
+                      Icon(Icons.picture_as_pdf, color: Color.fromARGB(255, 55, 94, 151)),
                       const SizedBox(width: 8),
                       Text(
-                        sertifikasi.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi, // Menggunakan nama file sebagai teks
+                        sertifikasi.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi ?? 'Tidak tersedia',
                         style: TextStyle(
                           fontSize: 16,
                           color: Color.fromARGB(255, 55, 94, 151),
@@ -145,7 +123,7 @@ void initState() {
                       ),
                     ],
                   ),
-                ),
+                )
             ],
           ),
         );
