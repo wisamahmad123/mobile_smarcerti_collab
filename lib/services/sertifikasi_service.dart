@@ -1,7 +1,10 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:mobile_smarcerti/app/data/models/bidang_minat_sertifikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/jenis_sertfikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/mata_kuliah_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/vendor_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,6 +109,78 @@ if (response.statusCode == 200) {
     throw Exception('Error fetching sertifikasi by ID: $e');
   }
 }
+
+Future<List<VendorSertifikasi>> getVendorsertifikasi() async {
+  final response = await fetchData('vendors'); // Endpoint API vendor
+  return response.map((e) => VendorSertifikasi.fromJson(e)).toList();
+}
+
+Future<List<BidangMinatSertifikasi>> getBidangMinat() async {
+  final response = await fetchData('bidangMinats'); // Endpoint API bidang minat
+  return response.map((e) => BidangMinatSertifikasi.fromJson(e)).toList();
+}
+
+Future<List<MataKuliahSertifikasi>> getMataKuliah() async {
+  final response = await fetchData('mataKuliahs'); // Endpoint API mata kuliah
+  return response.map((e) => MataKuliahSertifikasi.fromJson(e)).toList();
+}
+
+Future<List<JenisSertifikasi>> getJenisSertifikasi() async{
+  final response = await fetchData('jenissertifikasi');
+   return response.map((e) => JenisSertifikasi.fromJson(e)).toList();
+}
+
+
+//Fungsi untuk tambah sertifikasi
+Future<Sertifikasi?> createSertifikasi(Map<String, dynamic> data) async {
+  final token = await getToken();
+  if (token == null) {
+    throw Exception("Token not found");
+  }
+
+  try {
+    final response = await _dio.post(
+      'sertifikasis',
+      data: data,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
+
+    if (response.statusCode == 200 && response.data['success'] == true) {
+      return Sertifikasi.fromJson(response.data['data']);
+    } else {
+      throw Exception('Failed to create sertifikasi: ${response.data}');
+    }
+  } catch (e) {
+    print('Error creating sertifikasi: $e');
+    return null;
+  }
+}
+
+  Future<List<Map<String, dynamic>>> fetchData(String endpoint) async {
+    try {
+      final response = await _dio.get(endpoint);
+      if (response.statusCode == 200) {
+        return List<Map<String, dynamic>>.from(response.data['data']);
+      } else {
+        throw Exception('Failed to load $endpoint data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      if (e is DioError) {
+        print('Dio Error: ${e.message}');
+      } else {
+        print('Unexpected Error: $e');
+      }
+      throw Exception('Error fetching $endpoint: $e');
+    }
+  }
+
+ 
+
 
 
 

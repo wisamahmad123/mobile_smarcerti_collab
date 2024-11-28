@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/add_sertifikasi_page.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
 
 class ListSertifikasi extends StatelessWidget {
@@ -152,6 +153,20 @@ class ListSertifikasi extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Aksi ketika tombol "Upload" ditekan
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  AddSertifikasiPage(),
+            ),
+          );
+        },
+        backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+        foregroundColor: Colors.white, // Mengubah warna ikon menjadi putih
+        child: const Icon(Icons.add),
       ),
     );
   }

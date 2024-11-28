@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
+import 'package:mobile_smarcerti/app/data/models/bidang_minat_sertifikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/jenis_sertfikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/mata_kuliah_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
-import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
+import 'package:mobile_smarcerti/app/data/models/vendor_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
-import 'package:mobile_smarcerti/services/list_pelatihan_sertifikasi_service.dart';
+import 'package:mobile_smarcerti/services/pdf_service.dart';
 import 'package:mobile_smarcerti/services/sertifikasi_service.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SertifikasiController extends BaseController {
   final SertifikasiService lspService = SertifikasiService(ApiService());
-  final ApiProvider _apiProvider = ApiProvider();
+  final PdfService pdfService = PdfService();
+
+  // Observable untuk daftar sertifikasi dan detail sertifikasi
   RxList<Sertifikasi> sertifikasis = <Sertifikasi>[].obs;
-  RxBool isLoading = false.obs;
-  RxString errorMessage = ''.obs;
-  // Deklarasi sertifikasiDetail di controller
   Rx<Sertifikasi?> sertifikasiDetail = Rx<Sertifikasi?>(null);
 
+  // List observables untuk vendor, bidang minat, dan mata kuliah
+  var vendorList = <VendorSertifikasi>[].obs;
+  var bidangMinatList = <BidangMinatSertifikasi>[].obs;
+  var mataKuliahList = <MataKuliahSertifikasi>[].obs;
+  var jenisSertifikasiList =<JenisSertifikasi>[].obs;
+
+  // Loading dan error handling
+  RxBool isLoading = false.obs;
+  RxString errorMessage = ''.obs;
 
   @override
   void onInit() {
@@ -24,48 +38,159 @@ class SertifikasiController extends BaseController {
     initializeData();
   }
 
+  /// Inisialisasi data
   Future<void> initializeData() async {
-    try {
-      await loadSertifikasis();
-    } catch (e) {
-      handleError(e);
-    }
+    await Future.wait([
+      loadSertifikasis(),
+      loadVendors(),
+      loadBidangMinat(),
+      loadMataKuliah(),
+    ]);
   }
-// Fungsi untuk mengambil daftar sertifikasi
+
+  /// Memuat daftar sertifikasi
   Future<void> loadSertifikasis() async {
     try {
       isLoading.value = true;
-      var data = await lspService.getSertifikasis(); // Panggil fungsi API
-      if (data.isNotEmpty) {
-        sertifikasis.assignAll(data); // Masukkan data ke dalam observable
-      } else {
-        sertifikasis.clear(); // Pastikan tidak ada data lama
-      }
+      var data = await lspService.getSertifikasis();
+      sertifikasis.assignAll(data);
     } catch (e) {
       print("Error saat mengambil sertifikasi: $e");
+      errorMessage.value = 'Gagal memuat data sertifikasi.';
     } finally {
-      isLoading.value = false; // Pastikan loading selesai
+      isLoading.value = false;
     }
   }
 
-  // Fungsi untuk memuat detail sertifikasi berdasarkan ID
+  /// Memuat detail sertifikasi berdasarkan ID
   Future<void> loadSertifikasiById(int id) async {
-    isLoading.value = true; // Menandakan loading dimulai
     try {
-      // Memanggil fungsi API untuk mendapatkan sertifikasi berdasarkan ID
+      isLoading.value = true;
       Sertifikasi sertifikasi = await lspService.getSertifikasiById(id);
-      sertifikasiDetail.value = sertifikasi; // Menyimpan data sertifikasi
+      sertifikasiDetail.value = sertifikasi;
     } catch (e) {
-      // Jika terjadi error, cetak error dan reset nilai sertifikasiDetail
-      print('Error: $e');
+      print("Error: $e");
+      errorMessage.value = 'Gagal memuat detail sertifikasi.';
       sertifikasiDetail.value = null;
     } finally {
-      isLoading.value = false; // Menandakan loading selesai
+      isLoading.value = false;
     }
   }
 
-  
+  /// Memuat data vendor
+  Future<void> loadVendors() async {
+    try {
+      isLoading.value = true;
+      var data = await lspService.getVendorsertifikasi();
+      vendorList.assignAll(data); // Perbaiki untuk mengisi ke vendorList
+    } catch (e) {
+      print("Error saat mengambil vendor sertifikasi: $e");
+      errorMessage.value = 'Gagal memuat data vendor sertifikasi.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
+  /// Memuat data bidang minat
+  Future<void> loadBidangMinat() async {
+    try {
+      isLoading.value = true;
+      var data = await lspService.getBidangMinat();
+      bidangMinatList.assignAll(data);
+    } catch (e) {
+      print("Error saat mengambil bidang minat: $e");
+      errorMessage.value = 'Gagal memuat data bidang minat.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
-  
+  /// Memuat data mata kuliah
+  Future<void> loadMataKuliah() async {
+    try {
+      isLoading.value = true;
+      var data = await lspService.getMataKuliah();
+      mataKuliahList.assignAll(data);
+    } catch (e) {
+      print("Error saat mengambil mata kuliah: $e");
+      errorMessage.value = 'Gagal memuat data mata kuliah.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  /// Fetch data jenis sertifikasi dari API
+ Future<void> loadJenisSertifikasi() async {
+    try {
+      isLoading.value = true;
+      var data = await lspService.getJenisSertifikasi();
+      jenisSertifikasiList.assignAll(data);
+    } catch (e) {
+      print("Error saat mengambil jenis sertifikasi: $e");
+      errorMessage.value = 'Gagal memuat data jenis sertifikasi.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  /// Menambahkan sertifikasi baru
+  Future<void> createSertifikasi(Map<String, dynamic> data) async {
+    isLoading.value = true;
+
+    try {
+      final Sertifikasi? result = await lspService.createSertifikasi(data);
+      if (result != null) {
+        sertifikasis.add(result); // Tambahkan sertifikasi baru ke daftar
+        Get.snackbar(
+          'Berhasil',
+          'Sertifikasi berhasil ditambahkan.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } else {
+        errorMessage.value = 'Gagal membuat sertifikasi.';
+        Get.snackbar(
+          'Gagal',
+          errorMessage.value,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
+    } catch (e) {
+      errorMessage.value = 'Gagal membuat sertifikasi: $e';
+      Get.snackbar(
+        'Gagal',
+        errorMessage.value,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  /// Unduh file PDF
+  Future<void> downloadPdf(String fileName, String fileUrl) async {
+    PermissionStatus permissionStatus = await Permission.storage.request();
+    if (permissionStatus.isGranted) {
+      try {
+        Directory? directory = await getExternalStorageDirectory();
+        directory ??= await getApplicationDocumentsDirectory();
+
+        String sanitizedFileName = sanitizeFileName(fileName);
+        String filePath = '${directory.path}/$sanitizedFileName';
+
+        Dio dio = Dio();
+        await dio.download(fileUrl, filePath);
+
+        Get.snackbar('Berhasil', 'File berhasil diunduh ke: $filePath', snackPosition: SnackPosition.BOTTOM);
+      } catch (e) {
+        Get.snackbar('Gagal', 'Terjadi kesalahan saat mengunduh file: ${e.toString()}', snackPosition: SnackPosition.BOTTOM);
+      }
+    } else {
+      Get.snackbar('Gagal', 'Izin penyimpanan diperlukan untuk mengunduh file.', snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  /// Utility untuk Validasi Nama File
+  String sanitizeFileName(String fileName) {
+    return fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
+  }
 }
