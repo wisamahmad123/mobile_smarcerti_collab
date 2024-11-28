@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
-import 'package:mobile_smarcerti/pages/change_profile_page.dart';
+import 'package:mobile_smarcerti/app/modules/change_profile/views/change_profile_page.dart';
 
 class BodyMyAccountDosen extends StatelessWidget {
   BodyMyAccountDosen({super.key});
@@ -73,6 +73,11 @@ class BodyMyAccountDosen extends StatelessWidget {
               LabelField(
                 label: 'Email',
                 initialValue: account.email,
+              ),
+              const SizedBox(height: 20),
+              LabelField(
+                label: 'Jenis Kelamin',
+                initialValue: account.jenisKelamin,
               ),
               const SizedBox(height: 30),
               Center(

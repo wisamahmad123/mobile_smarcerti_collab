@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Popup {
-  static void showChangeProfileDialog(BuildContext context) {
+  static void showStatusProfileDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -19,7 +19,7 @@ class Popup {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Text(
-                  "Apakah Anda yakin ingin mengubah profil anda?",
+                  "Berhasil mengubah data",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     color: Colors.white,
@@ -46,7 +46,7 @@ class Popup {
                           ),
                         ),
                         child: const Text(
-                          "Tidak",
+                          "Ok",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color:
@@ -57,34 +57,6 @@ class Popup {
                         ),
                         onPressed: () {
                           Navigator.of(context).pop(); // Tutup dialog
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 100,
-                      height: 40,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 239, 84, 40),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            side: const BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        child: const Text(
-                          "Ya",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        onPressed: () {
-                          // Tambahkan logika untuk mengubah profil di sini
-                          // Misalnya: Navigator.pop(context);
                         },
                       ),
                     ),

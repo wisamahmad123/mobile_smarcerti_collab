@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:get/get_core/src/get_main.dart';
+import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
+import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,7 +72,7 @@ class ApiProvider {
         );
         // await _saveTypes(type: data['user']['type'] ?? '');
         await saveUserData(data['user'] ?? {});
-        
+
         return response;
       } else {
         print("Login failed with status code: ${response.statusCode}");
@@ -144,8 +146,6 @@ class ApiProvider {
     return type;
   }
 
-  
-
   Future<void> _saveTokens({
     required String accessToken,
     String? refreshToken,
@@ -169,5 +169,41 @@ class ApiProvider {
 
     _accessToken = null;
     Get.offAllNamed('/login');
+  }
+
+  // Method to update profile
+  Future<Response> updateProfile(Map<String, dynamic> data) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+      if (token == null) {
+        throw Exception("Authentication token not found");
+      }
+      data['_method'] = 'PUT';
+
+      // Create FormData for multipart request (to handle file upload)
+      FormData formData = FormData.fromMap(data);
+
+      print('data pada update profile di api_provider:');
+      print(data);
+      print(formData);
+
+      // Send PUT request to update profile
+      final response = await _dio.post(
+        '${ApiConstants.baseUrl}my_accounts/update',
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+      );
+
+      return response;
+    } catch (e) {
+      print("Error in updateProfile: $e");
+      rethrow;
+    }
   }
 }
