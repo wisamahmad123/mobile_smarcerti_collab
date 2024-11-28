@@ -18,6 +18,7 @@ class Sertifikasi {
   DateTime masaBerlaku;
   String kuotaPeserta;
   String biaya;
+  String status;
   VendorSertifikasi vendorSertifikasi;
   JenisSertifikasi jenisSertifikasi;
   Periode periode;
@@ -36,6 +37,7 @@ class Sertifikasi {
     required this.masaBerlaku,
     required this.kuotaPeserta,
     required this.biaya,
+    required this.status,
     required this.vendorSertifikasi,
     required this.jenisSertifikasi,
     required this.periode,
@@ -59,6 +61,7 @@ class Sertifikasi {
             : DateTime.parse(json["masa_berlaku"]),
         kuotaPeserta: json["kuota_peserta"].toString(),
         biaya: json["biaya"].toString(),
+        status: json["status"].toString(),
         vendorSertifikasi:
             VendorSertifikasi.fromJson(json["vendor_sertifikasi"] ?? {}),
         jenisSertifikasi:
@@ -92,6 +95,7 @@ class Sertifikasi {
             "${masaBerlaku.year.toString().padLeft(4, '0')}-${masaBerlaku.month.toString().padLeft(2, '0')}-${masaBerlaku.day.toString().padLeft(2, '0')}",
         "kuota_peserta": kuotaPeserta.toString(),
         "biaya": biaya.toString(),
+        "status": biaya.toString(),
         "vendor_sertifikasi": vendorSertifikasi.toJson(),
         "jenis_sertifikasi": jenisSertifikasi.toJson(),
         "periode": periode.toJson(),
