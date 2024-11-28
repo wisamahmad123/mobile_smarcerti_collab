@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/controllers/list_pelatihan_controller.dart';
-import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/sertifikasi/detail_page/list_sertifikas_detail_page.dart';
+import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/pelatihan/detail_page/list_pelatihan_detail_page.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/controller/req_acc_controller.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/view/pelatihan/req_pelatihan_detail_page.dart';
 
-class ListSertifikasiDosen extends StatelessWidget {
-  ListSertifikasiDosen({super.key});
-  final ListPelatihanController controller = Get.put(ListPelatihanController());
+
+class TabPelatihan extends StatelessWidget {
+  TabPelatihan({super.key});
+  final ReqAccController controller = Get.put(ReqAccController());
 
   @override
   Widget build(BuildContext context) {
@@ -101,13 +103,14 @@ class ListSertifikasiDosen extends StatelessWidget {
                   );
                 }
 
-                if (controller.sertifikasis.isEmpty) {
+                if (controller.pelatihans.isEmpty) {
                   return const Center(
-                    child: Text("Tidak ada sertifikasi tersedia."),
+                    child: Text("Tidak ada pelatihan tersedia."),
                   );
                 }
                 // Gabungkan semua 'Datum' dari setiap 'Pelatihan'
-                var allData = controller.sertifikasis.toList();
+                var allData = controller.pelatihans
+                    .toList();
 
                 // Print data untuk debugging
                 print("Isi allData: $allData");
@@ -115,10 +118,10 @@ class ListSertifikasiDosen extends StatelessWidget {
                 return ListView.builder(
                   itemCount: allData.length, // Jumlah total item
                   itemBuilder: (context, index) {
-                    final sertifikasi = allData[index]; // Ambil satu datum
+                    final pelatihan = allData[index]; // Ambil satu datum
 
                     // Print untuk melihat isi objek datum
-                    print("data pelatihan: ${sertifikasi.toString()}");
+                    print("data pelatihan: ${pelatihan.toString()}");
 
                     return Card(
                       color: Colors.white,
@@ -130,27 +133,27 @@ class ListSertifikasiDosen extends StatelessWidget {
                           color: Color.fromARGB(255, 55, 94, 151),
                         ),
                         title: Text(
-                          sertifikasi.namaSertifikasi, // Ambil namaPelatihan
+                          pelatihan.namaPelatihan, // Ambil namaPelatihan
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(
-                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal()}",
+                          "Lokasi: ${pelatihan.lokasi}\nTanggal: ${pelatihan.tanggal.toLocal()}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {
                           // Print isi dari datum yang dipilih untuk halaman detail
                           print(
-                              "Pelatihan yang dipilih: ${sertifikasi.namaSertifikasi}");
+                              "Pelatihan yang dipilih: ${pelatihan.namaPelatihan}");
 
                           // Navigasi ke halaman detail pelatihan
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ListSertifikasDetailPage(
-                                  sertifikasiDetail: allData[index]),
+                              builder: (context) =>
+                                  ReqPelatihanDetailPage(pelatihanDetail: allData[index]),
                             ),
                           );
                         },
