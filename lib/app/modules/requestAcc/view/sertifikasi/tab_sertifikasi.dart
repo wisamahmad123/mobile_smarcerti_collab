@@ -95,6 +95,8 @@ class TabSertifikasi extends StatelessWidget {
             // Expanded agar ListView bisa scroll
             // Daftar Pelatihan
             Expanded(
+              child: RefreshIndicator(
+                onRefresh: controller.onRefreshSertifikasis,
               child: Obx(() {
                 if (controller.isLoading.value) {
                   return const Center(
@@ -138,7 +140,7 @@ class TabSertifikasi extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal()}",
+                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal().toString().substring(0, 10)}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {
@@ -165,6 +167,7 @@ class TabSertifikasi extends StatelessWidget {
                   },
                 );
               }),
+            ),
             ),
           ],
         ),

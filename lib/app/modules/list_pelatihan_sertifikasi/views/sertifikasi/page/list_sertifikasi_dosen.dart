@@ -137,7 +137,7 @@ class ListSertifikasiDosen extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal()}",
+                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal().toString().substring(0, 10)}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {

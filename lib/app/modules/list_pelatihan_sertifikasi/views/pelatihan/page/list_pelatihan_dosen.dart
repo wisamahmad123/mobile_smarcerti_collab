@@ -140,7 +140,7 @@ class ListPelatihanDosen extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          "Lokasi: ${pelatihan.lokasi}\nTanggal: ${pelatihan.tanggal.toLocal()}",
+                          "Lokasi: ${pelatihan.lokasi}\nTanggal: ${pelatihan.tanggal.toLocal().toString().substring(0, 10)}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {
