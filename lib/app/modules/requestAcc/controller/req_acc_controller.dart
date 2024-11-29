@@ -31,6 +31,15 @@ class ReqAccController extends BaseController {
     }
   }
 
+  // Fungsi untuk refresh data
+  Future<void> onRefreshPelatihans() async {
+      await loadReqPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
+  }
+  // Fungsi untuk refresh data
+  Future<void> onRefreshSertifikasis() async {
+      await loadReqPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
+  }
+
   Future<void> loadReqPelatihans() async {
     try {
       isLoading.value = true;
@@ -61,6 +70,32 @@ class ReqAccController extends BaseController {
       print("Error saat mengambil pelatihan: $e");
     } finally {
       isLoading.value = false; // Pastikan loading selesai
+    }
+  }
+
+  Future<void> updateStatusPelatihan(String status, String id) async {
+    try {
+      isLoading.value = true;
+      await reqService.updateStatusPelatihan(status, id); // Panggil fungsi API
+      print("tes");
+    } catch (e) {
+      print("Error saat update status: $e");
+    } finally {
+      isLoading.value = false; // Pastikan loading selesai
+      await loadReqPelatihans();
+    }
+  }
+
+  Future<void> updateStatusSertifikasi(String status, String id) async {
+    try {
+      isLoading.value = true;
+      await reqService.updateStatusSertifikasi(status, id); // Panggil fungsi API
+      print("tes");
+    } catch (e) {
+      print("Error saat update status: $e");
+    } finally {
+      isLoading.value = false; // Pastikan loading selesai
+      await loadReqSertifikasis();
     }
   }
 }
