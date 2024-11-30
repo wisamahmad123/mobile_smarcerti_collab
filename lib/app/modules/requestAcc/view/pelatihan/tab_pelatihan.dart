@@ -31,6 +31,7 @@ class TabPelatihan extends StatelessWidget {
                       fillColor: const Color.fromARGB(145, 255, 249, 249),
                       filled: true,
                     ),
+                    onChanged: (query) => controller.searchPelatihan(query),
                   ),
                 ),
                 const SizedBox(width: 10), // Spasi antara search dan tombol filter
@@ -58,24 +59,24 @@ class TabPelatihan extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ListTile(
-                                  title: const Text("Filter 1"),
+                                  title: const Text("Semua"),
                                   onTap: () {
-                                    // Aksi filter 1
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodePelatihan("Semua"); // Filter "Semua"
+                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter 2"),
+                                  title: const Text("2024"),
                                   onTap: () {
-                                    // Aksi filter 2
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodePelatihan("2024"); // Filter "2024"
+                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter 3"),
+                                  title: const Text("2025"),
                                   onTap: () {
-                                    // Aksi filter 3
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodePelatihan("2025"); // Filter "2025"
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -102,18 +103,15 @@ class TabPelatihan extends StatelessWidget {
                     );
                   }
 
-                  if (controller.pelatihans.isEmpty) {
+                  if (controller.filteredPelatihan.isEmpty) {
                     return const Center(
                       child: Text("Tidak ada pelatihan tersedia."),
                     );
                   }
-
-                  var allData = controller.pelatihans.toList();
-
                   return ListView.builder(
-                    itemCount: allData.length,
+                    itemCount: controller.filteredPelatihan.length,
                     itemBuilder: (context, index) {
-                      final pelatihan = allData[index];
+                      final pelatihan = controller.filteredPelatihan[index];
                       return Card(
                         color: Colors.white,
                         margin: const EdgeInsets.symmetric(vertical: 8),
