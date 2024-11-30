@@ -188,7 +188,7 @@ class ChangeProfileController extends BaseController {
       }
       if (response.statusCode == 200) {
         // Tampilkan dialog sukses
-        Popup.showStatusProfileDialog(context);
+        Get.snackbar('Success', 'Profile berhasil diupdate');
 
         // Memuat ulang data terbaru dari server
         await Future.delayed(Duration(seconds: 1));
