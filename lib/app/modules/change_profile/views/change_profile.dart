@@ -253,8 +253,11 @@ class ChangeProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           controller.updateProfile(context);
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.pop(context);
+                          
                         },
                       ),
                     ),

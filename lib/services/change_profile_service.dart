@@ -62,14 +62,23 @@ class ChangeProfileService {
     }
   }
 
-// New methods to fetch all data
-  Future<List<MataKuliahMyAccountModel>> getAllMataKuliah() async {
+  Future<Map<String, dynamic>> updatePassword({
+    required String oldPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
+      final token = await getToken();
+      if (token == null) throw Exception("Token not found");
 
-      final response = await _dio.get(
-        '${ApiConstants.baseUrl}mataKuliahs', // Endpoint API
+      final response = await _dio.post(
+        '${ApiConstants.baseUrl}my_accounts/update_password',
+        data: {
+          '_method': 'PUT',
+          'old_password': oldPassword,
+          'password': newPassword,
+          'password_confirmation': confirmPassword,
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -78,43 +87,113 @@ class ChangeProfileService {
         ),
       );
 
-      // Langsung casting karena data adalah List
-      List<dynamic> data = response.data;
-      return data
-          .map((json) => MataKuliahMyAccountModel.fromJson(json))
-          .toList();
-    } catch (e) {
-      print("Error fetching all Mata Kuliah: $e");
-      rethrow;
-    }
-  }
+      // Print the entire response for debugging
+      print("Full Response Data: ${response.data}");
+      print("Response Status Code: ${response.statusCode}");
 
-  Future<List<BidangMinatMyAccountModel>> getAllBidangMinat() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
+      // Handle different possible response structures
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Check for different possible success indicators
+        final success = response.data['status'] == 'success' ||
+            response.data['success'] == true;
 
-      final response = await _dio.get(
-        '${ApiConstants.baseUrl}bidangMinats', // Adjust the endpoint
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
-
-      if (response.data['success'] == true) {
-        List<dynamic> data = response.data['data'];
-        return data
-            .map((json) => BidangMinatMyAccountModel.fromJson(json))
-            .toList();
+        return {
+          'success': success,
+          'message': response.data['message'] ??
+              response.data['msg'] ??
+              'Password berhasil diubah',
+        };
       } else {
-        return [];
+        // Handle error responses
+        return {
+          'success': false,
+          'message': response.data['message'] ??
+              response.data['msg'] ??
+              'Gagal mengubah password',
+        };
       }
+    } on DioException catch (e) {
+      // More detailed Dio error handling
+      print("Password Update DioError: ${e.response?.data}");
+      print("Error Type: ${e.type}");
+      print("Error Message: ${e.message}");
+
+      // Check for specific error response
+      if (e.response != null) {
+        return {
+          'success': false,
+          'message': e.response?.data['message'] ??
+              e.response?.data['msg'] ??
+              'Kesalahan jaringan',
+        };
+      }
+
+      return {
+        'success': false,
+        'message': 'Terjadi kesalahan jaringan',
+      };
     } catch (e) {
-      print("Error fetching all Bidang Minat: $e");
-      rethrow;
+      // Catch-all for unexpected errors
+      print("Unexpected Password Update Error: $e");
+      return {
+        'success': false,
+        'message': 'Terjadi kesalahan tidak terduga',
+      };
     }
   }
+// New methods to fetch all data
+  // Future<List<MataKuliahMyAccountModel>> getAllMataKuliah() async {
+  //   try {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final token = prefs.getString('auth_token');
+
+  //     final response = await _dio.get(
+  //       '${ApiConstants.baseUrl}mataKuliahs', // Endpoint API
+  //       options: Options(
+  //         headers: {
+  //           'Authorization': 'Bearer $token',
+  //           'Content-Type': 'application/json',
+  //         },
+  //       ),
+  //     );
+
+  //     // Langsung casting karena data adalah List
+  //     List<dynamic> data = response.data;
+  //     return data
+  //         .map((json) => MataKuliahMyAccountModel.fromJson(json))
+  //         .toList();
+  //   } catch (e) {
+  //     print("Error fetching all Mata Kuliah: $e");
+  //     rethrow;
+  //   }
+  // }
+
+  // Future<List<BidangMinatMyAccountModel>> getAllBidangMinat() async {
+  //   try {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final token = prefs.getString('auth_token');
+
+  //     final response = await _dio.get(
+  //       '${ApiConstants.baseUrl}bidangMinats', // Adjust the endpoint
+  //       options: Options(
+  //         headers: {
+  //           'Authorization': 'Bearer $token',
+  //           'Content-Type': 'application/json',
+  //         },
+  //       ),
+  //     );
+
+  //     if (response.data['success'] == true) {
+  //       List<dynamic> data = response.data['data'];
+  //       return data
+  //           .map((json) => BidangMinatMyAccountModel.fromJson(json))
+  //           .toList();
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching all Bidang Minat: $e");
+  //     rethrow;
+  //   }
+  // }
 }

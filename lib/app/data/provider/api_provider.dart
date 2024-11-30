@@ -184,10 +184,6 @@ class ApiProvider {
       // Create FormData for multipart request (to handle file upload)
       FormData formData = FormData.fromMap(data);
 
-      print('data pada update profile di api_provider:');
-      print(data);
-      print(formData);
-
       // Send PUT request to update profile
       final response = await _dio.post(
         '${ApiConstants.baseUrl}my_accounts/update',
