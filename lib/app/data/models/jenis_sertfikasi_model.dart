@@ -14,12 +14,16 @@ class JenisSertifikasi {
   });
 
   // Factory untuk mem-parsing dari JSON
-  factory JenisSertifikasi.fromJson(Map<String, dynamic> json) => JenisSertifikasi(
+  factory JenisSertifikasi.fromJson(Map<String, dynamic> json) =>
+      JenisSertifikasi(
         idJenisSertifikasi: json["id_jenis_sertifikasi"] ?? 0,
-        namaJenisSertifikasi: json["nama_jenis_sertifikasi"] ?? "Jenis Sertifikasi Tidak Diketahui",
+        namaJenisSertifikasi: json["nama_jenis_sertifikasi"] ??
+            "Jenis Sertifikasi Tidak Diketahui",
         kodeJenisSertifikasi: json["kode_jenis_sertifikasi"] ?? "-",
-        createdAt: DateTime.tryParse(json["created_at"] ?? "") ?? DateTime(1970, 1, 1),
-        updatedAt: DateTime.tryParse(json["updated_at"] ?? "") ?? DateTime(1970, 1, 1),
+        createdAt:
+            DateTime.tryParse(json["created_at"] ?? "") ?? DateTime(1970, 1, 1),
+        updatedAt:
+            DateTime.tryParse(json["updated_at"] ?? "") ?? DateTime(1970, 1, 1),
       );
 
   // Konversi objek ke JSON
