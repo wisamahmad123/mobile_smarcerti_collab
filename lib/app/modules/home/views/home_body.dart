@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_smarcerti/app/modules/home/views/chart_total_pelatihan_sertif_dosen.dart';
 import 'menu_item_card.dart';
-import 'analytics_container.dart';
+import 'chart_pengguna.dart';
 
 class HomeBody extends StatelessWidget {
   final String role; // Tambahkan parameter untuk role pengguna
@@ -9,23 +10,17 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // icon sementara bingung
-    // Data untuk role dosen
-    final List<Map<String, dynamic>> dosenData = [
-      {'text': 'Pelatihan', 'icon': Icons.school_outlined},
-      {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
-    ];
-
-    // Data untuk role pimpinan
-    final List<Map<String, dynamic>> pimpinanData = [
-      {'text': 'Pelatihan', 'icon': Icons.school_outlined},
-      {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
-      {'text': 'Daftar Pelatihan dan Sertifikasi Dosen', 'icon': Icons.list_sharp},
-    ];
-
-    // Percabangan berdasarkan role
-    final List<Map<String, dynamic>> kontainerData =
-        (role == 'pimpinan') ? pimpinanData : dosenData;
+    // Data menu untuk setiap role
+    final List<Map<String, dynamic>> menuData = (role == 'pimpinan')
+        ? [
+            {'text': 'Pelatihan', 'icon': Icons.school_outlined},
+            {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
+            {'text': 'Daftar Pelatihan dan Sertifikasi Dosen', 'icon': Icons.list_sharp},
+          ]
+        : [
+            {'text': 'Pelatihan', 'icon': Icons.school_outlined},
+            {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
+          ];
 
     return Container(
       decoration: const BoxDecoration(
@@ -35,26 +30,44 @@ class HomeBody extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Column(
-        children: [
-          Expanded(
-            child: GridView.builder(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Menu Grid
+            Padding(
               padding: const EdgeInsets.all(20),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 25,
-                mainAxisSpacing: 25,
-                childAspectRatio: 1.4,
+              child: GridView.builder(
+                shrinkWrap: true, // Agar GridView mengikuti kontennya
+                physics: const NeverScrollableScrollPhysics(), // Non-scrollable GridView
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Jumlah kolom
+                  crossAxisSpacing: 25, // Jarak antar kolom
+                  mainAxisSpacing: 25, // Jarak antar baris
+                  childAspectRatio: 1.4, // Rasio lebar dan tinggi tiap item
+                ),
+                itemCount: menuData.length, // Jumlah item berdasarkan data menu
+                itemBuilder: (context, index) {
+                  var data = menuData[index];
+                  return MenuItemCard(data: data); // Widget untuk kartu menu
+                },
               ),
-              itemCount: kontainerData.length,
-              itemBuilder: (context, index) {
-                var data = kontainerData[index];
-                return MenuItemCard(data: data);
-              },
             ),
-          ),
-          const SizedBox(height: 300, child: AnalyticsContainer()),
-        ],
+
+            // Chart Pengguna
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: ChartPengguna(),
+            ),
+
+            // Chart Total Pelatihan dan Sertifikasi Dosen
+            if (role == 'pimpinan') // Hanya tampil jika role adalah pimpinan
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ChartTotalPelatihanSertifDosen(),
+              ),
+          ],
+        ),
       ),
     );
   }
