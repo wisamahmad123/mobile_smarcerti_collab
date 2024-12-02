@@ -3,16 +3,13 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/change_password/controllers/change_password_controller.dart';
 
 class ChangePassword extends StatelessWidget {
-  final ChangePasswordController controller = Get.put(ChangePasswordController());
+  final ChangePasswordController controller =
+      Get.put(ChangePasswordController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Ubah Password'),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -31,7 +28,8 @@ class ChangePassword extends StatelessWidget {
                               ? Icons.visibility
                               : Icons.visibility_off,
                         ),
-                        onPressed: () => controller.isOldPasswordVisible.toggle(),
+                        onPressed: () =>
+                            controller.isOldPasswordVisible.toggle(),
                       ),
                     ),
                     obscureText: !controller.isOldPasswordVisible.value,
@@ -49,7 +47,8 @@ class ChangePassword extends StatelessWidget {
                               ? Icons.visibility
                               : Icons.visibility_off,
                         ),
-                        onPressed: () => controller.isNewPasswordVisible.toggle(),
+                        onPressed: () =>
+                            controller.isNewPasswordVisible.toggle(),
                       ),
                     ),
                     obscureText: !controller.isNewPasswordVisible.value,
@@ -67,7 +66,8 @@ class ChangePassword extends StatelessWidget {
                               ? Icons.visibility
                               : Icons.visibility_off,
                         ),
-                        onPressed: () => controller.isConfirmPasswordVisible.toggle(),
+                        onPressed: () =>
+                            controller.isConfirmPasswordVisible.toggle(),
                       ),
                     ),
                     obscureText: !controller.isConfirmPasswordVisible.value,
@@ -75,13 +75,14 @@ class ChangePassword extends StatelessWidget {
               const SizedBox(height: 20),
               // Save Button
               Obx(() => ElevatedButton(
-                    onPressed: controller.isLoading.value 
-                        ? null 
+                    onPressed: controller.isLoading.value
+                        ? null
                         : () => controller.updatePassword(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF375E97),
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15),
                     ),
                     child: controller.isLoading.value
                         ? CircularProgressIndicator(color: Colors.white)

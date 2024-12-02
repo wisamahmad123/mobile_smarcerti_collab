@@ -5,7 +5,7 @@ import 'package:mobile_smarcerti/app/hooks/use_auth.dart';
 import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
 import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
 
-import 'package:mobile_smarcerti/pages/list_notifikasi.dart';
+import 'package:mobile_smarcerti/app/modules/notifikasi/views/list_notifikasi.dart';
 
 // import 'notifikasi_pop_up.dart';
 

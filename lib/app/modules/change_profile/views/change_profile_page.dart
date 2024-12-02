@@ -5,7 +5,7 @@ import '../../../../widgets/dosen_bottom_navbar.dart';
 import '../../change_password/views/change_password_form.dart';
 
 class ChangeProfilePage extends StatelessWidget {
-  const ChangeProfilePage({super.key}); 
+  const ChangeProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +13,10 @@ class ChangeProfilePage extends StatelessWidget {
       appBar: AppBarCustom(
         title: "Change Profile",
       ),
-      body: ChangeProfileScreen(), 
-      bottomNavigationBar: const DosenBottomNavbar(
-        currentIndex: 1, 
-      ),
+      body: ChangeProfileScreen(),
+      // bottomNavigationBar: const DosenBottomNavbar(
+      //   currentIndex: 1,
+      // ),
     );
   }
 }
