@@ -31,14 +31,22 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.loadSertifikasiById(widget.idSertifikasi);
-    });
 
-    createFileOfPdfUrl().then((f) {
-      setState(() {
-        remotePDFpath = f.path;
+    initData();
+  }
+
+  Future<void> initData() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await controller.loadSertifikasiById(widget.idSertifikasi);
+      print(controller.sertifikasiDetail.value!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi);
+      if(controller.sertifikasiDetail.value!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi != ''){
+
+      createFileOfPdfUrl().then((f) {
+        setState(() {
+          remotePDFpath = f.path;
+        });
       });
+      }
     });
   }
 
@@ -48,10 +56,11 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
     try {
       final sertifikasi = controller.sertifikasiDetail.value;
       final fileName =
-          sertifikasi!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi ??
+          sertifikasi!.detailPesertaSertifikasi[1].pivot!.buktiSertifikasi ??
               '';
       const hostname = ApiConstants.hostname;
       final filename = fileName.substring(fileName.lastIndexOf("/") + 1);
+
       final url =
           '${hostname}storage/bukti_sertifikasi/$filename'; // Ganti dengan URL server Anda";
       print(url);
@@ -66,7 +75,7 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);
     } catch (e) {
-      throw Exception('Error parsing asset file!');
+      throw Exception('Error parsing asset file!: $e');
     }
 
     return completer.future;
@@ -139,9 +148,9 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
               _buildDetailText(
                 'No Sertifikasi',
                 sertifikasi.detailPesertaSertifikasi.isNotEmpty &&
-                        sertifikasi.detailPesertaSertifikasi[0].pivot != null
+                        sertifikasi.detailPesertaSertifikasi[1].pivot != null
                     ? sertifikasi
-                        .detailPesertaSertifikasi[0].pivot!.noSertifikasi
+                        .detailPesertaSertifikasi[1].pivot!.noSertifikasi
                     : 'Tidak tersedia',
               ),
               _buildDetailText('Jenis Sertifikasi', sertifikasi.jenis),
