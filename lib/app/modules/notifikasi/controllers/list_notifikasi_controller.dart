@@ -40,7 +40,13 @@ class ListNotifikasiController extends BaseController {
   @override
   void onInit() {
     super.onInit();
-    initializeData();
+    initializeData(); // Memuat data saat pertama kali diinisialisasi
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    initializeData(); // Memuat ulang data setiap kali halaman ditampilkan kembali
   }
 
   /// Inisialisasi data
@@ -90,7 +96,8 @@ class ListNotifikasiController extends BaseController {
     try {
       isLoading.value = true;
       var data = await lspService.getVendorsertifikasi();
-      vendorSertifikasiList.assignAll(data); // Perbaiki untuk mengisi ke vendorList
+      vendorSertifikasiList
+          .assignAll(data); // Perbaiki untuk mengisi ke vendorList
     } catch (e) {
       print("Error saat mengambil vendor sertifikasi: $e");
       errorMessage.value = 'Gagal memuat data vendor sertifikasi.';
@@ -147,7 +154,8 @@ class ListNotifikasiController extends BaseController {
     try {
       isLoading.value = true;
       var data = await lspService.getVendorPelatihan();
-      vendorPelatihanList.assignAll(data); // Perbaiki untuk mengisi ke vendorList
+      vendorPelatihanList
+          .assignAll(data); // Perbaiki untuk mengisi ke vendorList
     } catch (e) {
       print("Error saat mengambil vendor pelatihan: $e");
       errorMessage.value = 'Gagal memuat data vendor pelatihan.';

@@ -3,8 +3,14 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
 import 'package:mobile_smarcerti/app/modules/change_profile/views/change_profile_page.dart';
 
-class BodyMyAccountDosen extends StatelessWidget {
-  BodyMyAccountDosen({super.key});
+class BodyMyAccountDosen extends StatefulWidget {
+  const BodyMyAccountDosen({Key? key}) : super(key: key);
+
+  @override
+  _BodyMyAccountDosenState createState() => _BodyMyAccountDosenState();
+}
+
+class _BodyMyAccountDosenState extends State<BodyMyAccountDosen> {
   final MyAccountController controller = Get.put(MyAccountController());
 
   @override
@@ -49,20 +55,22 @@ class BodyMyAccountDosen extends StatelessWidget {
               const SizedBox(height: 20),
               LabelField(
                 label: 'Mata Kuliah',
-                initialValue: (account.detailDaftarUserMatakuliah?.isNotEmpty ?? false)
-                    ? account.detailDaftarUserMatakuliah!
-                        .map((e) => e.namaMatakuliah ?? "Tidak diketahui")
-                        .join(", ")
-                    : "Tidak ada",
+                initialValue:
+                    (account.detailDaftarUserMatakuliah?.isNotEmpty ?? false)
+                        ? account.detailDaftarUserMatakuliah!
+                            .map((e) => e.namaMatakuliah ?? "Tidak diketahui")
+                            .join(", ")
+                        : "Tidak ada",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Bidang Minat',
-                initialValue: (account.detailDaftarUserBidangMinat?.isNotEmpty ?? false)
-                    ? account.detailDaftarUserBidangMinat!
-                        .map((e) => e.namaBidangMinat ?? "Tidak diketahui")
-                        .join(", ")
-                    : "Tidak ada",
+                initialValue:
+                    (account.detailDaftarUserBidangMinat?.isNotEmpty ?? false)
+                        ? account.detailDaftarUserBidangMinat!
+                            .map((e) => e.namaBidangMinat ?? "Tidak diketahui")
+                            .join(", ")
+                        : "Tidak ada",
               ),
               const SizedBox(height: 20),
               LabelField(

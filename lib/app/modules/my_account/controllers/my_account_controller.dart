@@ -20,7 +20,13 @@ class MyAccountController extends BaseController {
   @override
   void onInit() {
     super.onInit();
-    initializeData();
+    initializeData(); // Memuat data saat pertama kali diinisialisasi
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    initializeData(); // Memuat ulang data setiap kali halaman ditampilkan kembali
   }
 
   Future<void> initializeData() async {
@@ -35,10 +41,10 @@ class MyAccountController extends BaseController {
     try {
       isLoading.value = true;
       print("Fetching my accounts data...");
-      
+
       var data = await _myAccountService.getMyAccounts();
       print("Raw API Response: $data"); // Lihat data mentah dari API
-      
+
       if (data != null && data.isNotEmpty) {
         print("Data received, length: ${data.length}");
         myAccounts.assignAll(data);

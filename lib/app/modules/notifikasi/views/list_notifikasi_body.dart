@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mobile_smarcerti/app/data/models/pelatihanUser.dart';
 import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/modules/notifikasi/controllers/list_notifikasi_controller.dart';
+import 'package:mobile_smarcerti/app/modules/notifikasi/views/detail_notifikasi_sertifikasi.dart';
 
 class ListNotifikasiBody extends StatelessWidget {
   final ListNotifikasiController controller =
@@ -95,14 +96,13 @@ class ListNotifikasiBody extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => DetailNotifikasiSertifikasi(
-                          //       itemId: itemId,
-                          //     ),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailNotifikasiPage(notifikasiDetail: item),
+                            ),
+                          );
                         },
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
