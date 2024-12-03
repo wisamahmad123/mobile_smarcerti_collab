@@ -106,4 +106,43 @@ class PelatihanService {
       throw Exception('Error fetching pelatihan by ID: $e');
     }
   }
+
+
+  /// Fungsi untuk menambah pelatihan baru
+Future<PelatihanUser?> addPelatihan(Map<String, dynamic> pelatihanData) async {
+  final token = await getToken();
+  if (token == null) {
+    print('Error: Token not found');
+    throw Exception("Token not found");
+  }
+
+  try {
+    final response = await _dio.post(
+      '${ApiConstants.baseUrl}pelatihans',
+      data: jsonEncode(pelatihanData), // Mengirim data dalam format JSON
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
+
+    if (response.statusCode == 201) {
+      print("Pelatihan berhasil ditambahkan: ${response.data}");
+      var json = response.data;
+      if (json != null && json['data'] != null) {
+        return PelatihanUser.fromJson(json['data']); // Mengembalikan objek pelatihan baru
+      } else {
+        throw Exception('Data pelatihan tidak valid');
+      }
+    } else {
+      throw Exception('Gagal menambahkan pelatihan. Status code: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error adding pelatihan: $e');
+    throw Exception('Error adding pelatihan: $e');
+  }
+}
+
 }
