@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/jenis_sertfikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/mata_kuliah_sertifikasi_model.dart';
+import 'package:mobile_smarcerti/app/data/models/periode_model.dart';
 import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/vendor_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
@@ -26,7 +27,9 @@ class SertifikasiController extends BaseController {
   var vendorList = <VendorSertifikasi>[].obs;
   var bidangMinatList = <BidangMinatSertifikasi>[].obs;
   var mataKuliahList = <MataKuliahSertifikasi>[].obs;
-  var jenisSertifikasiList =<JenisSertifikasi>[].obs;
+  var jenisSertifikasiList = <JenisSertifikasi>[].obs;
+
+  var tahunPeriode = <Periode>[].obs;
 
   // Loading dan error handling
   RxBool isLoading = false.obs;
@@ -45,6 +48,7 @@ class SertifikasiController extends BaseController {
       loadVendors(),
       loadBidangMinat(),
       loadMataKuliah(),
+      loadPeriode(),
     ]);
   }
 
@@ -78,6 +82,8 @@ class SertifikasiController extends BaseController {
   }
 
   /// Memuat data vendor
+
+  /// Memuat data vendor
   Future<void> loadVendors() async {
     try {
       isLoading.value = true;
@@ -105,6 +111,20 @@ class SertifikasiController extends BaseController {
     }
   }
 
+  /// Memuat data periode
+  Future<void> loadPeriode() async {
+    try {
+      isLoading.value = true;
+      var data = await lspService.getPeriode();
+      tahunPeriode.assignAll(data);
+    } catch (e) {
+      print("Error saat mengambil periode: $e");
+      errorMessage.value = 'Gagal memuat data periode.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   /// Memuat data mata kuliah
   Future<void> loadMataKuliah() async {
     try {
@@ -120,7 +140,7 @@ class SertifikasiController extends BaseController {
   }
 
   /// Fetch data jenis sertifikasi dari API
- Future<void> loadJenisSertifikasi() async {
+  Future<void> loadJenisSertifikasi() async {
     try {
       isLoading.value = true;
       var data = await lspService.getJenisSertifikasi();
@@ -166,6 +186,37 @@ class SertifikasiController extends BaseController {
     }
   }
 
+  /// Mengupdate sertifikasi
+  Future<void> updateSertifikasi(int id, Map<String, dynamic> data) async {
+    isLoading.value = true;
+    try {
+      final Sertifikasi? result = await lspService.updateSertifikasi(id, data);
+      if (result != null) {
+        Get.snackbar(
+          'Berhasil',
+          'Sertifikasi berhasil diperbarui.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } else {
+        errorMessage.value = 'Gagal memperbarui sertifikasi.';
+        Get.snackbar(
+          'Gagal',
+          errorMessage.value,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
+    } catch (e) {
+      errorMessage.value = 'Gagal memperbarui sertifikasi: $e';
+      Get.snackbar(
+        'Gagal',
+        errorMessage.value,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   /// Unduh file PDF
   Future<void> downloadPdf(String fileName, String fileUrl) async {
     PermissionStatus permissionStatus = await Permission.storage.request();
@@ -180,12 +231,16 @@ class SertifikasiController extends BaseController {
         Dio dio = Dio();
         await dio.download(fileUrl, filePath);
 
-        Get.snackbar('Berhasil', 'File berhasil diunduh ke: $filePath', snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('Berhasil', 'File berhasil diunduh ke: $filePath',
+            snackPosition: SnackPosition.BOTTOM);
       } catch (e) {
-        Get.snackbar('Gagal', 'Terjadi kesalahan saat mengunduh file: ${e.toString()}', snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar(
+            'Gagal', 'Terjadi kesalahan saat mengunduh file: ${e.toString()}',
+            snackPosition: SnackPosition.BOTTOM);
       }
     } else {
-      Get.snackbar('Gagal', 'Izin penyimpanan diperlukan untuk mengunduh file.', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Gagal', 'Izin penyimpanan diperlukan untuk mengunduh file.',
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 

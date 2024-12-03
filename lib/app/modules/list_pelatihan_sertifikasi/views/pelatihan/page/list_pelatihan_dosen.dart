@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/controllers/list_pelatihan_controller.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/pelatihan/detail_page/list_pelatihan_detail_page.dart';
-import 'package:mobile_smarcerti/services/api_service.dart';
-import 'package:mobile_smarcerti/services/list_pelatihan_sertifikasi_service.dart';
 
 class ListPelatihanDosen extends StatelessWidget {
-  ListPelatihanDosen({super.key});
   final ListPelatihanController controller = Get.put(ListPelatihanController());
+
+  ListPelatihanDosen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +31,10 @@ class ListPelatihanDosen extends StatelessWidget {
                       fillColor: const Color.fromARGB(145, 255, 249, 249),
                       filled: true,
                     ),
+                    onChanged: (query) => controller.searchPelatihan(query), // Panggil fungsi search di controller
                   ),
                 ),
-                const SizedBox(
-                    width: 10), // Spasi antara search dan tombol filter
+                const SizedBox(width: 10),
 
                 // Filter button wrapped in a container for style
                 Container(
@@ -60,24 +59,24 @@ class ListPelatihanDosen extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ListTile(
-                                  title: const Text("Filter 1"),
+                                  title: const Text("Semua"),
                                   onTap: () {
-                                    // Aksi filter 1
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodePelatihan("Semua"); // Filter "Semua"
+                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter 2"),
+                                  title: const Text("2024"),
                                   onTap: () {
-                                    // Aksi filter 2
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodePelatihan("2024"); // Filter "2024"
+                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter 3"),
+                                  title: const Text("2025"),
                                   onTap: () {
-                                    // Aksi filter 3
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodePelatihan("2025"); // Filter "2025"
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -90,12 +89,12 @@ class ListPelatihanDosen extends StatelessWidget {
                 ),
               ],
             ),
-
-            const SizedBox(height: 10), // Spasi antara search dan ListView
+            const SizedBox(height: 10),
 
             // Expanded agar ListView bisa scroll
-            // Daftar Pelatihan
             Expanded(
+              child: RefreshIndicator(
+                onRefresh: controller.onRefreshPelatihans,
               child: Obx(() {
                 if (controller.isLoading.value) {
                   return const Center(
@@ -103,25 +102,16 @@ class ListPelatihanDosen extends StatelessWidget {
                   );
                 }
 
-                if (controller.pelatihans.isEmpty) {
+                if (controller.filteredPelatihan.isEmpty) {
                   return const Center(
                     child: Text("Tidak ada pelatihan tersedia."),
                   );
                 }
-                // Gabungkan semua 'Datum' dari setiap 'Pelatihan'
-                var allData = controller.pelatihans
-                    .toList();
-
-                // Print data untuk debugging
-                print("Isi allData: $allData");
 
                 return ListView.builder(
-                  itemCount: allData.length, // Jumlah total item
+                  itemCount: controller.filteredPelatihan.length, // Jumlah item
                   itemBuilder: (context, index) {
-                    final pelatihan = allData[index]; // Ambil satu datum
-
-                    // Print untuk melihat isi objek datum
-                    print("data pelatihan: ${pelatihan.toString()}");
+                    final pelatihan = controller.filteredPelatihan[index]; // Data pelatihan
 
                     return Card(
                       color: Colors.white,
@@ -133,27 +123,24 @@ class ListPelatihanDosen extends StatelessWidget {
                           color: Color.fromARGB(255, 55, 94, 151),
                         ),
                         title: Text(
-                          pelatihan.namaPelatihan, // Ambil namaPelatihan
+                          pelatihan.namaPelatihan,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(
-                          "Lokasi: ${pelatihan.lokasi}\nTanggal: ${pelatihan.tanggal.toLocal()}",
+                          "Lokasi: ${pelatihan.lokasi}\nTanggal: ${pelatihan.tanggal.toLocal().toString().substring(0, 10)}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {
-                          // Print isi dari datum yang dipilih untuk halaman detail
-                          print(
-                              "Pelatihan yang dipilih: ${pelatihan.namaPelatihan}");
-
                           // Navigasi ke halaman detail pelatihan
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  ListPelatihanDetailPage(pelatihanDetail: allData[index]),
+                              builder: (context) => ListPelatihanDetailPage(
+                                pelatihanDetail: pelatihan,
+                              ),
                             ),
                           );
                         },
@@ -167,6 +154,7 @@ class ListPelatihanDosen extends StatelessWidget {
                   },
                 );
               }),
+            ),
             ),
           ],
         ),

@@ -36,23 +36,42 @@ class ListSertifikasiDetailBody extends StatelessWidget {
           // Deskripsi Pelatihan
           buildDetailItem("Jenis:", sertifikasiDetail.jenis),
           buildDetailItem("Kuota:", sertifikasiDetail.kuotaPeserta),
-          buildDetailItem("Tanggal:", sertifikasiDetail.tanggal.toLocal().toString()),
-          buildDetailItem("Masa Berlaku:", sertifikasiDetail.masaBerlaku.toLocal().toString()),
+          buildDetailItem(
+              "Tanggal:", sertifikasiDetail.tanggal.toLocal().toString()),
+          buildDetailItem("Masa Berlaku:",
+              sertifikasiDetail.masaBerlaku.toLocal().toString()),
           buildDetailItem("Biaya:", sertifikasiDetail.biaya),
           buildDetailItem("Vendor:", sertifikasiDetail.vendorSertifikasi.nama),
-          buildDetailItem("Jenis Sertifikasi:", sertifikasiDetail.jenisSertifikasi.namaJenisSertifikasi),
-          buildDetailItem("Bidang Minat:", sertifikasiDetail.bidangMinatSertifikasi.isEmpty
-              ? "Tidak ada"
-              : sertifikasiDetail.bidangMinatSertifikasi.map((e) => e.namaBidangMinat).join(", ")),
-          buildDetailItem("Mata Kuliah:", sertifikasiDetail.mataKuliahSertifikasi.isEmpty
-              ? "Tidak ada"
-              : sertifikasiDetail.mataKuliahSertifikasi.map((e) => e.namaMatakuliah).join(", ")),
-          buildDetailItem("Nama Peserta:", sertifikasiDetail.detailPesertaSertifikasi.isEmpty
-              ? "Tidak ada"
-              : sertifikasiDetail.detailPesertaSertifikasi.map((e) => e.namaLengkap).join(", ")),
-          buildDetailItem("Bukti Sertifikasi:", sertifikasiDetail.detailPesertaSertifikasi.isEmpty
-              ? "Tidak ada"
-              : sertifikasiDetail.detailPesertaSertifikasi.map((e) => e.pivot?.buktiSertifikasi).join(", ")),
+          buildDetailItem("Jenis Sertifikasi:",
+              sertifikasiDetail.jenisSertifikasi.namaJenisSertifikasi),
+          buildDetailItem(
+              "Bidang Minat:",
+              sertifikasiDetail.bidangMinatSertifikasi.isEmpty
+                  ? "Tidak ada"
+                  : sertifikasiDetail.bidangMinatSertifikasi
+                      .map((e) => e.namaBidangMinat)
+                      .join(", ")),
+          buildDetailItem(
+              "Mata Kuliah:",
+              sertifikasiDetail.mataKuliahSertifikasi.isEmpty
+                  ? "Tidak ada"
+                  : sertifikasiDetail.mataKuliahSertifikasi
+                      .map((e) => e.namaMatakuliah)
+                      .join(", ")),
+          buildDetailItem(
+              "Nama Peserta:",
+              sertifikasiDetail.detailPesertaSertifikasi.isEmpty
+                  ? "Tidak ada"
+                  : sertifikasiDetail.detailPesertaSertifikasi
+                      .map((e) => e.namaLengkap)
+                      .join(", ")),
+          buildDetailItem(
+              "Bukti Sertifikasi:",
+              sertifikasiDetail.detailPesertaSertifikasi.isEmpty
+                  ? "Tidak ada"
+                  : sertifikasiDetail.detailPesertaSertifikasi
+                      .map((e) => e.pivot?.buktiSertifikasi)
+                      .join(", ")),
         ],
       ),
     );

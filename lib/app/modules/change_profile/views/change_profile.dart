@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
 import 'package:mobile_smarcerti/app/modules/change_profile/controllers/change_profile_controller.dart';
+import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class ChangeProfileScreen extends StatelessWidget {
   final ChangeProfileController controller = Get.put(ChangeProfileController());
@@ -49,27 +51,28 @@ class ChangeProfileScreen extends StatelessWidget {
                     label: 'Username',
                     controller: controller.usernameController,
                   ),
-                  // SizedBox(height: 20),
-                  // _buildDropdownField(
-                  //   label: 'Mata Kuliah',
-                  //   items: controller.mataKuliahList,
-                  //   selectedItem: controller.selectedMataKuliah.value,
-                  //   onChanged: (MataKuliahMyAccountModel? newValue) {
-                  //     controller.selectedMataKuliah.value = newValue;
-                  //   },
-                  //   displayText: (item) => item?.namaMatakuliah ?? '',
-                  // ),
-                  // SizedBox(height: 20),
-                  // // Bidang Minat Dropdown
-                  // _buildDropdownField(
-                  //   label: 'Bidang Minat',
-                  //   items: controller.bidangMinatList,
-                  //   selectedItem: controller.selectedBidangMinat.value,
-                  //   onChanged: (BidangMinatMyAccountModel? newValue) {
-                  //     controller.selectedBidangMinat.value = newValue;
-                  //   },
-                  //   displayText: (item) => item?.namaBidangMinat ?? '',
-                  // ),
+                  MultiSelectDialogField(
+                      buttonText: const Text('Bidang Minat'),
+                      title: const Text('Bidang Minat'),
+                      items: controller.bidangMinatList
+                          .map((bidangMinat) => MultiSelectItem<String>(
+                              bidangMinat.idBidangMinat.toString(),
+                              bidangMinat.namaBidangMinat))
+                          .toList(),
+                      onConfirm: (val) {
+                        controller.selectedBidangMinat = val;
+                      }),
+                  MultiSelectDialogField(
+                      buttonText: const Text('Mata Kuliah'),
+                      title: const Text('Mata Kuliah'),
+                      items: controller.mataKuliahList
+                          .map((mataKuliah) => MultiSelectItem<String>(
+                              mataKuliah.idMatakuliah.toString(),
+                              mataKuliah.namaMatakuliah))
+                          .toList(),
+                      onConfirm: (val) {
+                        controller.selectedMataKuliah = val;
+                      }),
                   SizedBox(height: 20),
                   LabelField(
                     label: 'Nomor Telepon',
@@ -253,8 +256,10 @@ class ChangeProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           controller.updateProfile(context);
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.pop(context);
                         },
                       ),
                     ),

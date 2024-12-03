@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/pages/list_notifikasi.dart';
+import 'package:mobile_smarcerti/app/modules/notifikasi/views/list_notifikasi.dart';
 
 class AppBarProfile extends StatelessWidget implements PreferredSizeWidget {
   final String title;

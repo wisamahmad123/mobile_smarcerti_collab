@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
 import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
@@ -12,6 +11,8 @@ class ListPelatihanController extends BaseController {
       ListPelatihanSertifikasiService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
   RxList<Pelatihan> pelatihans = <Pelatihan>[].obs;
+  RxList<Pelatihan> filteredPelatihan = <Pelatihan>[].obs; // Untuk data yang ditampilkan
+  RxList<Sertifikasi> filteredSertifikasi = <Sertifikasi>[].obs; // Untuk data yang ditampilkan
   RxList<Sertifikasi> sertifikasis = <Sertifikasi>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
@@ -26,9 +27,20 @@ class ListPelatihanController extends BaseController {
     try {
       await loadPelatihans();
       await loadSertifikasis();
+      filteredPelatihan.assignAll(pelatihans); // Default semua data saat inisialisasi
+      filteredSertifikasi.assignAll(sertifikasis); // Default semua data saat inisialisasi
     } catch (e) {
       handleError(e);
     }
+  }
+
+   // Fungsi untuk refresh data
+  Future<void> onRefreshPelatihans() async {
+      await loadPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
+  }
+  // Fungsi untuk refresh data
+  Future<void> onRefreshSertifikasis() async {
+      await loadSertifikasis(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
 
   Future<void> loadPelatihans() async {
@@ -63,79 +75,46 @@ class ListPelatihanController extends BaseController {
     }
   }
 
-  // Future<void> addMedicine(
-  //     String pharmacyId, String name, String content, String imageUrl) async {
-  //   try {
-  //     isLoading.value = true;
-  //     await pharmacyService.addMedicine(pharmacyId, name, content, imageUrl);
-  //     await loadMedicines(pharmacyId); // Refresh the list
-  //     Get.snackbar(
-  //       'Sukses',
-  //       'Berhasil menambahkan obat',
-  //       backgroundColor: Colors.green.shade100,
-  //     );
-  //   } catch (e) {
-  //     Get.snackbar(
-  //       'Error',
-  //       'Gagal menambahkan obat: ${e.toString()}',
-  //       backgroundColor: Colors.red.shade100,
-  //     );
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
+  void searchPelatihan(String query) {
+  if (query.isEmpty) {
+    filteredPelatihan.assignAll(pelatihans); // Jika kosong, tampilkan semua
+  } else {
+    filteredPelatihan.assignAll(pelatihans.where((pelatihan) {
+      return pelatihan.namaPelatihan
+          .toLowerCase()
+          .contains(query.toLowerCase());
+    }).toList());
+  }
+}
+  void searchSertifikasi(String query) {
+  if (query.isEmpty) {
+    filteredSertifikasi.assignAll(sertifikasis); // Jika kosong, tampilkan semua
+  } else {
+    filteredSertifikasi.assignAll(sertifikasis.where((sertifikasi) {
+      return sertifikasi.namaSertifikasi
+          .toLowerCase()
+          .contains(query.toLowerCase());
+    }).toList());
+  }
+}
 
-  // Future<void> updateMedicine(
-  //     String medicineId, String name, String content, String imageUrl) async {
-  //   try {
-  //     isLoading.value = true;
-  //     await pharmacyService.updateMedicine(medicineId, name, content, imageUrl);
-  //     // Find and update the medicine in the local list
-  //     final index = medicines.indexWhere((med) => med.id == medicineId);
-  //     Get.snackbar(
-  //       'Sukses',
-  //       'Berhasil mengupdate obat',
-  //       backgroundColor: Colors.green.shade100,
-  //     );
-  //     if (index != -1) {
-  //       medicines[index] = Medicine(
-  //         id: medicineId,
-  //         name: name,
-  //         content: content,
-  //         imageUrl: imageUrl,
-  //       );
-  //       medicines.refresh(); // Notify GetX to update the UI
-  //     }
-  //   } catch (e) {
-  //     Get.snackbar(
-  //       'Error',
-  //       'Gagal mengupdate obat: ${e.toString()}',
-  //       backgroundColor: Colors.red.shade100,
-  //     );
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
+void filterPeriodePelatihan(String periode) {
+  if (periode == "Semua") {
+    filteredPelatihan.assignAll(pelatihans); // Semua data
+  } else {
+    filteredPelatihan.assignAll(pelatihans.where((pelatihan) {
+      return pelatihan.periode.tahunPeriode.contains(periode);
+    }).toList());
+  }
+}
+void filterPeriodeSertifikasi(String periode) {
+  if (periode == "Semua") {
+    filteredSertifikasi.assignAll(sertifikasis); // Semua data
+  } else {
+    filteredSertifikasi.assignAll(sertifikasis.where((sertifikasi) {
+      return sertifikasi.periode.tahunPeriode.contains(periode);
+    }).toList());
+  }
+}
 
-  // Future<void> deleteMedicine(String medicineId) async {
-  //   try {
-  //     isLoading.value = true;
-  //     await pharmacyService.deleteMedicine(medicineId);
-  //     // Remove the medicine from the local list
-  //     medicines.removeWhere((med) => med.id == medicineId);
-  //     Get.snackbar(
-  //       'Sukses',
-  //       'Berhasil menghapus obat',
-  //       backgroundColor: Colors.green.shade100,
-  //     );
-  //   } catch (e) {
-  //     Get.snackbar(
-  //       'Error',
-  //       'Gagal menghapus obat: ${e.toString()}',
-  //       backgroundColor: Colors.red.shade100,
-  //     );
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
 }

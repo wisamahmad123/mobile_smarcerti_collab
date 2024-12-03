@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/sertifikasi/detail_page/list_sertifikas_detail_page.dart';
 import 'package:mobile_smarcerti/app/modules/requestAcc/controller/req_acc_controller.dart';
 import 'package:mobile_smarcerti/app/modules/requestAcc/view/sertifikasi/req_sertif_detail_page.dart';
 
@@ -31,6 +30,7 @@ class TabSertifikasi extends StatelessWidget {
                       fillColor: const Color.fromARGB(145, 255, 249, 249),
                       filled: true,
                     ),
+                    onChanged: (query) => controller.searchSertifikasi(query),
                   ),
                 ),
                 const SizedBox(
@@ -59,24 +59,24 @@ class TabSertifikasi extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ListTile(
-                                  title: const Text("Filter 1"),
+                                  title: const Text("Semua"),
                                   onTap: () {
-                                    // Aksi filter 1
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodeSertifikasi("Semua"); // Filter "Semua"
+                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter 2"),
+                                  title: const Text("2024"),
                                   onTap: () {
-                                    // Aksi filter 2
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodeSertifikasi("2024"); // Filter "2024"
+                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter 3"),
+                                  title: const Text("2025"),
                                   onTap: () {
-                                    // Aksi filter 3
-                                    Navigator.pop(context); // Close dialog
+                                    controller.filterPeriodeSertifikasi("2025"); // Filter "2025"
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -95,6 +95,8 @@ class TabSertifikasi extends StatelessWidget {
             // Expanded agar ListView bisa scroll
             // Daftar Pelatihan
             Expanded(
+              child: RefreshIndicator(
+                onRefresh: controller.onRefreshSertifikasis,
               child: Obx(() {
                 if (controller.isLoading.value) {
                   return const Center(
@@ -102,24 +104,17 @@ class TabSertifikasi extends StatelessWidget {
                   );
                 }
 
-                if (controller.sertifikasis.isEmpty) {
+                if (controller.filteredSertifikasi.isEmpty) {
                   return const Center(
                     child: Text("Tidak ada sertifikasi tersedia."),
                   );
                 }
-                // Gabungkan semua 'Datum' dari setiap 'Pelatihan'
-                var allData = controller.sertifikasis.toList();
 
-                // Print data untuk debugging
-                print("Isi allData: $allData");
 
                 return ListView.builder(
-                  itemCount: allData.length, // Jumlah total item
+                  itemCount: controller.filteredSertifikasi.length, // Jumlah total item
                   itemBuilder: (context, index) {
-                    final sertifikasi = allData[index]; // Ambil satu datum
-
-                    // Print untuk melihat isi objek datum
-                    print("data pelatihan: ${sertifikasi.toString()}");
+                    final sertifikasi = controller.filteredSertifikasi[index]; // Ambil satu datum
 
                     return Card(
                       color: Colors.white,
@@ -138,20 +133,16 @@ class TabSertifikasi extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal()}",
+                          "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal().toString().substring(0, 10)}",
                           style: const TextStyle(fontSize: 14),
                         ),
                         onTap: () {
-                          // Print isi dari datum yang dipilih untuk halaman detail
-                          print(
-                              "Pelatihan yang dipilih: ${sertifikasi.namaSertifikasi}");
-
                           // Navigasi ke halaman detail pelatihan
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ReqSertifDetailPage(
-                                  sertifikasiDetail: allData[index]),
+                                  sertifikasiDetail: sertifikasi),
                             ),
                           );
                         },
@@ -165,6 +156,7 @@ class TabSertifikasi extends StatelessWidget {
                   },
                 );
               }),
+            ),
             ),
           ],
         ),

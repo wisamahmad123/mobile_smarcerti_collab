@@ -1,18 +1,19 @@
 import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/data/models/my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
-import 'package:mobile_smarcerti/services/profile_service.dart';
+import 'package:mobile_smarcerti/services/my_account_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends BaseController {
-  final ProfileService _profileService = ProfileService(ApiService());
+  final MyAccountService _profileService = MyAccountService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
-  final profiles = Rx<User?>(null);
+  final profiles = Rx<MyAccount?>(null);
   var namaLengkap = ''.obs; // State reaktif untuk nama lengkap
   var avatarUrl = ''.obs; // State reaktif untuk nama lengkap
-  RxList<User> myAccount = <User>[].obs;
+  RxList<MyAccount> myAccount = <MyAccount>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
@@ -49,10 +50,11 @@ class ProfileController extends BaseController {
   Future<void> loadProfiles() async {
     try {
       isLoading.value = true;
-      var data = await _profileService.getProfiles(); // Panggil fungsi API
+      var data = await _profileService.getMyAccounts(); // Panggil fungsi API
       if (data.isNotEmpty) {
         print('Full avatar URL: $avatarUrl'); // URL lengkap
-        myAccount.assignAll(data); // Masukkan data ke dalam observable
+        myAccount.assignAll(
+            data as Iterable<MyAccount>); // Masukkan data ke dalam observable
       } else {
         myAccount.clear(); // Pastikan tidak ada data lama
       }

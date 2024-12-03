@@ -5,7 +5,7 @@ import '../app/modules/auth/views/login_page.dart';
 
 class LogoutDialog {
   
-  static void showLogoutDialog(BuildContext context) {
+  static void  showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

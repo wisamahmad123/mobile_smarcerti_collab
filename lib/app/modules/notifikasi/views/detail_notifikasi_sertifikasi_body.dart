@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
 
 class DetailNotifikasiSertifikasiBody extends StatelessWidget {
   const DetailNotifikasiSertifikasiBody({super.key});

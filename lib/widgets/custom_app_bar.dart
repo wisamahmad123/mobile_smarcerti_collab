@@ -3,34 +3,47 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/hooks/use_auth.dart';
 import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
-import 'package:mobile_smarcerti/pages/list_notifikasi.dart';
+import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
+
+import 'package:mobile_smarcerti/app/modules/notifikasi/views/list_notifikasi.dart';
 
 // import 'notifikasi_pop_up.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({super.key});
-  final HomeController userController = Get.put(HomeController());
-  
+  final MyAccountController controller = Get.put((MyAccountController()));
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Obx(() {
-        return Row(
-          children: [
-            Flexible(
-              child: Text(
-                'Hi, ${userController.namaLengkap.value}!',
-                style: const TextStyle(
-                  fontFamily: 'Ramabhadra',
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
-                overflow: TextOverflow
-                    .visible, // Menjaga teks tetap tampil tanpa elipsis
-              ),
+        if (controller.myAccounts.isEmpty) {
+          return const Text(
+            'Loading...',
+            style: const TextStyle(
+              fontFamily: 'Ramabhadra',
+              fontSize: 20.0,
+              color: Colors.white,
             ),
-          ],
-        );
+          );
+        } else {
+          var account = controller.myAccounts.first;
+          return Row(
+            children: [
+              Flexible(
+                child: Text(
+                  'Hi, ${account.namaLengkap}!',
+                  style: const TextStyle(
+                    fontFamily: 'Ramabhadra',
+                    fontSize: 24.0,
+                    color: Colors.white,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          );
+        }
       }),
       backgroundColor: const Color.fromARGB(255, 239, 84, 40),
       toolbarHeight: 170,

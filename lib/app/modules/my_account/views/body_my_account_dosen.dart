@@ -3,8 +3,14 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
 import 'package:mobile_smarcerti/app/modules/change_profile/views/change_profile_page.dart';
 
-class BodyMyAccountDosen extends StatelessWidget {
-  BodyMyAccountDosen({super.key});
+class BodyMyAccountDosen extends StatefulWidget {
+  const BodyMyAccountDosen({Key? key}) : super(key: key);
+
+  @override
+  _BodyMyAccountDosenState createState() => _BodyMyAccountDosenState();
+}
+
+class _BodyMyAccountDosenState extends State<BodyMyAccountDosen> {
   final MyAccountController controller = Get.put(MyAccountController());
 
   @override
@@ -39,45 +45,47 @@ class BodyMyAccountDosen extends StatelessWidget {
               const SizedBox(height: 20),
               LabelField(
                 label: 'Nama Lengkap',
-                initialValue: account.namaLengkap,
+                initialValue: account.namaLengkap ?? "Tidak tersedia",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Username',
-                initialValue: account.username,
+                initialValue: account.username ?? "Tidak tersedia",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Mata Kuliah',
-                initialValue: account.detailDaftarUserMatakuliah.isEmpty
-                    ? "Tidak ada"
-                    : account.detailDaftarUserMatakuliah
-                        .map((e) => e.namaMatakuliah)
-                        .join(", "),
+                initialValue:
+                    (account.detailDaftarUserMatakuliah?.isNotEmpty ?? false)
+                        ? account.detailDaftarUserMatakuliah!
+                            .map((e) => e.namaMatakuliah ?? "Tidak diketahui")
+                            .join(", ")
+                        : "Tidak ada",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Bidang Minat',
-                initialValue: account.detailDaftarUserBidangMinat.isEmpty
-                    ? "Tidak ada"
-                    : account.detailDaftarUserBidangMinat
-                        .map((e) => e.namaBidangMinat)
-                        .join(", "),
+                initialValue:
+                    (account.detailDaftarUserBidangMinat?.isNotEmpty ?? false)
+                        ? account.detailDaftarUserBidangMinat!
+                            .map((e) => e.namaBidangMinat ?? "Tidak diketahui")
+                            .join(", ")
+                        : "Tidak ada",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Nomor Telepon',
-                initialValue: account.noTelp,
+                initialValue: account.noTelp ?? "Tidak tersedia",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Email',
-                initialValue: account.email,
+                initialValue: account.email ?? "Tidak tersedia",
               ),
               const SizedBox(height: 20),
               LabelField(
                 label: 'Jenis Kelamin',
-                initialValue: account.jenisKelamin,
+                initialValue: account.jenisKelamin ?? "Tidak tersedia",
               ),
               const SizedBox(height: 30),
               Center(

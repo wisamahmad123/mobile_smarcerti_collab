@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/detail_peserta_sertifikasi_model.dart';
@@ -61,7 +60,7 @@ class Sertifikasi {
             : DateTime.parse(json["masa_berlaku"]),
         kuotaPeserta: json["kuota_peserta"].toString(),
         biaya: json["biaya"].toString(),
-        status: json["status"].toString(),
+        status: json["status_sertifikasi"].toString(),
         vendorSertifikasi:
             VendorSertifikasi.fromJson(json["vendor_sertifikasi"] ?? {}),
         jenisSertifikasi:
@@ -95,7 +94,7 @@ class Sertifikasi {
             "${masaBerlaku.year.toString().padLeft(4, '0')}-${masaBerlaku.month.toString().padLeft(2, '0')}-${masaBerlaku.day.toString().padLeft(2, '0')}",
         "kuota_peserta": kuotaPeserta.toString(),
         "biaya": biaya.toString(),
-        "status": biaya.toString(),
+        "status_sertifikasi": status.toString(),
         "vendor_sertifikasi": vendorSertifikasi.toJson(),
         "jenis_sertifikasi": jenisSertifikasi.toJson(),
         "periode": periode.toJson(),

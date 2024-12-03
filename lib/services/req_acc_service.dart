@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
 import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
@@ -91,6 +90,66 @@ class ReqAccService {
     } catch (e) {
       print('Error fetching sertifikasis: $e');
       throw Exception('Error fetching req sertifikasis: $e');
+    }
+  }
+
+  Future<void> updateStatusPelatihan(String status, String id) async {
+    final token = await getToken(); // Ambil token dari helper atau auth service
+    if (token == null) throw Exception("Token not found");
+
+    try {
+      final response = await _dio.put(
+        '${ApiConstants.baseUrl}penerimaanPelatihans/updateStatusPelatihan/$id', // Sesuaikan endpoint dengan API yang ada
+        data: {
+          'status_pelatihan': status, // Kirim status baru ke API
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        // Jika status berhasil diperbarui
+        print("Status berhasil diperbarui: $status");
+      } else {
+        throw Exception('Failed to update status');
+      }
+    } catch (e) {
+      print('Error updating status: $e');
+      throw Exception('Error updating status: $e');
+    }
+  }
+
+  Future<void> updateStatusSertifikasi(String status, String id) async {
+    final token = await getToken(); // Ambil token dari helper atau auth service
+    if (token == null) throw Exception("Token not found");
+
+    try {
+      final response = await _dio.put(
+        '${ApiConstants.baseUrl}penerimaanSertifikasis/updateStatusSertifikasi/$id', // Sesuaikan endpoint dengan API yang ada
+        data: {
+          'status_sertifikasi': status, // Kirim status baru ke API
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        // Jika status berhasil diperbarui
+        print("Status berhasil diperbarui: $status");
+      } else {
+        throw Exception('Failed to update status');
+      }
+    } catch (e) {
+      print('Error updating status: $e');
+      throw Exception('Error updating status: $e');
     }
   }
 }

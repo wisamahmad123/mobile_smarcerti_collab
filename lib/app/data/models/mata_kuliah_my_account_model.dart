@@ -4,7 +4,6 @@ class MataKuliahMyAccountModel {
   String kodeMatakuliah;
   DateTime createdAt;
   DateTime updatedAt;
-  MataKuliahMyAccountModelPivot pivot;
 
   MataKuliahMyAccountModel({
     required this.idMatakuliah,
@@ -12,7 +11,6 @@ class MataKuliahMyAccountModel {
     required this.kodeMatakuliah,
     required this.createdAt,
     required this.updatedAt,
-    required this.pivot,
   });
 
   factory MataKuliahMyAccountModel.fromJson(Map<String, dynamic> json) =>
@@ -22,7 +20,6 @@ class MataKuliahMyAccountModel {
         kodeMatakuliah: json["kode_matakuliah"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        pivot: MataKuliahMyAccountModelPivot.fromJson(json["pivot"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,7 +28,6 @@ class MataKuliahMyAccountModel {
         "kode_matakuliah": kodeMatakuliah,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "pivot": pivot.toJson(),
       };
 }
 

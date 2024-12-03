@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/profile/controllers/profile_controller.dart';
 import '../../../../pages/logout_dialog.dart';
 import '../../my_account/views/my_account.dart';
-import '../../../../pages/change_password_page.dart';
+import '../../change_password/views/change_password_page.dart';
 
 class BodyProfile extends StatelessWidget {
   BodyProfile({super.key});

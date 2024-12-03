@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/data/models/pelatihanUser.dart';
+import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
+import 'package:mobile_smarcerti/app/data/models/sertifikasi_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
@@ -12,25 +15,22 @@ class HomeController extends BaseController {
   final error = Rx<String?>(null);
   final userData = Rx<User?>(null);
   var namaLengkap = ''.obs; // State reaktif untuk nama lengkap
+  RxList<PelatihanUser> pelatihans = <PelatihanUser>[].obs;
+  RxList<Pelatihan> pelatihansDosen =
+      <Pelatihan>[].obs; // Untuk data yang ditampilkan
+  RxList<Sertifikasi> sertifikasis =
+      <Sertifikasi>[].obs; // Untuk data yang ditampilkan
+  RxList<Sertifikasi> sertifikasisDosen = <Sertifikasi>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadUserData();
     update(); // Force UI update
     loadNamaLengkap();
-  }
-
-  Future<void> refreshData() async {
-    try {
-      error.value = null;
-      await Future.wait([
-        loadUserData(),
-      ]);
-    } catch (e) {
-      print("Error refreshing data: $e");
-      error.value = e.toString();
-    }
+    loadPelatihans(); // Ambil data pelatihan
+    loadSertifikasis(); // Ambil data sertifikasi
+    loadPelatihansDosen();
+    loadSertifikasisDosen();
   }
 
   Future<void> loadNamaLengkap() async {
@@ -39,36 +39,71 @@ class HomeController extends BaseController {
     namaLengkap.value = nama ?? 'User'; // Update nilai reaktif
   }
 
-  Future<int?> getLevel() async {
+  int getTotalPelatihan() => pelatihans.length;
+  int getTotalSertifikasi() => sertifikasis.length;
+  int getTotalPelatihanDosen() => pelatihansDosen.length;
+  int getTotalSertifikasiDosen() => sertifikasisDosen.length;
+
+  /// Fungsi untuk mengambil daftar pelatihan
+  Future<void> loadPelatihans() async {
     try {
-      // Ambil data user dari API
-      final user = await _apiProvider.getUserData();
-      var level;
-      // Periksa apakah user data tidak null dan tipe sesuai
-      if (user != null) {
-        // Update namaLengkap pada userData (akses langsung namaLengkap)
-        userData.value?.idLevel =
-            level; // Menugaskan objek User ke userData.user
+      isLoading.value = true; // Menandakan loading dimulai
+      var data = await _homeService.getPelatihans(); // Memanggil API
+      if (data.isNotEmpty) {
+        pelatihans.assignAll(data); // Masukkan data ke observable
       } else {
-        print("User data is null or invalid");
+        pelatihans.clear(); // Hapus data lama jika tidak ada data baru
       }
     } catch (e) {
-      // Log error untuk debugging
-      print("Error in getNamaLengkap: $e");
+      print("Error saat mengambil pelatihan: $e");
+    } finally {
+      isLoading.value = false; // Pastikan loading selesai
     }
   }
 
-  Future<void> loadUserData() async {
+  /// Memuat daftar sertifikasi
+  Future<void> loadSertifikasis() async {
     try {
-      final user = await _apiProvider.getUserData();
-      if (user != null) {
-        userData.value = user;
-        print(
-            "data user profile ${userData.value!}  ${userData.value?.namaLengkap}");
+      isLoading.value = true;
+      var data = await _homeService.getSertifikasis();
+      sertifikasis.assignAll(data);
+    } catch (e) {
+      print("Error saat mengambil sertifikasi: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> loadPelatihansDosen() async {
+    try {
+      isLoading.value = true;
+      var data = await _homeService.getPelatihansDosen(); // Panggil fungsi API
+      if (data.isNotEmpty) {
+        pelatihansDosen.assignAll(data); // Masukkan data ke dalam observable
+      } else {
+        pelatihansDosen.clear(); // Pastikan tidak ada data lama
       }
     } catch (e) {
-      print("Error load user data: $e");
-      error.value = e.toString();
+      print("Error saat mengambil pelatihan: $e");
+    } finally {
+      isLoading.value = false; // Pastikan loading selesai
+    }
+  }
+
+  Future<void> loadSertifikasisDosen() async {
+    try {
+      isLoading.value = true;
+      var data =
+          await _homeService.getSertifikasisDosen(); // Panggil fungsi API
+      if (data.isNotEmpty) {
+        sertifikasisDosen.assignAll(data); // Masukkan data ke dalam observable
+      } else {
+        sertifikasisDosen.clear(); // Pastikan tidak ada data lama
+      }
+    } catch (e) {
+      print("Error saat mengambil sertifikasi: $e");
+    } finally {
+      isLoading.value = false; // Pastikan loading selesai
     }
   }
 }
