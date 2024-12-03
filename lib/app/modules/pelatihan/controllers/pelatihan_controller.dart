@@ -66,4 +66,34 @@ class PelatihanController extends BaseController {
       isLoading.value = false; // Menandakan loading selesai
     }
   }
+
+
+    /// Fungsi untuk menambahkan pelatihan baru
+  Future<void> addPelatihan(Map<String, dynamic> newPelatihanData) async {
+    try {
+      isLoading.value = true; // Menandakan proses dimulai
+      var response = await pelatihanService.addPelatihan(newPelatihanData); // Panggil API untuk tambah pelatihan
+      if (response != null) {
+        pelatihans.add(response); // Tambahkan data baru ke daftar pelatihan
+        Get.snackbar(
+          "Berhasil",
+          "Pelatihan baru berhasil ditambahkan",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green.withOpacity(0.7),
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print('Error saat menambahkan pelatihan: $e');
+      Get.snackbar(
+        "Gagal",
+        "Gagal menambahkan pelatihan: $e",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.7),
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false; // Menandakan proses selesai
+    }
+  }
 }
