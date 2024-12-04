@@ -56,7 +56,7 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
         'id_periode': selectedTahunPeriode,
         'id_bidang_minat': selectedBidangMinat,
         'id_matakuliah': selectedMataKuliah,
-        'user_id': myAccountController.myAccounts.first.userId,
+        'user_id': myAccountController.myAccounts.first.id,
         'nama_sertifikasi': namaSertifikasiController.text,
         'no_sertifikasi': noSertifikasiController.text,
         'jenis': selectedJenis,

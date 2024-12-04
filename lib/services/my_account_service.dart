@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
-import 'package:mobile_smarcerti/app/data/models/my_account_model.dart';
+import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +29,7 @@ class MyAccountService {
   }
 
   // Fungsi untuk mendapatkan data pelatihan
-  Future<List<MyAccount>> getMyAccounts() async {
+  Future<List<User>> getMyAccounts() async {
     try {
       print("MyAccountService: Calling API...");
       final token =
@@ -50,7 +50,7 @@ class MyAccountService {
       if (response.data['success'] == true && response.data['data'] != null) {
         // Convert single object to list with one item
         final accountData = response.data['data'] as Map<String, dynamic>;
-        final account = MyAccount.fromJson(accountData);
+        final account = User.fromJson(accountData);
         return [account];
       } else {
         print("MyAccountService: No data in response");
@@ -137,7 +137,7 @@ class MyAccountService {
   }
 
   // Fungsi untuk mendapatkan data user yang akan diupdate
-  Future<List<MyAccount>> getChangeProfiles() async {
+  Future<List<User>> getChangeProfiles() async {
     try {
       print("ChangeProfileService: Calling API...");
       final token =
@@ -158,7 +158,7 @@ class MyAccountService {
       if (response.data['success'] == true && response.data['data'] != null) {
         // Convert single object to list with one item
         final accountData = response.data['data'] as Map<String, dynamic>;
-        final account = MyAccount.fromJson(accountData);
+        final account = User.fromJson(accountData);
         return [account];
       } else {
         print("ChangeProfileService: No data in response");

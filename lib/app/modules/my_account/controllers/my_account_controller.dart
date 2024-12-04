@@ -1,16 +1,14 @@
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
-import 'package:mobile_smarcerti/app/data/models/my_account_model.dart';
-import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
+import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:mobile_smarcerti/services/my_account_service.dart';
 
 class MyAccountController extends BaseController {
   final MyAccountService _myAccountService = MyAccountService(ApiService());
-  final ApiProvider _apiProvider = ApiProvider();
-  RxList<MyAccount> myAccounts = <MyAccount>[].obs;
+  RxList<User> myAccounts = <User>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 

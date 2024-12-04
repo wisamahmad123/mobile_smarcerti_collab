@@ -1,4 +1,7 @@
-import 'package:mobile_smarcerti/app/data/models/auth_model.dart';
+import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
+import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
+import 'package:mobile_smarcerti/app/utils/constant.dart';
+import 'package:mobile_smarcerti/app/utils/constant.dart';
 
 class UserModel {
   User? user;
@@ -29,6 +32,8 @@ class User {
   String? avatar;
   String? createdAt;
   String? updatedAt;
+  List<MataKuliahMyAccountModel>? detailDaftarUserMatakuliah;
+  List<BidangMinatMyAccountModel>? detailDaftarUserBidangMinat;
 
   User({
     required this.id,
@@ -41,6 +46,8 @@ class User {
     required this.avatar,
     required this.createdAt,
     required this.updatedAt,
+    this.detailDaftarUserMatakuliah,
+    this.detailDaftarUserBidangMinat,
   });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -54,6 +61,17 @@ class User {
     avatar = json['avatar'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    detailDaftarUserMatakuliah = json['detail_daftar_user_matakuliah'] != null
+        ? List<MataKuliahMyAccountModel>.from(
+            json['detail_daftar_user_matakuliah']
+                .map((x) => MataKuliahMyAccountModel.fromJson(x)))
+        : [];
+    detailDaftarUserBidangMinat =
+        json['detail_daftar_user_bidang_minat'] != null
+            ? List<BidangMinatMyAccountModel>.from(
+                json['detail_daftar_user_bidang_minat']
+                    .map((x) => BidangMinatMyAccountModel.fromJson(x)))
+            : [];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,11 +86,18 @@ class User {
     data['avatar'] = this.avatar;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['detail_daftar_user_matakuliah'] = detailDaftarUserMatakuliah != null
+        ? detailDaftarUserMatakuliah!.map((x) => x.toJson()).toList()
+        : [];
+    data['detail_daftar_user_bidang_minat'] =
+        detailDaftarUserBidangMinat != null
+            ? detailDaftarUserBidangMinat!.map((x) => x.toJson()).toList()
+            : [];
     return data;
   }
 
   String get avatarUrl {
-    const baseUrl = 'http://192.168.1.6:8000/storage/photos/';
+    var baseUrl = '${ApiConstants.hostname}storage/photos/';
     return '$baseUrl$avatar';
   }
 }

@@ -10,10 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProfileController extends BaseController {
   final MyAccountService _profileService = MyAccountService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
-  final profiles = Rx<MyAccount?>(null);
+  final profiles = Rx<User?>(null);
   var namaLengkap = ''.obs; // State reaktif untuk nama lengkap
-  var avatarUrl = ''.obs; // State reaktif untuk nama lengkap
-  RxList<MyAccount> myAccount = <MyAccount>[].obs;
+  RxList<User> myAccount = <User>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
@@ -44,22 +43,24 @@ class ProfileController extends BaseController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? avatar = prefs.getString('avatarUrl');
     print('Avatar URL from SharedPreferences: $avatar'); // Debugging
-    avatarUrl.value = avatar ?? ''; // Update nilai reaktif
   }
 
   Future<void> loadProfiles() async {
     try {
       isLoading.value = true;
       var data = await _profileService.getMyAccounts(); // Panggil fungsi API
+      print("Raw API Response Profile: $data"); // Lihat data mentah dari API
       if (data.isNotEmpty) {
-        print('Full avatar URL: $avatarUrl'); // URL lengkap
-        myAccount.assignAll(
-            data as Iterable<MyAccount>); // Masukkan data ke dalam observable
+        print(
+            "Mengambil data untuk profile======================================================");
+        myAccount.assignAll(data); // Masukkan data ke dalam observable
       } else {
+        print(
+            "Tidak Mengambil data untuk profile======================================================");
         myAccount.clear(); // Pastikan tidak ada data lama
       }
     } catch (e) {
-      print("Error saat mengambil pelatihan: $e");
+      print("Error saat mengambil profile: $e");
     } finally {
       isLoading.value = false; // Pastikan loading selesai
     }

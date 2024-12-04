@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
 import 'package:mobile_smarcerti/app/modules/profile/controllers/profile_controller.dart';
 import '../../../../pages/logout_dialog.dart';
 import '../../my_account/views/my_account.dart';
@@ -7,7 +8,7 @@ import '../../change_password/views/change_password_page.dart';
 
 class BodyProfile extends StatelessWidget {
   BodyProfile({super.key});
-  final ProfileController controller = Get.put((ProfileController()));
+  final MyAccountController controller = Get.put((MyAccountController()));
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +17,34 @@ class BodyProfile extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          Center(
-            child: CircleAvatar(
-              radius: 60,
-              backgroundImage: controller.avatarUrl.isNotEmpty
-                  ? NetworkImage(controller.avatarUrl.value) // Gambar dari URL
-                  : AssetImage('assets/images/profile-dosen.jpg')
-                      as ImageProvider, // Gambar default
-            ),
-          ),
-          const SizedBox(height: 10),
           Obx(() {
-            return Text(
-              '${controller.namaLengkap.value}',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 55, 94, 151),
-              ),
+            if (controller.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (controller.myAccounts.isEmpty) {
+              return const Center(child: Text('No data available'));
+            }
+            final account = controller.myAccounts.first;
+            return Column(
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: account.avatarUrl.isNotEmpty
+                      ? NetworkImage(account.avatarUrl)
+                      : const AssetImage('assets/images/profile-dosen.jpg')
+                          as ImageProvider,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '${account.namaLengkap}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ],
             );
           }),
           const SizedBox(height: 20),
@@ -61,7 +72,7 @@ class BodyProfile extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const MyAccount(),
-                      ), // Navigate to MyAccountDosen
+                      ),
                     );
                   },
                 ),

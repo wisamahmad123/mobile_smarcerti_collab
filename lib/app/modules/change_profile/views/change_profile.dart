@@ -52,27 +52,35 @@ class ChangeProfileScreen extends StatelessWidget {
                     controller: controller.usernameController,
                   ),
                   MultiSelectDialogField(
-                      buttonText: const Text('Bidang Minat'),
-                      title: const Text('Bidang Minat'),
-                      items: controller.bidangMinatList
-                          .map((bidangMinat) => MultiSelectItem<String>(
+                    buttonText: const Text('Bidang Minat'),
+                    title: const Text('Bidang Minat'),
+                    items: controller.bidangMinatList
+                        .map((bidangMinat) => MultiSelectItem<String>(
                               bidangMinat.idBidangMinat.toString(),
-                              bidangMinat.namaBidangMinat))
-                          .toList(),
-                      onConfirm: (val) {
-                        controller.selectedBidangMinat = val;
-                      }),
+                              bidangMinat.namaBidangMinat,
+                            ))
+                        .toList(),
+                    initialValue:
+                        controller.selectedBidangMinat, // Auto-select opsi
+                    onConfirm: (val) {
+                      controller.selectedBidangMinat = val;
+                    },
+                  ),
                   MultiSelectDialogField(
-                      buttonText: const Text('Mata Kuliah'),
-                      title: const Text('Mata Kuliah'),
-                      items: controller.mataKuliahList
-                          .map((mataKuliah) => MultiSelectItem<String>(
+                    buttonText: const Text('Mata Kuliah'),
+                    title: const Text('Mata Kuliah'),
+                    items: controller.mataKuliahList
+                        .map((mataKuliah) => MultiSelectItem<String>(
                               mataKuliah.idMatakuliah.toString(),
-                              mataKuliah.namaMatakuliah))
-                          .toList(),
-                      onConfirm: (val) {
-                        controller.selectedMataKuliah = val;
-                      }),
+                              mataKuliah.namaMatakuliah,
+                            ))
+                        .toList(),
+                    initialValue:
+                        controller.selectedMataKuliah, // Auto-select opsi
+                    onConfirm: (val) {
+                      controller.selectedMataKuliah = val;
+                    },
+                  ),
                   SizedBox(height: 20),
                   LabelField(
                     label: 'Nomor Telepon',

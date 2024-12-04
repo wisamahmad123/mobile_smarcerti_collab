@@ -443,7 +443,6 @@
 //   }
 // }
 
-
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:mobile_smarcerti/app/modules/pelatihan/controllers/pelatihan_controller.dart';
@@ -652,7 +651,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -832,7 +830,8 @@ class DropdownField extends StatelessWidget {
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           items: options
-              .map((option) => DropdownMenuItem(value: option, child: Text(option)))
+              .map((option) =>
+                  DropdownMenuItem(value: option, child: Text(option)))
               .toList(),
           onChanged: (_) {},
           onSaved: onSaved,
@@ -945,7 +944,7 @@ class MultiSelectDropdownField extends StatelessWidget {
           items: options.map((e) => MultiSelectItem(e, e)).toList(),
           onConfirm: (values) => onSaved(values),
           decoration: const BoxDecoration(
-            border: Border.all(),
+            // border: Border.all(),
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
         ),
