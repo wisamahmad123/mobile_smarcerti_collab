@@ -104,7 +104,6 @@
 //                   itemBuilder: (context, index) {
 //                     final pelatihan = allData[index];
 
-
 //                     return Card(
 //                       color: Colors.white,
 //                       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -112,7 +111,7 @@
 //                         leading: const Icon(
 //                           Icons.event,
 //                           size: 35.0,
-//                           color: Color.fromARGB(255, 34, 139, 34), // Warna hijau untuk pelatihan
+//                           color: Color.fromARGB(255, 55, 94, 151), // Warna hijau untuk pelatihan
 //                         ),
 //                         title: Text(
 //                           pelatihan.namaPelatihan,
@@ -158,7 +157,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/pelatihan/controllers/pelatihan_controller.dart';
@@ -194,7 +192,8 @@ class ListPelatihan extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10), // Spasi antara search dan tombol filter
+                const SizedBox(
+                    width: 10), // Spasi antara search dan tombol filter
 
                 // Tombol Filter
                 Container(
@@ -219,13 +218,15 @@ class ListPelatihan extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ListTile(
-                                  title: const Text("Filter Berdasarkan Tanggal"),
+                                  title:
+                                      const Text("Filter Berdasarkan Tanggal"),
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(
-                                  title: const Text("Filter Berdasarkan Lokasi"),
+                                  title:
+                                      const Text("Filter Berdasarkan Lokasi"),
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
@@ -273,21 +274,23 @@ class ListPelatihan extends StatelessWidget {
                         leading: const Icon(
                           Icons.event,
                           size: 35.0,
-                          color: Color.fromARGB(255, 34, 139, 34), // Warna hijau untuk pelatihan
+                          color: Color.fromARGB(
+                              255, 55, 94, 151), // Warna hijau untuk pelatihan
                         ),
                         title: Text(
                           pelatihan.namaPelatihan,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 34, 139, 34), // Warna title diperbarui
+                            color: Color.fromARGB(
+                                255, 55, 94, 151), // Warna title diperbarui
                           ),
                         ),
                         subtitle: Text(
                           "Tanggal: ${pelatihan.tanggal.toLocal()}",
                           style: const TextStyle(
                             fontSize: 14,
-                            color: Color.fromARGB(255, 34, 139, 34),
+                            color: Color.fromARGB(255, 55, 94, 151),
                           ),
                         ),
                         onTap: () {
@@ -300,11 +303,10 @@ class ListPelatihan extends StatelessWidget {
                             ),
                           );
                         },
-
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
                           size: 20.0,
-                          color: Color.fromARGB(255, 34, 139, 34),
+                          color: Color.fromARGB(255, 55, 94, 151),
                         ),
                       ),
                     );
@@ -316,7 +318,6 @@ class ListPelatihan extends StatelessWidget {
         ),
       ),
 
-      
       // Floating Action Button
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -324,7 +325,8 @@ class ListPelatihan extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPelatihanPage(), // Pastikan halaman AddPelatihanPage sudah dibuat
+              builder: (context) =>
+                  AddPelatihanPage(), // Pastikan halaman AddPelatihanPage sudah dibuat
             ),
           );
         },

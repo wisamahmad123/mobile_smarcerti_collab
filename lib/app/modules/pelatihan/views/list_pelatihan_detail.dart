@@ -162,7 +162,7 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
         '$label: ${value ?? '$label tidak tersedia'}',
         style: const TextStyle(
           fontSize: 16,
-          color: Color.fromARGB(255, 34, 139, 34), // Warna teks hijau
+          color: Color.fromARGB(255, 55, 94, 151), // Warna teks hijau
         ),
       ),
     );
