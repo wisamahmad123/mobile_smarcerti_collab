@@ -8,11 +8,13 @@ import 'package:mobile_smarcerti/app/data/models/my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
+import 'package:mobile_smarcerti/app/modules/profile/controllers/profile_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:mobile_smarcerti/services/my_account_service.dart';
 
 class ChangeProfileController extends BaseController {
   final MyAccountService _myAccountService = MyAccountService(ApiService());
+  final ProfileController controller = Get.put(ProfileController());
   final ApiProvider _apiProvider = ApiProvider();
 
   // Observable variables for profile data
@@ -143,8 +145,6 @@ class ChangeProfileController extends BaseController {
       // Memanggil API update profile
       final response = await _apiProvider.updateProfile(updateData);
 
-      print("Response: $response");
-      print("Update Data Sent: $updateData");
       if (response.statusCode == 200) {
         print("Update successful: ${response.data}");
       } else {
@@ -167,6 +167,8 @@ class ChangeProfileController extends BaseController {
           snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
+      await loadChangeProfiles();
+      await controller.loadProfiles();
     }
   }
 

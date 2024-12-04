@@ -54,31 +54,33 @@ class ChangeProfileScreen extends StatelessWidget {
                   MultiSelectDialogField(
                     buttonText: const Text('Bidang Minat'),
                     title: const Text('Bidang Minat'),
-                    items: controller.bidangMinatList
-                        .map((bidangMinat) => MultiSelectItem<String>(
-                              bidangMinat.idBidangMinat.toString(),
-                              bidangMinat.namaBidangMinat,
-                            ))
-                        .toList(),
-                    initialValue:
-                        controller.selectedBidangMinat, // Auto-select opsi
+                    items: controller.bidangMinatList.map((bidangMinat) {
+                      return MultiSelectItem<String>(
+                        bidangMinat.idBidangMinat.toString(),
+                        bidangMinat.namaBidangMinat,
+                      );
+                    }).toList(),
+                    initialValue: controller
+                        .selectedBidangMinat, // Data lama tetap terpilih
                     onConfirm: (val) {
-                      controller.selectedBidangMinat = val;
+                      controller.selectedBidangMinat =
+                          val; // Update pilihan baru
                     },
                   ),
                   MultiSelectDialogField(
                     buttonText: const Text('Mata Kuliah'),
                     title: const Text('Mata Kuliah'),
-                    items: controller.mataKuliahList
-                        .map((mataKuliah) => MultiSelectItem<String>(
-                              mataKuliah.idMatakuliah.toString(),
-                              mataKuliah.namaMatakuliah,
-                            ))
-                        .toList(),
-                    initialValue:
-                        controller.selectedMataKuliah, // Auto-select opsi
+                    items: controller.mataKuliahList.map((mataKuliah) {
+                      return MultiSelectItem<String>(
+                        mataKuliah.idMatakuliah.toString(),
+                        mataKuliah.namaMatakuliah,
+                      );
+                    }).toList(),
+                    initialValue: controller
+                        .selectedMataKuliah, // Data lama tetap terpilih
                     onConfirm: (val) {
-                      controller.selectedMataKuliah = val;
+                      controller.selectedMataKuliah =
+                          val; // Update pilihan baru
                     },
                   ),
                   SizedBox(height: 20),
@@ -106,6 +108,14 @@ class ChangeProfileScreen extends StatelessWidget {
                                   context); // Memanggil metode dialog
                               // Handle save action here
                             },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF375E97),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
                             child: const Text(
                               'Save',
                               style: TextStyle(
