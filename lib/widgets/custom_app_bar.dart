@@ -32,13 +32,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Flexible(
                 child: Text(
-                  'Hi, ${account.namaLengkap}!',
+                  'Hi, ${account.namaLengkap}! \nSelamat Datang di SMARTCERTI' ,
                   style: const TextStyle(
                     fontFamily: 'Ramabhadra',
-                    fontSize: 24.0,
+                    fontSize: 22.0,
                     color: Colors.white,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.visible,
                 ),
               ),
             ],

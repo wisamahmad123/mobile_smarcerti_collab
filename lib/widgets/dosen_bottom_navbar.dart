@@ -7,7 +7,7 @@ import '../pages/profile_dosen.dart'; // Pastikan import ini ada
 class DosenBottomNavbar extends StatelessWidget {
   final int currentIndex;
 
-  const DosenBottomNavbar({super.key, required this.currentIndex});
+  const DosenBottomNavbar({super.key, required this.currentIndex });
 
   @override
   Widget build(BuildContext context) {

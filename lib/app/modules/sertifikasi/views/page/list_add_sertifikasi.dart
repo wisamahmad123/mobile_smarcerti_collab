@@ -79,7 +79,7 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
         context: context,
         initialDate: selectedDate, // Refer step 1
         firstDate: DateTime(2000),
-        lastDate: DateTime(2025),
+        lastDate: DateTime(2100),
       );
       if (picked != null && picked != selectedDate)
         setState(() {
@@ -98,6 +98,7 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
     });
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -105,76 +106,65 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                //Nama sertifikasi
+                 InputField(
+                  label: 'Nama Sertifikasi',
+                  controller: namaSertifikasiController,
+                  validator: (value) => value!.isEmpty ? 'Nama Sertifikasi wajib diisi' : null,
+                ),
+
+                //Nomor sertifikat
+                InputField(
+                  label: 'No Sertifikasi',
+                  controller: noSertifikasiController,
+                  validator: (value) => value!.isEmpty ? 'No Sertifikasi wajib diisi' : null,
+                ),
+
                 // Vendor Dropdown
-                Obx(() {
+               Obx(() {
                   if (sertifikasiController.isLoading.value) {
                     return const CircularProgressIndicator();
                   }
                   if (sertifikasiController.vendorList.isEmpty) {
                     return const Text('Vendor tidak tersedia');
                   }
-                  return DropdownButtonFormField<String>(
-                    value: selectedVendor,
-                    decoration: const InputDecoration(labelText: 'Nama Vendor'),
+                  return DropdownField(
+                    label: 'Nama Vendor',
+                    // Menggunakan item dari vendorList dan mengupdate selectedVendor
+                    // Anda tetap menggunakan logic yang sama untuk mendapatkan data
                     onChanged: (value) {
-                      selectedVendor = value;
+                      selectedVendor = value;  // Mengupdate selectedVendor berdasarkan pilihan pengguna
                     },
+                    value: selectedVendor,
                     items: sertifikasiController.vendorList.map((vendor) {
                       return DropdownMenuItem<String>(
-                        value: vendor.idVendorSertifikasi
-                            .toString(), // Pastikan nama sesuai dengan model VendorSertifikasi
+                        value: vendor.idVendorSertifikasi.toString(), // Id yang digunakan untuk pilihan
                         child: Text(vendor.nama),
                       );
                     }).toList(),
-                    validator: (value) =>
-                        value == null ? 'Vendor harus dipilih' : null,
+                    validator: (value) => value == null ? 'Vendor harus dipilih' : null,
                   );
                 }),
 
-                // Jenis Bidang Dropdown
-                DropdownButtonFormField<String>(
+                 //jenis sertifikasi
+                DropdownField(
+                  label: 'Jenis Sertifikasi',
                   value: selectedJenis,
-                  decoration:
-                      const InputDecoration(labelText: 'Jenis Sertifikasi'),
-                  onChanged: (value) {
-                    selectedJenis = value;
-                  },
                   items: jenisSertifikasi.map((jenis) {
                     return DropdownMenuItem<String>(
                       value: jenis,
                       child: Text(jenis),
                     );
                   }).toList(),
+                  onChanged: (value) {
+                    selectedJenis = value;
+                  },
                   validator: (value) =>
                       value == null ? 'Jenis Sertifikasi harus dipilih' : null,
                 ),
 
-                Obx(() {
-                  if (sertifikasiController.isLoading.value) {
-                    return const CircularProgressIndicator();
-                  }
-                  if (sertifikasiController.tahunPeriode.isEmpty) {
-                    return const Text('Tahun Periode');
-                  }
-                  return DropdownButtonFormField<String>(
-                    value: selectedTahunPeriode,
-                    decoration:
-                        const InputDecoration(labelText: 'Tahun Periode'),
-                    onChanged: (value) {
-                      selectedTahunPeriode = value;
-                    },
-                    items: sertifikasiController.tahunPeriode.map((periode) {
-                      return DropdownMenuItem<String>(
-                        value: periode.idPeriode.toString(),
-                        child: Text(periode.tahunPeriode),
-                      );
-                    }).toList(),
-                    validator: (value) => value == null
-                        ? 'Jenis Sertifikasi harus dipilih'
-                        : null,
-                  );
-                }),
 
+                // Jenis Bidang
                 Obx(() {
                   if (sertifikasiController.isLoading.value) {
                     return const CircularProgressIndicator();
@@ -182,70 +172,54 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                   if (sertifikasiController.jenisSertifikasiList.isEmpty) {
                     return const Text('Jenis Bidang');
                   }
-                  return DropdownButtonFormField<String>(
+                  return DropdownField(
+                    label: 'Jenis Bidang',
                     value: selectedJenisBidang,
-                    decoration:
-                        const InputDecoration(labelText: 'Jenis Bidang'),
-                    onChanged: (value) {
-                      selectedJenisBidang = value;
-                    },
-                    items:
-                        sertifikasiController.jenisSertifikasiList.map((jenis) {
+                    items: sertifikasiController.jenisSertifikasiList.map((jenis) {
                       return DropdownMenuItem<String>(
                         value: jenis.idJenisSertifikasi.toString(),
                         child: Text(jenis.namaJenisSertifikasi),
                       );
                     }).toList(),
+                    onChanged: (value) {
+                      selectedJenisBidang = value;
+                    },
                     validator: (value) =>
                         value == null ? 'Jenis Bidang harus dipilih' : null,
                   );
                 }),
 
-                // Input lainnya
-                TextFormField(
-                  controller: namaSertifikasiController,
-                  decoration:
-                      const InputDecoration(labelText: 'Nama Sertifikasi'),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Nama Sertifikasi wajib diisi' : null,
-                ),
-                TextFormField(
-                  controller: noSertifikasiController,
-                  decoration:
-                      const InputDecoration(labelText: 'No Sertifikasi'),
-                  validator: (value) =>
-                      value!.isEmpty ? 'No Sertifikasi wajib diisi' : null,
-                ),
-                TextFormField(
-                  controller: biayaController,
-                  decoration:
-                      const InputDecoration(labelText: 'Biaya Sertifikasi'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Biaya Sertifikasi wajib diisi' : null,
-                ),
-                TextFormField(
-                  controller: kuotaController,
-                  readOnly: true,
-                  decoration: const InputDecoration(labelText: 'Kuota'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Kuota wajib diisi' : null,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Masa Berlaku'),
-                  readOnly: true,
-                  controller: masaBerlaku,
-                  onTap: () {
-                    _selectDate(context, masaBerlaku);
-                  },
-                  validator: (value) =>
-                      value!.isEmpty ? 'Masa Berlaku wajib diisi' : null,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Tanggal Sertifikasi'),
-                  readOnly: true,
+                // Tahun Periode
+                Obx(() {
+                  if (sertifikasiController.isLoading.value) {
+                    return const CircularProgressIndicator();
+                  }
+                  if (sertifikasiController.tahunPeriode.isEmpty) {
+                    return const Text('Tahun Periode');
+                  }
+                  return DropdownField(
+                    label: 'Tahun Periode',
+                    value: selectedTahunPeriode,
+                    items: sertifikasiController.tahunPeriode.map((periode) {
+                      return DropdownMenuItem<String>(
+                        value: periode.idPeriode.toString(),
+                        child: Text(periode.tahunPeriode),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      selectedTahunPeriode = value;
+                    },
+                    validator: (value) => value == null
+                        ? 'Tahun Periode hars dipilih '
+                        : null,
+                  );
+                }),
+
+                //tanggal sertifikasi
+                 InputField(
+                  label: 'Tanggal Sertifikasi',
                   controller: tanggal,
+                  readOnly: true,
                   onTap: () {
                     _selectDate(context, tanggal);
                   },
@@ -253,6 +227,62 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                       value!.isEmpty ? 'Tanggal Sertifikasi wajib diisi' : null,
                 ),
 
+                //masa berlaku
+                InputField(
+                  label: 'Masa Berlaku',
+                  controller: masaBerlaku,
+                  readOnly: true,
+                  onTap: () {
+                    _selectDate(context, masaBerlaku);
+                  },
+                  validator: (value) =>
+                      value!.isEmpty ? 'Masa Berlaku wajib diisi' : null,
+                ),
+
+                //kuota
+                InputField(
+                  label: 'Kuota',
+                  controller: kuotaController,
+                  readOnly: true,
+                  validator: (value) => value!.isEmpty ? 'Kuota wajib diisi' : null,
+                  ),
+                 
+
+                //biaya sertifikasi
+                InputField(
+                  label: 'Biaya Sertifikasi',
+                  controller: biayaController,
+                  validator: (value) => value!.isEmpty ? 'Biaya Sertifikasi wajib diisi' : null,
+                ),
+
+                
+                //bidang minat
+                 MultiSelectDialogField(
+                    buttonText: const Text('Bidang Minat'),
+                    title: const Text('Bidang Minat'),
+                    items: sertifikasiController.bidangMinatList
+                        .map((bidangMinat) => MultiSelectItem<String>(
+                            bidangMinat.idBidangMinat.toString(),
+                            bidangMinat.namaBidangMinat))
+                        .toList(),
+                    onConfirm: (val) {
+                      selectedBidangMinat = val;
+                    }),
+
+                //mata kuliah
+                 MultiSelectDialogField(
+                    buttonText: const Text('Mata Kuliah'),
+                    title: const Text('Mata Kuliah'),
+                    items: sertifikasiController.mataKuliahList
+                        .map((mataKuliah) => MultiSelectItem<String>(
+                            mataKuliah.idMatakuliah.toString(),
+                            mataKuliah.namaMatakuliah))
+                        .toList(),
+                    onConfirm: (val) {
+                      selectedMataKuliah = val;
+                    }),
+
+                //upload file bukti
                 Row(
                   children: [
                     ElevatedButton(
@@ -277,35 +307,64 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                   ],
                 ),
 
-                MultiSelectDialogField(
-                    buttonText: const Text('Bidang Minat'),
-                    title: const Text('Bidang Minat'),
-                    items: sertifikasiController.bidangMinatList
-                        .map((bidangMinat) => MultiSelectItem<String>(
-                            bidangMinat.idBidangMinat.toString(),
-                            bidangMinat.namaBidangMinat))
-                        .toList(),
-                    onConfirm: (val) {
-                      selectedBidangMinat = val;
-                    }),
 
-                MultiSelectDialogField(
-                    buttonText: const Text('Mata Kuliah'),
-                    title: const Text('Mata Kuliah'),
-                    items: sertifikasiController.mataKuliahList
-                        .map((mataKuliah) => MultiSelectItem<String>(
-                            mataKuliah.idMatakuliah.toString(),
-                            mataKuliah.namaMatakuliah))
-                        .toList(),
-                    onConfirm: (val) {
-                      selectedMataKuliah = val;
-                    }),
 
                 // Tombol Tambah Sertifikasi
-                ElevatedButton(
-                  onPressed: () => _createBukti(),
-                  child: const Text('Tambah Sertifikasi'),
+                Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                SizedBox(
+                width: 80,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // Mengembalikan ke halaman sebelumnya
+                    Navigator.pop(context);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 239, 84, 40),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 239, 84, 40),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
+              ),
+
+               const SizedBox(width: 20), 
+                 SizedBox(
+                  width: 80, // Mengatur lebar yang sama untuk tombol Save
+                  child: ElevatedButton(
+                    onPressed: () => _createBukti(), 
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 10,),
+                      backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                
+              ],
+            ),
               ],
             ),
           ),
@@ -314,3 +373,141 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
     );
   }
 }
+
+
+
+class InputField extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+  final TextInputType? keyboardType;
+  final bool isReadOnly;
+  final bool? readOnly;
+  final VoidCallback? onTap;
+  final FormFieldValidator<String>? validator;
+  final double? fieldWidth; // Menambahkan properti lebar field
+  final double? fieldHeight; // Menambahkan properti tinggi field
+
+  const InputField({
+    super.key,
+    required this.label,
+    required this.controller,
+    this.keyboardType,
+    this.isReadOnly = false,
+    this.readOnly = false,
+    this.onTap,
+    this.validator,
+    this.fieldWidth, // Lebar field input
+    this.fieldHeight = 48.0, // Tinggi default field input
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 55, 94, 151),
+          ),
+        ),
+        const SizedBox(height: 3),
+        SizedBox(
+          width: fieldWidth ?? double.infinity, // Atur lebar field
+          height: fieldHeight, // Atur tinggi field
+          child: TextFormField(
+            controller: controller,
+            readOnly: isReadOnly,
+            onTap: onTap,
+            keyboardType: keyboardType,
+            validator: validator, // Validasi field
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 15,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
+
+class DropdownField extends StatelessWidget {
+  final String label;
+  final String? value;
+  final List<DropdownMenuItem<String>> items;
+  final ValueChanged<String?> onChanged;
+  final String? Function(String?)? validator;
+  final double? fieldWidth; // Menambahkan properti lebar field
+  final double? fieldHeight; // Menambahkan properti tinggi field
+
+  const DropdownField({
+    super.key,
+    required this.label,
+    required this.items,
+    required this.onChanged,
+    this.value,
+    this.validator,
+    this.fieldWidth, // Lebar field input
+    this.fieldHeight = 48.0, // Tinggi default field input
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white, // Background putih untuk widget ini
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 55, 94, 151),
+            ),
+          ),
+          const SizedBox(height: 3), // Jarak antara label dan dropdown
+          SizedBox(
+            width: fieldWidth ?? double.infinity, // Atur lebar dropdown
+            height: fieldHeight, // Atur tinggi dropdown
+            child: DropdownButtonFormField<String>(
+              value: value,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 55, 94, 151)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 30, 144, 255)),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                fillColor: Colors.white, // Background putih untuk dropdown
+                filled: true,
+              ),
+              items: items,
+              onChanged: onChanged,
+              validator: validator,
+              dropdownColor: Colors.white, // Background putih untuk pilihan dropdown
+            ),
+          ),
+          const SizedBox(height: 8), // Jarak di bawah DropdownButtonFormField
+        ],
+      ),
+    );
+  }
+}
+

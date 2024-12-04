@@ -7,7 +7,7 @@ import 'package:mobile_smarcerti/app/modules/sertifikasi/views/add_sertifikasi_p
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
 
 class ListSertifikasi extends StatefulWidget {
-  const ListSertifikasi({Key? key}) : super(key: key);
+  const ListSertifikasi({Key? key}) : super(key: key );
 
   @override
   _ListSertifikasiState createState() => _ListSertifikasiState();
@@ -83,7 +83,6 @@ class _ListSertifikasiState extends State<ListSertifikasi> {
                     width: 10), // Spasi antara search dan tombol filter
 
                 // Tombol Filter
-
                 Obx(() {
                   if (controller.tahunPeriode.isEmpty) {
                     return const Text('');
@@ -113,11 +112,12 @@ class _ListSertifikasiState extends State<ListSertifikasi> {
                 })
               ],
             ),
-
             const SizedBox(height: 10),
 
             // Daftar Sertifikasi
             Expanded(
+              child: RefreshIndicator(
+                onRefresh: controller.onRefreshSertifikasis,
               child: Obx(() {
                 if (controller.isLoading.value) {
                   return const Center(
@@ -181,6 +181,7 @@ class _ListSertifikasiState extends State<ListSertifikasi> {
                   },
                 );
               }),
+              )
             ),
           ],
         ),

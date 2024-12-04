@@ -6,11 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/add_bukti_page.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:mobile_smarcerti/services/pdf_service.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/pdf_viewer_page.dart'; // Add this import
-import 'package:mobile_smarcerti/app/modules/sertifikasi/views/page/list_add_bukti.dart'; // Add this import
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/pdf_viewer_page.dart'; // Import PdfViewerPage
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/page/list_add_bukti.dart'; // Import ListAddBukti
 
 class ListSertifikasiDetail extends StatefulWidget {
   final int idSertifikasi;
@@ -31,60 +32,53 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
   @override
   void initState() {
     super.initState();
-
     initData();
   }
 
   Future<void> initData() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await controller.loadSertifikasiById(widget.idSertifikasi);
-      print(controller.sertifikasiDetail.value!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi);
-      if(controller.sertifikasiDetail.value!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi != ''){
-
-      createFileOfPdfUrl().then((f) {
-        setState(() {
-          remotePDFpath = f.path;
-        });
-      });
+      if (controller.sertifikasiDetail.value != null &&
+          controller.sertifikasiDetail.value!.detailPesertaSertifikasi.isNotEmpty) {
+        String? buktiSertifikasi =
+            controller.sertifikasiDetail.value!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi;
+        if (buktiSertifikasi != null && buktiSertifikasi.isNotEmpty) {
+          createFileOfPdfUrl().then((f) {
+            setState(() {
+              remotePDFpath = f.path;
+            });
+          });
+        }
       }
     });
   }
 
   Future<File> createFileOfPdfUrl() async {
     Completer<File> completer = Completer();
-    print("Start download file from internet!");
     try {
       final sertifikasi = controller.sertifikasiDetail.value;
-      final fileName =
-          sertifikasi!.detailPesertaSertifikasi[1].pivot!.buktiSertifikasi ??
-              '';
-      const hostname = ApiConstants.hostname;
-      final filename = fileName.substring(fileName.lastIndexOf("/") + 1);
+      final fileName = sertifikasi!.detailPesertaSertifikasi[0].pivot!.buktiSertifikasi ?? '';
+      final url = '${ApiConstants.hostname}storage/bukti_sertifikasi/$fileName';
 
-      final url =
-          '${hostname}storage/bukti_sertifikasi/$filename'; // Ganti dengan URL server Anda";
-      print(url);
       var request = await HttpClient().getUrl(Uri.parse(url));
       var response = await request.close();
-      var bytes = await consolidateHttpClientResponseBytes(response);
-      var dir = await getApplicationDocumentsDirectory();
-      print("Download files");
-      print("${dir.path}/$filename");
-      File file = File("${dir.path}/$filename");
-
-      await file.writeAsBytes(bytes, flush: true);
-      completer.complete(file);
+      if (response.statusCode == 200) {
+        var bytes = await consolidateHttpClientResponseBytes(response);
+        var dir = await getApplicationDocumentsDirectory();
+        File file = File("${dir.path}/$fileName");
+        await file.writeAsBytes(bytes, flush: true);
+        completer.complete(file);
+      } else {
+        completer.completeError('Failed to load PDF');
+      }
     } catch (e) {
-      throw Exception('Error parsing asset file!: $e');
+      completer.completeError('Error downloading file: $e');
     }
-
     return completer.future;
   }
 
   Future<File> fromAsset(String asset, String filename) async {
-    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
     Completer<File> completer = Completer();
-
     try {
       var dir = await getApplicationDocumentsDirectory();
       File file = File("${dir.path}/$filename");
@@ -93,177 +87,362 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);
     } catch (e) {
-      throw Exception('Error parsing asset file!');
+      completer.completeError('Error parsing asset file!');
     }
-
     return completer.future;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Obx(() {
+      if (controller.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
 
-        final sertifikasi = controller.sertifikasiDetail.value;
+      final sertifikasi = controller.sertifikasiDetail.value;
 
-        print(sertifikasi);
+      if (sertifikasi == null) {
+        return const Center(child: Text('Detail sertifikasi tidak ditemukan.'));
+      }
 
-        if (sertifikasi == null) {
-          return const Center(
-            child: Text('Detail sertifikasi tidak ditemukan.'),
-          );
-        }
+      return SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // Informasi Sertifikasi
+            //Nama Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Nama Sertifikasi',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.namaSertifikasi ?? 'Tidak tersedia',
+                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
+                ),
+              ),
+            ),
 
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Text(
-                sertifikasi.namaSertifikasi,
+            //No Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'No Sertifikasi',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.detailPesertaSertifikasi.isNotEmpty &&
+                      sertifikasi.detailPesertaSertifikasi[0].pivot != null
+                  ? sertifikasi.detailPesertaSertifikasi[0].pivot!.noSertifikasi
+                  : 'Tidak tersedia',
+                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
+                ),
+              ),
+            ),
+
+            //Vendor Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Vendor Sertifikasi',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.vendorSertifikasi?.nama ?? 'Tidak tersedia',
+                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),),
+              ),
+            ),
+
+            //Jenis Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Jenis Sertifikasi',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 55, 94, 151),
                 ),
               ),
-              const SizedBox(height: 10),
-              _buildDetailText('Vendor', sertifikasi.vendorSertifikasi.nama),
-              _buildDetailText('Jenis Bidang',
-                  sertifikasi.jenisSertifikasi.namaJenisSertifikasi),
-              _buildDetailText('Tanggal Sertifikasi',
-                  sertifikasi.tanggal?.toLocal().toString()),
-              _buildDetailText(
-                  'Tahun Periode', sertifikasi.periode.tahunPeriode),
-              _buildDetailText(
-                  'Biaya',
-                  sertifikasi.biaya.isNotEmpty
-                      ? sertifikasi.biaya
-                      : 'Tidak tersedia'),
-              _buildDetailText(
-                'No Sertifikasi',
-                sertifikasi.detailPesertaSertifikasi.isNotEmpty &&
-                        sertifikasi.detailPesertaSertifikasi[1].pivot != null
-                    ? sertifikasi
-                        .detailPesertaSertifikasi[1].pivot!.noSertifikasi
-                    : 'Tidak tersedia',
+              subtitle: Text(
+                sertifikasi.jenis,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 55, 94, 151),
+                ),
               ),
-              _buildDetailText('Jenis Sertifikasi', sertifikasi.jenis),
-              _buildDetailText(
-                'Masa Berlaku',
-                sertifikasi.masaBerlaku?.toLocal().toString().split(" ")[0],
+            ),
+          ),
+
+
+            //Jenis Bidang Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Jenis Bidang',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 55, 94, 151),
+                ),
               ),
-              _buildDetailText(
+              subtitle: Text(
+                sertifikasi.jenisSertifikasi.namaJenisSertifikasi,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 55, 94, 151),
+                ),
+              ),
+            ),
+          ),
+
+          //Tahun Periode Sertifikasi
+          Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Tahun Periode',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.periode.tahunPeriode,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+          //Tanggal Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Tanggal Sertifikasi',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.tanggal?.toLocal().toString() ?? 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            //Masa Berlaku Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Masa Berlaku',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.masaBerlaku?.toLocal().toString().split(" ")[0] ?? 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            
+            //Biaya Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Biaya',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.biaya?.isNotEmpty == true ? sertifikasi.biaya : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            //Bidang Minat Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
                 'Bidang Minat',
-                sertifikasi.bidangMinatSertifikasi.isNotEmpty
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                   sertifikasi.bidangMinatSertifikasi.isNotEmpty
                     ? sertifikasi.bidangMinatSertifikasi
                         .map((e) => e.namaBidangMinat)
                         .join(", ")
                     : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
               ),
-              _buildDetailText(
-                'Mata Kuliah',
-                sertifikasi.mataKuliahSertifikasi.isNotEmpty
-                    ? sertifikasi.mataKuliahSertifikasi
-                        .map((e) => e.namaMatakuliah)
-                        .join(", ")
-                    : 'Tidak tersedia',
-              ),
-              const SizedBox(height: 10),
-              // Bukti Sertifikasi (PDF) with Icon
-              FutureBuilder(
-                  future: createFileOfPdfUrl(),
-                  builder: (context, snapshot) {
-                    List<Widget> children;
-                    if (snapshot.hasData) {
-                      children = [
-                        GestureDetector(
-                          onTap: () async {
-                            if (remotePDFpath != "") {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      PdfViewerPage(pdfFilePath: remotePDFpath),
-                                ),
-                              );
-                            } else {
-                              Get.snackbar(
-                                "Error",
-                                "File bukti sertifikasi tidak tersedia.",
-                                backgroundColor: Colors.redAccent,
-                                colorText: Colors.white,
-                              );
-                            }
+            ),
 
-                            // final fileName = sertifikasi.detailPesertaSertifikasi[0]
-                            //         .pivot!.buktiSertifikasi ??
-                            //     'tidak tersedia';
-                            // final fileUrl =
-                            //     'http://192.168.100.122:8000/storage/bukti_sertifikasi/$fileName'; // Ganti dengan URL server Anda
-                            // if (fileName != 'tidak tersedia') {
-                            //   final controller = Get.find<SertifikasiController>();
-                            //   await controller.downloadPdf(fileName,
-                            //       fileUrl); // Panggil dengan fileName dan fileUrl
-                            // } else {
-                            //   Get.snackbar(
-                            //     "Error",
-                            //     "File bukti sertifikasi tidak tersedia.",
-                            //     backgroundColor: Colors.redAccent,
-                            //     colorText: Colors.white,
-                            //   );
-                            // }
-                          },
-                          child: Row(
-                            children: [
-                              Icon(Icons.picture_as_pdf,
-                                  color: Color.fromARGB(255, 55, 94, 151)),
-                              const SizedBox(width: 8),
-                              Text(
-                                // sertifikasi.detailPesertaSertifikasi[0].pivot!
-                                //         .buktiSertifikasi
-                                'Lihat Sertifikasi' ?? 'Tidak tersedia',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 55, 94, 151),
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ];
-                    } else {
-                      children = <Widget>[
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(),
-                            onPressed: () => {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ListAddBukti(
-                                          idSertifikasi: widget.idSertifikasi),
-                                    ),
-                                  )
-                                },
-                            child: Text('Upload Bukti Sertifikasi')),
-                      ];
-                    }
-                    return Column(
-                      children: children,
-                    );
-                  })
-            ],
+            //Mata Kuliah Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Mata Kuliah',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  sertifikasi.mataKuliahSertifikasi.isNotEmpty
+                  ? sertifikasi.mataKuliahSertifikasi.map((e) => e.namaMatakuliah).join(", ")
+                  : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+            
+          // Bukti Sertifikasi
+          Column(
+            children: [
+              // Jika ada file PDF, tampilkan file tersebut dalam Card
+              if (remotePDFpath.isNotEmpty) ...[
+                Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  color: Colors.white,
+                  child: GestureDetector(
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PdfViewerPage(pdfFilePath: remotePDFpath),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.picture_as_pdf,
+                        color: Color.fromARGB(255, 55, 94, 151),
+                        size: 30,
+                      ),
+                      title: Text(
+                        remotePDFpath.split('/').last,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 55, 94, 151),
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+
+               const SizedBox(height: 20),
+
+          // Tombol untuk upload bukti sertifikasi, tetap di luar Card
+          SizedBox(
+          width: 150, // Mengatur lebar tombol
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddBuktiPage(idSertifikasi: widget.idSertifikasi),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 8,),
+              backgroundColor: const Color.fromARGB(255, 239, 84, 40), // Warna latar belakang tombol
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Membuat sudut tombol melengkung
+              ),
+            ),
+            child: const Text(
+              'Upload Bukti',
+              style: TextStyle(
+                color: Colors.white, // Warna teks tombol
+                fontSize: 16, // Ukuran font
+                fontWeight: FontWeight.bold, // Ketebalan font
+              ),
+            ),
           ),
-        );
-      }),
-    );
-  }
+        ),
+
+    
+  ],
+)
+
+
+          ],
+        ),
+      );
+    }),
+  );
+}
+
 
   Widget _buildDetailText(String label, String? value) {
     return Padding(
@@ -272,7 +451,7 @@ class _ListSertifikasiDetailState extends State<ListSertifikasiDetail> {
         '$label: ${value ?? '$label tidak tersedia'}',
         style: TextStyle(
           fontSize: 16,
-          color: Color.fromARGB(255, 55, 94, 151), // Warna teks diubah di sini
+          color: Color.fromARGB(255, 55, 94, 151),
         ),
       ),
     );

@@ -16,9 +16,12 @@ class SertifikasiPage extends StatelessWidget {
         appBar: AppBarCustom(title: 'Daftar Sertifikasi'),
         body: SertifikasiBody(),
         bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
+        
       );
   }
 }
+
+
 
 
 /*class DaftarSertifikasiPage extends StatelessWidget {

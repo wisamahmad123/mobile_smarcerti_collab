@@ -41,6 +41,7 @@ class SertifikasiController extends BaseController {
     initializeData();
   }
 
+
   /// Inisialisasi data
   Future<void> initializeData() async {
     await Future.wait([
@@ -50,6 +51,11 @@ class SertifikasiController extends BaseController {
       loadMataKuliah(),
       loadPeriode(),
     ]);
+  }
+
+    // Fungsi untuk refresh data
+  Future<void> onRefreshSertifikasis() async {
+      await loadSertifikasis(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
 
   /// Memuat daftar sertifikasi

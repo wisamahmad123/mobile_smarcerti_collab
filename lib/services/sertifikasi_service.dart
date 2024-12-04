@@ -397,7 +397,6 @@ class SertifikasiService {
       "nama_sertifikasi": data['nama_sertifikasi'],
       "no_sertifikasi": data['no_sertifikasi'],
       "jenis": data['jenis'],
-      "tanggal": data['tanggal'],
       "bukti_sertifikasi":
           await MultipartFile.fromFile(data['bukti_sertifikasi']),
       "masa_berlaku": data['masa_berlaku'],
