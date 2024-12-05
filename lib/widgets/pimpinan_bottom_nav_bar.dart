@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/app/modules/requestAcc/view/request_acc_page.dart';
 import '../app/modules/home/views/home_pimpinan.dart';
 import '../app/modules/profile/views/profile_pimpinan.dart'; // Pastikan import ini ada
+import 'package:get/get.dart';
 
 class PimpinanBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -28,24 +29,15 @@ class PimpinanBottomNavBar extends StatelessWidget {
       onTap: (index) {
         if (index == 0) {
           // Navigasi ke halaman Home
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const HomePimpinan()),
-          );
+          Get.offAllNamed('/home');
         }
         if (index == 1) {
           // Navigasi ke halaman request acc
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const RequestPimpinan()),
-          );
+          Get.offAllNamed('/reqACC');
         }
         if (index == 2) {
           // Navigasi ke halaman Profile
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfilePimpinan()),
-          );
+          Get.offAllNamed('/profile');
         }
       },
     );

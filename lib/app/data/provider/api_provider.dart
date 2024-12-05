@@ -121,7 +121,7 @@ class ApiProvider {
     await prefs.setString('user_id', userData['user_id'].toString() ?? '');
     await prefs.setString('user_name', userData['username'] ?? '');
     await prefs.setString('user_email', userData['email'] ?? '');
-    await prefs.setString('user_avatar', userData['avatar'] ?? '');
+    await prefs.setString('avatarUrl', userData['avatar'] ?? '');
     await prefs.setString('id_level', userData['id_level'].toString() ?? '');
     await prefs.setString('nama_lengkap', userData['nama_lengkap'] ?? '');
     await prefs.setString(

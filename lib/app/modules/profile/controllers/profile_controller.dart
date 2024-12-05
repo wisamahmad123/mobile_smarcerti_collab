@@ -12,6 +12,7 @@ class ProfileController extends BaseController {
   final ApiProvider _apiProvider = ApiProvider();
   final profiles = Rx<User?>(null);
   var namaLengkap = ''.obs; // State reaktif untuk nama lengkap
+  RxString avatarUrl = ''.obs;
   RxList<User> myAccount = <User>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
@@ -21,13 +22,14 @@ class ProfileController extends BaseController {
     super.onInit();
     // initializeData();
     update();
-    loadNamaLengkap();
-    loadAvatarUrl();
+    initializeData();
   }
 
   Future<void> initializeData() async {
     try {
       await loadProfiles();
+      await loadAvatarUrl();
+      await loadNamaLengkap();
     } catch (e) {
       handleError(e);
     }
@@ -42,7 +44,8 @@ class ProfileController extends BaseController {
   Future<void> loadAvatarUrl() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? avatar = prefs.getString('avatarUrl');
-    print('Avatar URL from SharedPreferences: $avatar'); // Debugging
+    avatarUrl.value = avatar ?? ''; // Update nilai reaktif avatar URL
+    print('Avatar URL from SharedPreferences: ${avatarUrl.value}'); // Debugging
   }
 
   Future<void> loadProfiles() async {

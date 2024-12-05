@@ -38,17 +38,15 @@ class MyAccountController extends BaseController {
   Future<void> loadMyAccoutns() async {
     try {
       isLoading.value = true;
+      await Future.delayed(const Duration(seconds: 2));
       print("Fetching my accounts data...");
 
       var data = await _myAccountService.getMyAccounts();
       print("Raw API Response: $data"); // Lihat data mentah dari API
 
       if (data != null && data.isNotEmpty) {
-        print("Data received, length: ${data.length}");
         myAccounts.assignAll(data);
-        print("MyAccounts after assignment: ${myAccounts.length}");
       } else {
-        print("No data received from API");
         myAccounts.clear();
       }
     } catch (e) {

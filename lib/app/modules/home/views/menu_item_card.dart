@@ -22,7 +22,7 @@ class MenuItemCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) {
               if (data['text'] == 'Pelatihan') {
-                return PelatihanPage();
+                return const PelatihanPage();
               } else if (data['text'] == 'Sertifikasi') {
                 return const SertifikasiPage();
               } else if (data['text'] == 'Daftar Pelatihan dan Sertifikasi Dosen') {
