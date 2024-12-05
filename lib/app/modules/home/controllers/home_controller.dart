@@ -26,24 +26,28 @@ class HomeController extends BaseController {
   void onInit() {
     super.onInit();
     update(); // Force UI update
-    loadNamaLengkap();
-    loadPelatihans(); // Ambil data pelatihan
-    loadSertifikasis(); // Ambil data sertifikasi
-    loadPelatihansDosen();
-    loadSertifikasisDosen();
+    initializeData();
+  }
+  
+  Future<void> initializeData() async {
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      await loadNamaLengkap();
+      await loadPelatihans(); // Ambil data pelatihan
+      await loadSertifikasis(); // Ambil data sertifikasi
+      await loadPelatihansDosen();
+      await loadSertifikasisDosen();
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  @override
-  Future<void> onReady() async {
-    super.onReady();
-    update(); // Force UI update
-    loadNamaLengkap();
-    loadPelatihans(); // Ambil data pelatihan
-    loadSertifikasis(); // Ambil data sertifikasi
-    loadPelatihansDosen();
-    loadSertifikasisDosen(); // Memuat ulang data setiap kali halaman ditampilkan kembali
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('nama_lengkap'));
+  // Fungsi untuk refresh data
+  Future<void> onRefresh() async {
+    await loadPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
+    await loadSertifikasis(); // Panggil fungsi untuk ambil ulang data pelatihan
+    await loadPelatihansDosen(); // Panggil fungsi untuk ambil ulang data pelatihan
+    await loadSertifikasisDosen(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
 
   Future<void> loadNamaLengkap() async {

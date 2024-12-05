@@ -41,8 +41,6 @@ class UseAuth {
       final response = await _apiService.login(username, password);
       await _initIdLevel();
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Login successful");
-        print(userLevel);
         if (userLevel == "2") {
           Get.offAllNamed('/homePimpinan');
         } else if (userLevel == "3") {
@@ -50,22 +48,20 @@ class UseAuth {
         }
         // Get.offAllNamed('/home'); // Navigate to the home page
       } else {
-        print("Login failed with status: ${response.statusCode}");
         Get.snackbar('Login Failed', 'Please check your credentials');
       }
     } catch (e) {
-      print("Error during login: $e");
       Get.snackbar('Error', 'An error occurred during login');
     }
   }
 
-  Future<void> handleUnauthorized() async {
-    try {
-      await _apiService.refreshToken();
-    } catch (e) {
-      await logout();
-    }
-  }
+  // Future<void> handleUnauthorized() async {
+  //   try {
+  //     await _apiService.refreshToken();
+  //   } catch (e) {
+  //     await logout();
+  //   }
+  // }
 
   Future<void> logout() async {
     await _apiService.logout();

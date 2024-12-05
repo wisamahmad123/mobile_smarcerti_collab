@@ -22,11 +22,9 @@ import 'package:mobile_smarcerti/app/modules/pelatihan/bindings/pelatihan.dart';
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 class PelatihanPage extends StatelessWidget {
+  const PelatihanPage({super.key});
   @override
   Widget build(BuildContext context) {
-    // Daftarkan binding secara manual jika belum terdaftar
-    PelatihanBinding().dependencies();
-
     return Scaffold(
       appBar: AppBar(title: const Text('Daftar Pelatihan')),
       body: ListPelatihan(),
