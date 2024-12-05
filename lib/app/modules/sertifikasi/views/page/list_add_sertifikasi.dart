@@ -257,7 +257,18 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
 
                 
                 //bidang minat
-                 MultiSelectDialogField(
+                MultiSelectField(label: 'Bidang Minat', 
+                buttonText: 'Bidang Minat', 
+                items: sertifikasiController.bidangMinatList
+                        .map((bidangMinat) => MultiSelectItem<String>(
+                            bidangMinat.idBidangMinat.toString(),
+                            bidangMinat.namaBidangMinat))
+                        .toList(), 
+                onConfirm: (val) {
+                      selectedBidangMinat = val;
+                    }),
+
+                 /*MultiSelectDialogField(
                     buttonText: const Text('Bidang Minat'),
                     title: const Text('Bidang Minat'),
                     items: sertifikasiController.bidangMinatList
@@ -267,10 +278,20 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                         .toList(),
                     onConfirm: (val) {
                       selectedBidangMinat = val;
-                    }),
+                    }),*/
 
                 //mata kuliah
-                 MultiSelectDialogField(
+                MultiSelectField(label: 'Mata Kuliah', 
+                buttonText: 'Mata Kuliah', 
+                items: sertifikasiController.mataKuliahList
+                        .map((mataKuliah) => MultiSelectItem<String>(
+                            mataKuliah.idMatakuliah.toString(),
+                            mataKuliah.namaMatakuliah))
+                        .toList(), 
+                  onConfirm: (val) {
+                      selectedMataKuliah = val;}),
+
+                 /*MultiSelectDialogField(
                     buttonText: const Text('Mata Kuliah'),
                     title: const Text('Mata Kuliah'),
                     items: sertifikasiController.mataKuliahList
@@ -280,7 +301,7 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                         .toList(),
                     onConfirm: (val) {
                       selectedMataKuliah = val;
-                    }),
+                    }),*/
 
                 //upload file bukti
                 Row(
@@ -424,10 +445,14 @@ class InputField extends StatelessWidget {
             keyboardType: keyboardType,
             validator: validator, // Validasi field
             decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Colors.grey),
-              ),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 55, 94, 151)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 30, 144, 255)),
+                ),
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 15,
                 horizontal: 15,
@@ -507,6 +532,69 @@ class DropdownField extends StatelessWidget {
           const SizedBox(height: 8), // Jarak di bawah DropdownButtonFormField
         ],
       ),
+    );
+  }
+}
+
+
+
+class MultiSelectField extends StatelessWidget {
+  final String label;
+  final String buttonText;
+  final List<MultiSelectItem<String>> items;
+  final Function(List<String>) onConfirm;
+  final List<String> initialValues;
+  final double? fieldWidth; // Menambahkan properti lebar field
+  final double? fieldHeight;
+
+  const MultiSelectField({
+    super.key,
+    required this.label,
+    required this.buttonText,
+    required this.items,
+    required this.onConfirm,
+    this.fieldWidth, // Lebar field input
+    this.fieldHeight = 48.0,
+    this.initialValues = const [],
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 55, 94, 151),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Color.fromARGB(255, 55, 94, 151),),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          width: fieldWidth ?? double.infinity, // Atur lebar dropdown
+          height: fieldHeight,
+          child: MultiSelectDialogField(
+            buttonText: Text(
+              buttonText,
+              style: const TextStyle(color: Colors.grey),
+            ),
+            title: Text(label),
+            items: items,
+            initialValue: initialValues,
+            onConfirm: onConfirm,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
