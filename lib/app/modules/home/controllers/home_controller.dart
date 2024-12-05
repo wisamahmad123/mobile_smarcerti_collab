@@ -33,6 +33,19 @@ class HomeController extends BaseController {
     loadSertifikasisDosen();
   }
 
+  @override
+  Future<void> onReady() async {
+    super.onReady();
+    update(); // Force UI update
+    loadNamaLengkap();
+    loadPelatihans(); // Ambil data pelatihan
+    loadSertifikasis(); // Ambil data sertifikasi
+    loadPelatihansDosen();
+    loadSertifikasisDosen(); // Memuat ulang data setiap kali halaman ditampilkan kembali
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('nama_lengkap'));
+  }
+
   Future<void> loadNamaLengkap() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? nama = prefs.getString('nama_lengkap');

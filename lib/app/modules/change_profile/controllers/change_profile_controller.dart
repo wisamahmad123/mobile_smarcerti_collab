@@ -8,13 +8,19 @@ import 'package:mobile_smarcerti/app/data/models/my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
+import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
+import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
 import 'package:mobile_smarcerti/app/modules/profile/controllers/profile_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:mobile_smarcerti/services/my_account_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangeProfileController extends BaseController {
   final MyAccountService _myAccountService = MyAccountService(ApiService());
-  final ProfileController controller = Get.put(ProfileController());
+  final ProfileController profileController = Get.put(ProfileController());
+  final HomeController homeController = Get.put(HomeController());
+  final MyAccountController myAccountController =
+      Get.put(MyAccountController());
   final ApiProvider _apiProvider = ApiProvider();
 
   // Observable variables for profile data
@@ -60,6 +66,8 @@ class ChangeProfileController extends BaseController {
     try {
       isLoading.value = true;
       var data = await _myAccountService.getChangeProfiles();
+
+      print(User());
 
       if (data != null && data.isNotEmpty) {
         changeProfiles.assignAll(data);
@@ -118,10 +126,14 @@ class ChangeProfileController extends BaseController {
 
   // Update profile method
   Future<void> updateProfile(BuildContext context) async {
-    if (!validateInputs()) return; // Validasi input
+    if (!validateInputs()) return;
 
     try {
       isLoading.value = true;
+
+      await Future.delayed(Duration(seconds: 1));
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('nama_lengkap', nameController.text);
 
       // Menyiapkan data untuk diupdate
       Map<String, dynamic> updateData = {
@@ -142,21 +154,23 @@ class ChangeProfileController extends BaseController {
         );
       }
 
-      // Memanggil API update profile
-      final response = await _apiProvider.updateProfile(updateData);
+      // Memanggil API update profile dan mendapatkan User yang diupdate
+      final updatedUser = await _apiProvider.updateProfile(updateData);
 
-      if (response.statusCode == 200) {
-        print("Update successful: ${response.data}");
-      } else {
-        print("Update failed: ${response.statusCode} - ${response.data}");
-      }
-      if (response.statusCode == 200) {
-        // Tampilkan dialog sukses
+      if (updatedUser != null) {
+        // Update changeProfiles dengan user baru
+        changeProfiles.value = [updatedUser];
+
+        // Update UI dan controller lain
         Get.snackbar('Success', 'Profile berhasil diupdate');
-
-        // Memuat ulang data terbaru dari server
         await Future.delayed(Duration(seconds: 1));
         await loadChangeProfiles();
+        await profileController.loadProfiles();
+        await homeController.loadNamaLengkap();
+        await myAccountController.loadMyAccoutns();
+        print(
+            "Nama lengkap setelah update: ${homeController.namaLengkap.value}");
+        homeController.update();
       } else {
         Get.snackbar('Error', 'Gagal memperbarui profil',
             snackPosition: SnackPosition.BOTTOM);
@@ -167,8 +181,6 @@ class ChangeProfileController extends BaseController {
           snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
-      await loadChangeProfiles();
-      await controller.loadProfiles();
     }
   }
 

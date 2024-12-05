@@ -36,16 +36,16 @@ class User {
   List<BidangMinatMyAccountModel>? detailDaftarUserBidangMinat;
 
   User({
-    required this.id,
-    required this.idLevel,
-    required this.username,
-    required this.namaLengkap,
-    required this.noTelp,
-    required this.email,
-    required this.jenisKelamin,
-    required this.avatar,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.idLevel,
+    this.username,
+    this.namaLengkap,
+    this.noTelp,
+    this.email,
+    this.jenisKelamin,
+    this.avatar,
+    this.createdAt,
+    this.updatedAt,
     this.detailDaftarUserMatakuliah,
     this.detailDaftarUserBidangMinat,
   });

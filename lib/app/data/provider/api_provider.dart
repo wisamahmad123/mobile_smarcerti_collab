@@ -172,7 +172,7 @@ class ApiProvider {
   }
 
   // Method to update profile
-  Future<Response> updateProfile(Map<String, dynamic> data) async {
+  Future<User?> updateProfile(Map<String, dynamic> data) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('auth_token');
@@ -196,7 +196,13 @@ class ApiProvider {
         ),
       );
 
-      return response;
+      // Periksa apakah respons berhasil
+      if (response.statusCode == 200 && response.data != null) {
+        // Parsing response menjadi model User
+        return User.fromJson(response.data['user'] ?? response.data);
+      }
+
+      return null;
     } catch (e) {
       print("Error in updateProfile: $e");
       rethrow;
