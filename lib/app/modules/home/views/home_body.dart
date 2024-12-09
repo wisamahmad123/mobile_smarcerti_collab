@@ -27,8 +27,9 @@ class HomeBody extends StatelessWidget {
             {'text': 'Sertifikasi', 'icon': Icons.workspace_premium},
           ];
 
-    return Container(
-      
+    return Scaffold(
+      backgroundColor: Colors.white, // Pastikan warna latar belakang putih
+      body: Container(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -98,6 +99,8 @@ class HomeBody extends StatelessWidget {
           ),
         ),
       ),
+      )
     );
+    
   }
 }

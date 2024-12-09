@@ -11,44 +11,268 @@ class ListPelatihanDetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
+      color: Colors.white, // Menetapkan background putih
+      child: SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Nama Pelatihan
-          Container(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              pelatihanDetail.namaPelatihan,
-              maxLines: 3,
-              textAlign: TextAlign.left,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins',
-                color: Color(0xFF375E97),
+           //Nama Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Nama Pelatihan',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.namaPelatihan ?? 'Tidak tersedia',
+                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
+                ),
+              ),
+            ),
+
+            //Vendor Pelatihan
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Vendor Pelatihan',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.vendorPelatihan.nama ?? 'Tidak tersedia',
+                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),),
+              ),
+            ),
+
+            //Level Pelatihan 
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Level Pelatihan',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 55, 94, 151),
+                ),
+              ),
+              subtitle: Text(
+                pelatihanDetail.levelPelatihan,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 55, 94, 151),
+                ),
               ),
             ),
           ),
-          // Deskripsi Pelatihan
-          buildDetailItem("Level Pelatihan:", pelatihanDetail.levelPelatihan),
-          buildDetailItem("Kuota:", pelatihanDetail.kuotaPeserta),
-          buildDetailItem("Tanggal:", pelatihanDetail.tanggal.toLocal().toString()),
-          buildDetailItem("Lokasi:", pelatihanDetail.lokasi),
-          buildDetailItem("Biaya:", pelatihanDetail.biaya),
-          buildDetailItem("Vendor:", pelatihanDetail.vendorPelatihan.nama),
-          buildDetailItem("Bidang Minat:", pelatihanDetail.bidangMinatPelatihan.isEmpty
-              ? "Tidak ada"
-              : pelatihanDetail.bidangMinatPelatihan.map((e) => e.namaBidangMinat).join(", ")),
-          buildDetailItem("Mata Kuliah:", pelatihanDetail.mataKuliahPelatihan.isEmpty
-              ? "Tidak ada"
-              : pelatihanDetail.mataKuliahPelatihan.map((e) => e.namaMatakuliah).join(", ")),
-          buildDetailItem("Nama Peserta:", pelatihanDetail.detailPesertaPelatihan.isEmpty
-              ? "Tidak ada"
-              : pelatihanDetail.detailPesertaPelatihan.map((e) => e.namaLengkap).join(", ")),
+
+          //Jenis Bidang pelatihan
+          Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Jenis Pelatihan',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.jenisPelatihan.namaJenisPelatihan,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+          //Tahun Periode
+           Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Tahun Periode',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.periode.tahunPeriode,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+        
+          //Tanggal Sertifikasi
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Tanggal Pelatihan',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.tanggal?.toLocal().toString() ?? 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            //Kuota Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Kuota',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.kuotaPeserta?.isNotEmpty == true ? pelatihanDetail.kuotaPeserta : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            //Biaya Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Biaya',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.biaya?.isNotEmpty == true ? pelatihanDetail.biaya : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            //Bidang Minat Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Bidang Minat',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                   pelatihanDetail.bidangMinatPelatihan.isEmpty
+                    ? pelatihanDetail.bidangMinatPelatihan
+                        .map((e) => e.namaBidangMinat)
+                        .join(", ")
+                    : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            //Mata Kuliah Sertifikasi
+            Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            color: Colors.white,
+            child: ListTile(
+              title: const Text(
+                'Mata Kuliah',
+                style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.mataKuliahPelatihan.isEmpty
+                  ? pelatihanDetail.mataKuliahPelatihan.map((e) => e.namaMatakuliah).join(", ")
+                  : 'Tidak tersedia',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+            // Nama Peserta
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              color: Colors.white,
+              child: ListTile(
+                title: const Text(
+                  'Nama Peserta',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+                subtitle: Text(
+                  pelatihanDetail.detailPesertaPelatihan.isEmpty
+                      ? 'Tidak tersedia'
+                      : pelatihanDetail.detailPesertaPelatihan
+                          .map((e) => e.namaLengkap)
+                          .join(", "),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 55, 94, 151),
+                  ),
+                ),
+              ),
+            ),
+
+
         ],
       ),
+    ),
+    
     );
   }
 
