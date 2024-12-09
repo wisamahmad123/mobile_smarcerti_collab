@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
@@ -66,6 +67,79 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
         'biaya': biayaController.text,
         'kuota_peserta': kuotaController.text,
       };
+
+      showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 239, 84, 40), // Warna latar belakang
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  "Berhasil menambahkan data sertifikasi",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      height: 40,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          "OK",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color:
+                                Color.fromARGB(255, 239, 84, 40), // Warna teks
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPressed: () {
+                        Navigator.of(context).pop(); // Tutup dialog
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => SertifikasiPage(), // Ganti dengan halaman detail sertifikasi Anda
+                        ));
+                      },
+                        /*onPressed: () {
+                          Navigator.of(context).pop(); // Tutup dialog
+                        },*/
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+     );
 
       print(formData);
       sertifikasiController.createSertifikasi(formData);
@@ -267,6 +341,7 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                 onConfirm: (val) {
                       selectedBidangMinat = val;
                     }),
+                    
 
                  /*MultiSelectDialogField(
                     buttonText: const Text('Bidang Minat'),
@@ -291,6 +366,8 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                   onConfirm: (val) {
                       selectedMataKuliah = val;}),
 
+                      const SizedBox(height: 20),
+
                  /*MultiSelectDialogField(
                     buttonText: const Text('Mata Kuliah'),
                     title: const Text('Mata Kuliah'),
@@ -305,6 +382,70 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
 
                 //upload file bukti
                 Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Label untuk file
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'File yang dipilih:',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromARGB(255, 55, 94, 151),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  
+                  // Tampilan nama file
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      file?.path.split('/').last ?? 'Belum ada file',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    ),
+                  ),
+                  
+                  // Tombol Pilih File
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf'],
+                        );
+
+                        if (result != null) {
+                          setState(() {
+                            file = File(result.files.single.path!);
+                          });
+                          print(file);
+                        } else {
+                          // User canceled the picker
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Tidak ada file yang dipilih.'),
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        backgroundColor: Color.fromARGB(255, 55, 94, 151),
+                      ),
+                      child: const Text(
+                        'Pilih File',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 23),
+
+                /*Row(
                   children: [
                     ElevatedButton(
                       onPressed: () async {
@@ -326,7 +467,7 @@ class _ListAddSertifikasiState extends State<ListAddSertifikasi> {
                           'Pilih File Bukti Sertifikasi ${file?.path.split('/').last ?? 'Belum ada file'}'),
                     ),
                   ],
-                ),
+                ),*/
 
 
 

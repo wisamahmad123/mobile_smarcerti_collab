@@ -70,11 +70,10 @@ class ListNotifikasiBody extends StatelessWidget {
 
                     return Card(
                       color: Colors.white,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 10),
+                      margin: const EdgeInsets.symmetric(vertical: 8),
                       child: ListTile(
                         leading: const Icon(
-                          Icons.library_books,
+                          Icons.calendar_today,
                           size: 35.0,
                           color: Color.fromARGB(255, 55, 94, 151),
                         ),
@@ -91,7 +90,7 @@ class ListNotifikasiBody extends StatelessWidget {
                           subtitle,
                           style: const TextStyle(
                             fontFamily: 'Poppins',
-                            fontSize: 16,
+                            fontSize: 13,
                             color: Color.fromARGB(255, 55, 94, 151),
                           ),
                         ),
@@ -109,7 +108,6 @@ class ListNotifikasiBody extends StatelessWidget {
                           size: 20.0,
                           color: Color.fromARGB(255, 55, 94, 151),
                         ),
-                        contentPadding: const EdgeInsets.all(20),
                       ),
                     );
                   },

@@ -69,7 +69,7 @@ class _ListSertifikasiState extends State<ListSertifikasi> {
                       _filterLogListBySearchText(value);
                     },
                     decoration: InputDecoration(
-                      hintText: 'Cari Sertifikasi',
+                      hintText: 'Search',
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -82,34 +82,49 @@ class _ListSertifikasiState extends State<ListSertifikasi> {
                 const SizedBox(
                     width: 10), // Spasi antara search dan tombol filter
 
-                // Tombol Filter
                 Obx(() {
-                  if (controller.tahunPeriode.isEmpty) {
-                    return const Text('');
-                  }
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(145, 255, 249, 249),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: DropdownMenu<String>(
-                      initialSelection: selectPeriode,
-                      onSelected: (value) {
-                        selectPeriode = value;
-                        _filterLogListByPeriode(selectPeriode!);
-                      },
-                      dropdownMenuEntries:
-                          controller.tahunPeriode.map((period) {
-                        return DropdownMenuEntry<String>(
-                          value: period
-                              .tahunPeriode, // Pastikan nama sesuai dengan model Periode
-                          label: period.tahunPeriode,
-                        );
-                      }).toList(),
-                    ),
-                  );
-                })
+                if (controller.tahunPeriode.isEmpty) {
+                  return const Text('');
+                }
+                return Container(
+                  height: 54, // Set height to match TextField
+                  width: 48, // Set width to create a square container
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(145, 255, 249, 249),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.filter_list),
+                    color: Colors.grey[700],
+                    onPressed: () {
+                      // Memanggil showDialog saat tombol ditekan
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Filter Options'),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: controller.tahunPeriode.map((period) {
+                                  return ListTile(
+                                    title: Text(period.tahunPeriode),
+                                    onTap: () {
+                                      selectPeriode = period.tahunPeriode;
+                                      _filterLogListByPeriode(selectPeriode!);
+                                      Navigator.of(context).pop(); // Menutup dialog
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                );
+              })
               ],
             ),
             const SizedBox(height: 10),
@@ -125,7 +140,7 @@ class _ListSertifikasiState extends State<ListSertifikasi> {
                   );
                 }
 
-                if (controller.sertifikasis.isEmpty) {
+                if (filteredData.isEmpty) {
                   return const Center(
                     child: Text("Tidak ada sertifikasi tersedia."),
                   );

@@ -22,6 +22,7 @@ class SertifikasiController extends BaseController {
   // Observable untuk daftar sertifikasi dan detail sertifikasi
   RxList<Sertifikasi> sertifikasis = <Sertifikasi>[].obs;
   Rx<Sertifikasi?> sertifikasiDetail = Rx<Sertifikasi?>(null);
+   RxList<Sertifikasi> filteredSertifikasi = <Sertifikasi>[].obs; // 
 
   // List observables untuk vendor, bidang minat, dan mata kuliah
   var vendorList = <VendorSertifikasi>[].obs;
@@ -253,5 +254,27 @@ class SertifikasiController extends BaseController {
   /// Utility untuk Validasi Nama File
   String sanitizeFileName(String fileName) {
     return fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
+  }
+
+void searchSertifikasi(String query) {
+    if (query.isEmpty) {
+      filteredSertifikasi.assignAll(sertifikasis);
+    } else {
+      filteredSertifikasi.assignAll(sertifikasis.where((sertifikasi) {
+        return sertifikasi.namaSertifikasi
+            .toLowerCase()
+            .contains(query.toLowerCase());
+      }).toList());
+    }
+  }
+
+  void filterPeriodeSertifikasi(String periode) {
+    if (periode == "Semua") {
+      filteredSertifikasi.assignAll(sertifikasis);
+    } else {
+      filteredSertifikasi.assignAll(sertifikasis.where((sertifikasi) {
+        return sertifikasi.periode.tahunPeriode == periode;
+      }).toList());
+    }
   }
 }

@@ -16,6 +16,7 @@ class DetailNotifikasiPage extends StatelessWidget {
     final bool isSertifikasi = notifikasiDetail is Sertifikasi;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBarCustom(
         title: isSertifikasi
             ? "Detail Notifikasi Sertifikasi"
@@ -34,7 +35,7 @@ class DetailNotifikasiPage extends StatelessWidget {
                 maxLines: 3,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
                   color: Color(0xFF375E97),
@@ -65,7 +66,7 @@ class DetailNotifikasiPage extends StatelessWidget {
   // Menampilkan detail Sertifikasi
   List<Widget> _buildSertifikasiDetail(Sertifikasi sertifikasi) {
     return [
-      buildDetailItem("Jenis:", sertifikasi.jenis),
+      buildDetailItem("Jenis Sertifikasi:", sertifikasi.jenis),
       buildDetailItem("Tanggal:",
           DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(sertifikasi.tanggal)),
       buildDetailItem(
@@ -76,7 +77,6 @@ class DetailNotifikasiPage extends StatelessWidget {
       buildDetailItem("Vendor:", sertifikasi.vendorSertifikasi.nama),
       buildDetailItem("Jenis Bidang Sertifikasi:",
           sertifikasi.jenisSertifikasi.namaJenisSertifikasi),
-      buildDetailItem("Jenis Sertifikasi:", sertifikasi.jenis),
       buildDetailItem(
           "Bidang Minat:",
           sertifikasi.bidangMinatSertifikasi.isEmpty
@@ -123,19 +123,35 @@ class DetailNotifikasiPage extends StatelessWidget {
   }
 
   // Widget untuk menampilkan detail item secara dinamis
-  Widget buildDetailItem(String label, String value) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Text(
-        "$label $value",
-        textAlign: TextAlign.left,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Poppins',
-          color: Color(0xFF375E97),
-        ),
+Widget buildDetailItem(String label, String value) {
+  return Container(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "$label ", // Label dengan teks tebal
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
+              color: Color(0xFF375E97),
+            ),
+          ),
+          TextSpan(
+            text: value, // Value dengan teks normal
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'Poppins',
+              color: Color(0xFF375E97),
+            ),
+          ),
+        ],
       ),
-    );
-  }
+      textAlign: TextAlign.left,
+    ),
+  );
+}
+
 }

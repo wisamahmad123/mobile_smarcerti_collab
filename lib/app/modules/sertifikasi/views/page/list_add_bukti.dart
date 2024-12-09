@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/controllers/sertifikasi_controller.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_page.dart';
 
 class ListAddBukti extends StatefulWidget {
   final int idSertifikasi;
@@ -49,8 +50,84 @@ class _ListAddBuktiState extends State<ListAddBukti> {
       'biaya': sertifikasi.biaya,
       'kuota_peserta': sertifikasi.kuotaPeserta,
     };
+     showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 239, 84, 40), // Warna latar belakang
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  "Berhasil mengubah data",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      height: 40,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          "OK",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color:
+                                Color.fromARGB(255, 239, 84, 40), // Warna teks
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPressed: () {
+                        Navigator.of(context).pop(); // Tutup dialog
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => DetailSertifikasiPage(
+                                idSertifikasi: sertifikasi.idSertifikasi,
+                              ), // Ganti dengan halaman detail sertifikasi Anda
+                        ));
+                      },
+                        /*onPressed: () {
+                          Navigator.of(context).pop(); // Tutup dialog
+                        },*/
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+     );
 
     controller.updateSertifikasi(widget.idSertifikasi, formData);
+
+   
   }
 
   @override
@@ -97,8 +174,75 @@ class _ListAddBuktiState extends State<ListAddBukti> {
                         value!.isEmpty ? 'Masa Berlaku wajib diisi' : null,
                   ),
 
+                  const SizedBox(height: 20),
+
+                  //upload file bukti
+                Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Label untuk file
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'File yang dipilih:',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromARGB(255, 55, 94, 151),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  
+                  // Tampilan nama file
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      file?.path.split('/').last ?? 'Belum ada file',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    ),
+                  ),
+                  
+                  // Tombol Pilih File
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf'],
+                        );
+
+                        if (result != null) {
+                          setState(() {
+                            file = File(result.files.single.path!);
+                          });
+                          print(file);
+                        } else {
+                          // User canceled the picker
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Tidak ada file yang dipilih.'),
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        backgroundColor: Color.fromARGB(255, 55, 94, 151),
+                      ),
+                      child: const Text(
+                        'Pilih File',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 23),
+
                  
-                  Row(
+                  /*ow(
                     children: [
                       ElevatedButton(
                         onPressed: () async {
@@ -121,11 +265,12 @@ class _ListAddBuktiState extends State<ListAddBukti> {
                       ),
                     ],
                   ),
+                  */
 
                   const SizedBox(height: 20),
                   
 
-                  // Tombol Tambah Sertifikasi
+                // Tombol Tambah Sertifikasi
                 Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
