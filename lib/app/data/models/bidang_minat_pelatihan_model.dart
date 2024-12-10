@@ -4,7 +4,7 @@ class BidangMinatPelatihan {
     String kodeBidangMinat;
     DateTime createdAt;
     DateTime updatedAt;
-    BidangMinatPelatihanPivot pivot;
+    // BidangMinatPelatihanPivot pivot;
 
     BidangMinatPelatihan({
         required this.idBidangMinat,
@@ -12,7 +12,7 @@ class BidangMinatPelatihan {
         required this.kodeBidangMinat,
         required this.createdAt,
         required this.updatedAt,
-        required this.pivot,
+        // required this.pivot,
     });
 
     factory BidangMinatPelatihan.fromJson(Map<String, dynamic> json) => BidangMinatPelatihan(
@@ -21,7 +21,7 @@ class BidangMinatPelatihan {
         kodeBidangMinat: json["kode_bidang_minat"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        pivot: BidangMinatPelatihanPivot.fromJson(json["pivot"]),
+        // pivot: BidangMinatPelatihanPivot.fromJson(json["pivot"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -30,7 +30,7 @@ class BidangMinatPelatihan {
         "kode_bidang_minat": kodeBidangMinat,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "pivot": pivot.toJson(),
+        // "pivot": pivot.toJson(),
     };
 }
 

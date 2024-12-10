@@ -267,35 +267,182 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
                 //   ],
                 // ),
 
-                MultiSelectDialogField(
-                    buttonText: const Text('Bidang Minat'),
-                    title: const Text('Bidang Minat'),
-                    items: pelatihanController.bidangMinatList
+                // MultiSelectDialogField(
+                //     buttonText: const Text('Bidang Minat'),
+                //     title: const Text('Bidang Minat'),
+                //     items: pelatihanController.bidangMinatList
+                //         .map((bidangMinat) => MultiSelectItem<String>(
+                //             bidangMinat.idBidangMinat.toString(),
+                //             bidangMinat.namaBidangMinat))
+                //         .toList(),
+                //     onConfirm: (val) {
+                //       selectedBidangMinat = val;
+                //     }),
+
+                //bidang minat
+                MultiSelectField(label: 'Bidang Minat', 
+                buttonText: 'Bidang Minat', 
+                items: pelatihanController.bidangMinatList
                         .map((bidangMinat) => MultiSelectItem<String>(
                             bidangMinat.idBidangMinat.toString(),
                             bidangMinat.namaBidangMinat))
-                        .toList(),
-                    onConfirm: (val) {
+                        .toList(), 
+                onConfirm: (val) {
                       selectedBidangMinat = val;
                     }),
 
-                MultiSelectDialogField(
-                    buttonText: const Text('Mata Kuliah'),
-                    title: const Text('Mata Kuliah'),
-                    items: pelatihanController.mataKuliahList
+
+                MultiSelectField(label: 'Mata Kuliah', 
+                buttonText: 'Mata Kuliah', 
+                items: pelatihanController.mataKuliahList
                         .map((mataKuliah) => MultiSelectItem<String>(
                             mataKuliah.idMatakuliah.toString(),
                             mataKuliah.namaMatakuliah))
-                        .toList(),
-                    onConfirm: (val) {
-                      selectedMataKuliah = val;
-                    }),
+                        .toList(), 
+                  onConfirm: (val) {
+                      selectedMataKuliah = val;}),
+
+                      const SizedBox(height: 20),
+                // MultiSelectDialogField(
+                //     buttonText: const Text('Mata Kuliah'),
+                //     title: const Text('Mata Kuliah'),
+                //     items: pelatihanController.mataKuliahList
+                //         .map((mataKuliah) => MultiSelectItem<String>(
+                //             mataKuliah.idMatakuliah.toString(),
+                //             mataKuliah.namaMatakuliah))
+                //         .toList(),
+                //     onConfirm: (val) {
+                //       selectedMataKuliah = val;
+                //     }),
 
                 // Tombol Tambah Pelatihan
-                ElevatedButton(
-                  onPressed: () => _createBukti(),
-                  child: const Text('Tambah Pelatihan'),
+                // ElevatedButton(
+                //   onPressed: () => _createBukti(),
+                //   child: const Text('Tambah Pelatihan'),
+                // ),
+
+                               //upload file bukti
+                Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Label untuk file
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'File yang dipilih:',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromARGB(255, 55, 94, 151),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  
+                  // Tampilan nama file
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      file?.path.split('/').last ?? 'Belum ada file',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    ),
+                  ),
+                  
+                  // Tombol Pilih File
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf'],
+                        );
+
+                        if (result != null) {
+                          setState(() {
+                            file = File(result.files.single.path!);
+                          });
+                          print(file);
+                        } else {
+                          // User canceled the picker
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Tidak ada file yang dipilih.'),
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        backgroundColor: Color.fromARGB(255, 55, 94, 151),
+                      ),
+                      child: const Text(
+                        'Pilih File',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 23),
+
+              // Tombol Tambah Sertifikasi
+                Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                SizedBox(
+                width: 80,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // Mengembalikan ke halaman sebelumnya
+                    Navigator.pop(context);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 239, 84, 40),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 239, 84, 40),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
+              ),
+
+               const SizedBox(width: 20), 
+                 SizedBox(
+                  width: 80, // Mengatur lebar yang sama untuk tombol Save
+                  child: ElevatedButton(
+                    onPressed: () => _createBukti(), 
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 10,),
+                      backgroundColor: const Color.fromARGB(255, 239, 84, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                
+              ],
+            ),
+            
               ],
             ),
           ),
@@ -399,6 +546,68 @@ class DropdownField extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 15,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class MultiSelectField extends StatelessWidget {
+  final String label;
+  final String buttonText;
+  final List<MultiSelectItem<String>> items;
+  final Function(List<String>) onConfirm;
+  final List<String> initialValues;
+  final double? fieldWidth; // Menambahkan properti lebar field
+  final double? fieldHeight;
+
+  const MultiSelectField({
+    super.key,
+    required this.label,
+    required this.buttonText,
+    required this.items,
+    required this.onConfirm,
+    this.fieldWidth, // Lebar field input
+    this.fieldHeight = 48.0,
+    this.initialValues = const [],
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 55, 94, 151),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Color.fromARGB(255, 55, 94, 151),),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          width: fieldWidth ?? double.infinity, // Atur lebar dropdown
+          height: fieldHeight,
+          child: MultiSelectDialogField(
+            buttonText: Text(
+              buttonText,
+              style: const TextStyle(color: Colors.grey),
+            ),
+            title: Text(label),
+            items: items,
+            initialValue: initialValues,
+            onConfirm: onConfirm,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
             ),
           ),
         ),
