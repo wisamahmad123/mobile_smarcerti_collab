@@ -167,6 +167,7 @@ class ListPelatihan extends StatelessWidget {
   ListPelatihan({super.key});
   final PelatihanController controller = Get.put(PelatihanController());
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -13,7 +13,7 @@ class AddBuktiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCustom(title: 'Detail Sertifikasi'),
+      appBar: AppBarCustom(title: 'Upload Bukti Sertifikasi'),
       body: AddBuktiBody(idSertifikasi: idSertifikasi), // Mengirimkan idSertifikasi
       bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
     );

@@ -107,6 +107,7 @@ import 'package:mobile_smarcerti/app/data/models/bidang_minat_pelatihan_model.da
 import 'package:mobile_smarcerti/app/data/models/jenis_pelatihan_model.dart';
 import 'package:mobile_smarcerti/app/data/models/mata_kuliah_pelatihan_model.dart';
 import 'package:mobile_smarcerti/app/data/models/pelatihanUser.dart';
+import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
 import 'package:mobile_smarcerti/app/data/models/periode_model.dart';
 import 'package:mobile_smarcerti/app/data/models/vendor_pelatihan_model.dart';
 // import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
@@ -114,11 +115,19 @@ import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:mobile_smarcerti/services/pelatihan_api.dart';
+import 'package:mobile_smarcerti/services/pdf_service.dart';
+
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
 
 class PelatihanController extends BaseController {
+   final PelatihanService lspService = PelatihanService(ApiService());
+  final PdfService pdfService = PdfService();
   final PelatihanService pelatihanService = PelatihanService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
-  final PelatihanService lspService = PelatihanService(ApiService());
+
   RxList<PelatihanUser> pelatihans = <PelatihanUser>[].obs; // Daftar pelatihan
   RxBool isLoading = false.obs; // Indikator loading
   RxString errorMessage = ''.obs; // Pesan error
@@ -156,6 +165,11 @@ class PelatihanController extends BaseController {
       loadMataKuliah(),
       loadPeriode(),
     ]);
+  }
+
+     // Fungsi untuk refresh data
+  Future<void> onRefreshPelatihans() async {
+      await loadPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
 
 
@@ -223,6 +237,69 @@ class PelatihanController extends BaseController {
   //     isLoading.value = false; // Menandakan proses selesai
   //   }
   // }
+
+   /// Mengupdate sertifikasi
+  Future<void> updatePelatihan(int id, Map<String, dynamic> data) async {
+    isLoading.value = true;
+    try {
+      final Pelatihan? result = await lspService.updatePelatihan(id, data);
+      if (result != null) {
+        Get.snackbar(
+          'Berhasil',
+          'Pelatihan berhasil diperbarui.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } else {
+        errorMessage.value = 'Gagal memperbarui Pelatihan.';
+        Get.snackbar(
+          'Gagal',
+          errorMessage.value,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
+    } catch (e) {
+      errorMessage.value = 'Gagal memperbarui Pelatihan: $e';
+      Get.snackbar(
+        'Gagal',
+        errorMessage.value,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  /// Unduh file PDF
+  Future<void> downloadPdf(String fileName, String fileUrl) async {
+    PermissionStatus permissionStatus = await Permission.storage.request();
+    if (permissionStatus.isGranted) {
+      try {
+        Directory? directory = await getExternalStorageDirectory();
+        directory ??= await getApplicationDocumentsDirectory();
+
+        String sanitizedFileName = sanitizeFileName(fileName);
+        String filePath = '${directory.path}/$sanitizedFileName';
+
+        Dio dio = Dio();
+        await dio.download(fileUrl, filePath);
+
+        Get.snackbar('Berhasil', 'File berhasil diunduh ke: $filePath',
+            snackPosition: SnackPosition.BOTTOM);
+      } catch (e) {
+        Get.snackbar(
+            'Gagal', 'Terjadi kesalahan saat mengunduh file: ${e.toString()}',
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    } else {
+      Get.snackbar('Gagal', 'Izin penyimpanan diperlukan untuk mengunduh file.',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  /// Utility untuk Validasi Nama File
+  String sanitizeFileName(String fileName) {
+    return fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
+  }
 
  Future<void> createPelatihan(Map<String, dynamic> data) async {
     isLoading.value = true;

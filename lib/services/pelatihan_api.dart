@@ -530,6 +530,57 @@ class PelatihanService {
       throw Exception('Error fetching jenis Pelatihan: $e');
     }
   }
+  
+
+  //Update pelatihan
+  Future<Pelatihan?> updatePelatihan(
+      int id, Map<String, dynamic> data) async {
+    final token = await getToken();
+    if (token == null) {
+      throw Exception("Token not found");
+    }
+
+    FormData formData = FormData.fromMap({
+      "_method": "PUT",
+      "id_vendor_pelatihan": data['id_vendor_pelatihan'],
+      "id_jenis_pelatihan": data['id_jenis_pelatihan'],
+      "id_periode": data['id_periode'],
+      "id_bidang_minat": data['id_bidang_minat'],
+      "id_matakuliah": data['id_matakuliah'],
+      "user_id": data['user_id'],
+      "nama_pelatihan": data['nama_pelatihan'],
+      "level": data['level_pelatihan'],
+      "bukti_pelatihan":
+          await MultipartFile.fromFile(data['bukti_pelatihan']),
+      "biaya": data['biaya'],
+      "kuota_peserta": data['kuota_peserta'],
+    });
+
+    try {
+      final response = await _dio.post(
+        '${ApiConstants.baseUrl}pelatihans/$id',
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            // 'Content-Type': 'multipart/form-data',
+            // 'Accept': 'application/json',
+          },
+        ),
+      );
+
+      print('Response: ${response.data}');
+
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Pelatihan.fromJson(response.data['data']);
+      } else {
+        throw Exception('Failed to update pelatihan: ${response.data}');
+      }
+    } catch (e) {
+      print('Error updating pelatihan: $e');
+      return null;
+    }
+  }
 
 
 }
