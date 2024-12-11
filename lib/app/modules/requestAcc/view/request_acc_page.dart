@@ -17,14 +17,14 @@ class RequestPimpinan extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: myTabs.length, // Jumlah tab
-      child: const Scaffold(
+      child:  Scaffold(
         appBar: AppBarTabBar(
-          title: 'Daftar Request Pelatihan & Sertifikasi',
+          title: 'Daftar Pengajuan ',
           tabs: myTabs, // Mengirimkan daftar tab ke AppBarTabBar
         ),
         body: BodyListRequest(),
         bottomNavigationBar: PimpinanBottomNavBar(
-            currentIndex: 1), // BottomNav yang dipisahkan
+            currentIndex: -1), // BottomNav yang dipisahkan
       ),
     );
   }

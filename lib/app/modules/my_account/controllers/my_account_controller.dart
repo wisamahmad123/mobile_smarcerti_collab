@@ -11,6 +11,7 @@ class MyAccountController extends BaseController {
   RxList<User> myAccounts = <User>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
+  String? level;
 
   var mataKuliahList = <MataKuliahMyAccountModel>[].obs;
   var bidangMinatList = <BidangMinatMyAccountModel>[].obs;
@@ -38,7 +39,6 @@ class MyAccountController extends BaseController {
   Future<void> loadMyAccoutns() async {
     try {
       isLoading.value = true;
-      await Future.delayed(const Duration(seconds: 2));
       print("Fetching my accounts data...");
 
       var data = await _myAccountService.getMyAccounts();
@@ -49,6 +49,9 @@ class MyAccountController extends BaseController {
       } else {
         myAccounts.clear();
       }
+
+      level = data.first.idLevel;
+      print("level myacc : $level");
     } catch (e) {
       print("Error in loadMyAccoutns: $e");
       print("Stack trace: ${e.toString()}");

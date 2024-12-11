@@ -30,7 +30,7 @@ class AddPelatihanPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Daftar Pelatihan')),
       body: ListAddPelatihan(),
-      bottomNavigationBar: const PimpinanBottomNavBar(currentIndex: -1),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
   

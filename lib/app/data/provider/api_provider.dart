@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
+import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -161,15 +162,38 @@ class ApiProvider {
   }
 
   Future<void> logout() async {
+  try {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('auth_token');
-    await prefs.remove('refresh_token');
-    await prefs.remove('type');
-    await prefs.remove('conversation_key');
+    final token = prefs.getString('auth_token');
 
-    _accessToken = null;
+    if (token == null) {
+      throw Exception("Authentication token not found");
+    }
+
+    // Request ke endpoint /logout
+    final response = await _dio.post(
+      '${ApiConstants.baseUrl}logout',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      print("Logout berhasil");
+    } else {
+      print("Logout gagal: ${response.statusCode} - ${response.data}");
+    }
+    // Arahkan ke halaman login
     Get.offAllNamed('/login');
+  } catch (e) {
+    print("Error during logout: $e");
+    rethrow;
   }
+}
+
 
   // Method to update profile
   Future<User?> updateProfile(Map<String, dynamic> data) async {
@@ -184,6 +208,8 @@ class ApiProvider {
       // Create FormData for multipart request (to handle file upload)
       FormData formData = FormData.fromMap(data);
 
+      print("Formatted Data to Send: $data");
+
       // Send PUT request to update profile
       final response = await _dio.post(
         '${ApiConstants.baseUrl}my_accounts/update',
@@ -195,6 +221,8 @@ class ApiProvider {
           },
         ),
       );
+
+      print("response data : ${response.data}");
 
       // Periksa apakah respons berhasil
       if (response.statusCode == 200 && response.data != null) {

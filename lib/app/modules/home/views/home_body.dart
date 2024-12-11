@@ -21,6 +21,10 @@ class HomeBody extends StatelessWidget {
               'text': 'Daftar Pelatihan dan Sertifikasi Dosen',
               'icon': Icons.list_sharp
             },
+            {
+              'text': 'Penerimaan Pengajuan',
+              'icon': Icons.assignment
+            },
           ]
         : [
             {'text': 'Pelatihan', 'icon': Icons.school_outlined},

@@ -3,6 +3,7 @@ import 'package:mobile_smarcerti/app/modules/sertifikasi/views/add_sertifikasi_b
 import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_body.dart';
+import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 
 class AddSertifikasiPage extends StatelessWidget {
@@ -15,7 +16,7 @@ class AddSertifikasiPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBarCustom(title: 'Tambah Sertifikasi'),
         body: AddSertifikasiBody(),
-        bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
+        bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
       );
   }
 }

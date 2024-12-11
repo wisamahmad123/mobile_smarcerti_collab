@@ -16,15 +16,33 @@ class AppBarTabBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: const Color(0xFFEF5428),
       automaticallyImplyLeading: false,
-      title: Text(
-              title,
+      title: Row(
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 20.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context); // Navigate back to the previous page
+            },
+          ),
+          // Move the title closer to the back button using Transform.translate
+          Transform.translate(
+            offset: const Offset(-15, 0), // Adjust the value to move text closer to the icon
+            child: Text(
+              title, // Use dynamic title text here
               style: const TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 20.0,
                 fontWeight: FontWeight.bold,
+                fontSize: 20.0,
                 color: Colors.white,
               ),
-            ),     
+            ),
+          ),
+        ],
+        ),
       bottom: TabBar(
         tabs: tabs,
         indicator: const BoxDecoration(

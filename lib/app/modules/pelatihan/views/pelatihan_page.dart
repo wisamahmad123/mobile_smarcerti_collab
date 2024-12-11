@@ -29,7 +29,7 @@ class PelatihanPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarCustom(title: 'Daftar Pelatihan'),
       body: ListPelatihan(),
-      bottomNavigationBar: const PimpinanBottomNavBar(currentIndex: -1),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
   

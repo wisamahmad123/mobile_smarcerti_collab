@@ -13,6 +13,7 @@ import 'package:mobile_smarcerti/app/modules/profile/views/profile_pimpinan.dart
 import 'package:mobile_smarcerti/app/modules/requestAcc/bindings/reqAcc_binding.dart';
 import 'package:mobile_smarcerti/app/modules/requestAcc/view/request_acc_page.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
+import 'package:mobile_smarcerti/pages/profile_dosen.dart';
 
 class AppPages {
   static const INITIAL = Routes.LOGIN; // Arahkan ke login sebagai default
@@ -42,8 +43,6 @@ class AppPages {
         middlewares: [
           AuthMiddleware()
         ]),
-    GetPage(name: Routes.REQACC, page: () => const RequestPimpinan()),
-    GetPage(name: Routes.HOME, page: () => const HomePimpinan()),
     GetPage(name: Routes.PROFILE, page: () => const ProfilePimpinan()),
   ];
 }
@@ -55,6 +54,5 @@ class Routes {
       '/homePimpinan'; // Arahkan ke home pimpinan jika login
   static const HOMEDOSEN = '/homeDosen'; // Arahkan ke home dosen jika login
   static const HOME = '/home'; // Arahkan ke home dosen jika login
-  static const REQACC = '/reqACC'; // Arahkan ke home dosen jika login
-  static const PROFILE = '/profile'; // Arahkan ke home dosen jika login
+  static const PROFILE = '/profile';
 }

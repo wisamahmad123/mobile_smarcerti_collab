@@ -1,19 +1,26 @@
-
+import 'package:get/get.dart';
+import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
+import 'package:mobile_smarcerti/app/modules/home/views/home_dosen.dart';
+import 'package:mobile_smarcerti/app/modules/home/views/home_pimpinan.dart';
 import 'package:mobile_smarcerti/app/modules/list_pelatihan_sertifikasi/views/list_daftar_pelatihan_sertifikasi_page.dart';
+import 'package:mobile_smarcerti/app/modules/pelatihan/views/pelatihan_dosen_page.dart';
+import 'package:mobile_smarcerti/app/modules/requestAcc/view/request_acc_page.dart';
+import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_dosen_page.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_page.dart';
 import 'package:mobile_smarcerti/app/modules/pelatihan/views/pelatihan_page.dart';
-// import '../../../../pages/pelatihan_page.dart';
-import 'home_pimpinan.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 
 class MenuItemCard extends StatelessWidget {
   final Map<String, dynamic> data;
 
-  const MenuItemCard({super.key, required this.data});
+  MenuItemCard({super.key, required this.data});
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
+    final level = controller.userLevel.value;
+    print("level menu: $level");
     return InkWell(
       onTap: () {
         // Pindah ke halaman yang sesuai ketika item di-klik
@@ -21,15 +28,31 @@ class MenuItemCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              if (data['text'] == 'Pelatihan') {
-                return const PelatihanPage();
-              } else if (data['text'] == 'Sertifikasi') {
-                return const SertifikasiPage();
-              } else if (data['text'] == 'Daftar Pelatihan dan Sertifikasi Dosen') {
-                return const ListDaftarPelatihanSertifikasiPage();
-              } else {
-                return const HomePimpinan(); // Default halaman (jika tidak ada yang sesuai)
+              print("Selected menu: ${data['text']}");
+
+              if (level == "2") {
+                if (data['text'] == 'Pelatihan') {
+                  return const PelatihanPage();
+                } else if (data['text'] == 'Sertifikasi') {
+                  return const SertifikasiPage();
+                } else if (data['text'] ==
+                    'Daftar Pelatihan dan Sertifikasi Dosen') {
+                  return const ListDaftarPelatihanSertifikasiPage();
+                } else if (data['text'] == 'Penerimaan Pengajuan') {
+                  return const RequestPimpinan();
+                } else {
+                  return HomePimpinan();
+                }
+              } else if (level == "3") {
+                if (data['text'] == 'Pelatihan') {
+                  return const PelatihanDosenPage();
+                } else if (data['text'] == 'Sertifikasi') {
+                  return const SertifikasiDosenPage();
+                } else {
+                  return HomeDosen();
+                }
               }
+              return HomeDosen();
             },
           ),
         );

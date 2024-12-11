@@ -28,7 +28,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const PimpinanBottomNavBar(
+      bottomNavigationBar:  PimpinanBottomNavBar(
         currentIndex: 2,
       ),
     );

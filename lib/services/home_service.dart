@@ -50,10 +50,8 @@ class HomeService {
       );
 
       if (response.statusCode == 200) {
-        print(response.data);
         var json = response.data;
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("Parsed data: $parsed");
         return parsed
             .map<PelatihanUser>((json) => PelatihanUser.fromJson(json))
             .toList();
@@ -89,7 +87,6 @@ class HomeService {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<Sertifikasi>((json) => Sertifikasi.fromJson(json))
             .toList();
@@ -151,10 +148,8 @@ class HomeService {
 
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
-        print(response.data);
         var json = response.data;
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<Sertifikasi>((json) => Sertifikasi.fromJson(json))
             .toList();

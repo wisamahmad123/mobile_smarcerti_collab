@@ -13,7 +13,7 @@ class ListNotifikasi extends StatelessWidget {
         title: "List Notifikasi",
       ),
       body: ListNotifikasiBody(),
-      bottomNavigationBar: const PimpinanBottomNavBar(currentIndex: -1),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
 }

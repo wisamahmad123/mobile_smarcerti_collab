@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/app/modules/sertifikasi/views/detail_sertifikasi_body.dart';
 import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 import 'package:mobile_smarcerti/widgets/dosen_bottom_navbar.dart';
+import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 
 class DetailSertifikasiPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class DetailSertifikasiPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarCustom(title: 'Detail Sertifikasi'),
       body: DetailSertifikasiBody(idSertifikasi: idSertifikasi), // Mengirimkan idSertifikasi
-      bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
 }
