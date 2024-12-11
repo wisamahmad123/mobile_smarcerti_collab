@@ -29,14 +29,14 @@ class BodyProfile extends StatelessWidget {
                 return const Center(child: Text('No data available'));
               }
 
-              final account = controller.myAccount.first;
+              final account = controller.avatarUrl.value;
 
               return Column(
                 children: [
                   CircleAvatar(
                     radius: 60,
-                    backgroundImage: account.avatarUrl.isNotEmpty
-                        ? NetworkImage(account.avatarUrl) // Gambar dari URL
+                    backgroundImage: account.isNotEmpty
+                        ? NetworkImage(account) // Gambar dari URL
                         : AssetImage('assets/images/profile-dosen.jpg')
                             as ImageProvider, // Gambar default
                   ),

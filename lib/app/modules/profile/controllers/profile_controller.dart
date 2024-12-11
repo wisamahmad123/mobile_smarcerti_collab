@@ -40,13 +40,15 @@ class ProfileController extends BaseController {
     String? nama = prefs.getString('nama_lengkap');
     namaLengkap.value = nama ?? 'User'; // Update nilai reaktif
   }
-
-  Future<void> loadAvatarUrl() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? avatar = prefs.getString('avatarUrl');
-    avatarUrl.value = avatar ?? ''; // Update nilai reaktif avatar URL
-    print('Avatar URL from SharedPreferences: ${avatarUrl.value}'); // Debugging
-  }
+Future<void> loadAvatarUrl() async {
+  isLoading.value = true; // Set loading sebelum delay
+  await Future.delayed(const Duration(seconds: 10)); // Delay 3 detik
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? avatar = prefs.getString('avatarUrl');
+  avatarUrl.value = avatar ?? ''; // Update nilai reaktif avatar URL
+  print('Avatar URL from SharedPreferences: ${avatarUrl.value}'); // Debugging
+  isLoading.value = false; // Set loading selesai
+}
 
   Future<void> loadProfiles() async {
     try {
