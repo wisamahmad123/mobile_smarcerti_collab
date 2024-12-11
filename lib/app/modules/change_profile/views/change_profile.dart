@@ -12,11 +12,21 @@ class ChangeProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Obx(() => Column(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (controller.changeProfiles.isEmpty) {
+                return const Center(child: Text('No data available'));
+              }
+
+              final account = controller.changeProfiles.first;
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
@@ -24,19 +34,11 @@ class ChangeProfileScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 60,
-                          backgroundImage: controller.profileImage.value != null
-                              ? FileImage(controller.profileImage.value!)
+                          backgroundImage: account.avatarUrl.isNotEmpty
+                              ? NetworkImage(
+                                  account.avatarUrl) // Gambar dari URL
                               : AssetImage('assets/images/profile-dosen.jpg')
-                                  as ImageProvider,
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: IconButton(
-                            icon: Icon(Icons.camera_alt,
-                                color: Colors.white, size: 24),
-                            onPressed: controller.pickImage,
-                          ),
+                                  as ImageProvider, // Gambar default
                         ),
                       ],
                     ),
@@ -51,38 +53,6 @@ class ChangeProfileScreen extends StatelessWidget {
                     label: 'Username',
                     controller: controller.usernameController,
                   ),
-                  MultiSelectDialogField(
-                    buttonText: const Text('Bidang Minat'),
-                    title: const Text('Bidang Minat'),
-                    items: controller.bidangMinatList.map((bidangMinat) {
-                      return MultiSelectItem<String>(
-                        bidangMinat.idBidangMinat.toString(),
-                        bidangMinat.namaBidangMinat,
-                      );
-                    }).toList(),
-                    initialValue: controller
-                        .selectedBidangMinat, // Data lama tetap terpilih
-                    onConfirm: (val) {
-                      controller.selectedBidangMinat =
-                          val; // Update pilihan baru
-                    },
-                  ),
-                  MultiSelectDialogField(
-                    buttonText: const Text('Mata Kuliah'),
-                    title: const Text('Mata Kuliah'),
-                    items: controller.mataKuliahList.map((mataKuliah) {
-                      return MultiSelectItem<String>(
-                        mataKuliah.idMatakuliah.toString(),
-                        mataKuliah.namaMatakuliah,
-                      );
-                    }).toList(),
-                    initialValue: controller
-                        .selectedMataKuliah, // Data lama tetap terpilih
-                    onConfirm: (val) {
-                      controller.selectedMataKuliah =
-                          val; // Update pilihan baru
-                    },
-                  ),
                   SizedBox(height: 20),
                   LabelField(
                     label: 'Nomor Telepon',
@@ -94,9 +64,60 @@ class ChangeProfileScreen extends StatelessWidget {
                     controller: controller.emailController,
                   ),
                   SizedBox(height: 20),
-                  LabelField(
-                    label: 'Jenis Kelamin',
-                    controller: controller.jenisKelaminController,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Jenis Kelamin',
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Card(
+                        color: Colors.white,
+                        elevation: 1,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: .5),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: RadioListTile(
+                                  title: Text('Laki-laki'),
+                                  value: 'Laki-laki',
+                                  groupValue:
+                                      controller.selectedJenisKelamin.value,
+                                  onChanged: (value) {
+                                    controller.selectedJenisKelamin.value =
+                                        value.toString();
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: RadioListTile(
+                                  title: Text('Perempuan'),
+                                  value: 'Perempuan',
+                                  groupValue:
+                                      controller.selectedJenisKelamin.value,
+                                  onChanged: (value) {
+                                    controller.selectedJenisKelamin.value =
+                                        value.toString();
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 30),
                   Center(
@@ -126,71 +147,10 @@ class ChangeProfileScreen extends StatelessWidget {
                           ),
                   ),
                 ],
-              )),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDropdownField<T>({
-    required String label,
-    required List<T> items,
-    required T? selectedItem,
-    required void Function(T?) onChanged,
-    required String Function(T?) displayText,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+              );
+            }),
           ),
-        ),
-        const SizedBox(height: 5),
-        Card(
-          color: Colors.white,
-          elevation: 1,
-          margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 1),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<T>(
-                isExpanded: true,
-                value: selectedItem,
-                hint: Text('Pilih $label'),
-                items: items.map((item) {
-                  return DropdownMenuItem<T>(
-                    value: item,
-                    child: Text(
-                      displayText(item),
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 16,
-                        color: Color(0xFF375E97),
-                      ),
-                    ),
-                  );
-                }).toList(),
-                onChanged: onChanged,
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  color: Color(0xFF375E97),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+        ));
   }
 
   void showChangeProfileDialog(BuildContext context) {

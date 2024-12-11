@@ -27,19 +27,13 @@ class ChangeProfileController extends BaseController {
   RxList<User> changeProfiles = <User>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
-
-  var mataKuliahList = <MataKuliahMyAccountModel>[].obs;
-  var bidangMinatList = <BidangMinatMyAccountModel>[].obs;
-
+  RxString selectedJenisKelamin = ''.obs;
   // Form controllers for profile fields
   final TextEditingController nameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController noTeleponController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
-
-  List<String> selectedBidangMinat = [];
-  List<String> selectedMataKuliah = [];
 
   // Observable for profile image
   Rx<File?> profileImage = Rx<File?>(null);
@@ -53,8 +47,6 @@ class ChangeProfileController extends BaseController {
   // Initialize data and load existing profile
   Future<void> initializeData() async {
     try {
-      await loadBidangMinat(); // Tambahkan ini
-      await loadMataKuliah(); // Tambahkan ini
       await loadChangeProfiles();
     } catch (e) {
       handleError(e);
@@ -78,16 +70,7 @@ class ChangeProfileController extends BaseController {
         usernameController.text = account.username ?? '';
         noTeleponController.text = account.noTelp ?? '';
         emailController.text = account.email ?? '';
-        jenisKelaminController.text = account.jenisKelamin ?? '';
-
-        // Autoselect Bidang Minat dan Mata Kuliah
-        selectedBidangMinat = account.detailDaftarUserBidangMinat!
-            .map((e) => e.idBidangMinat.toString())
-            .toList();
-
-        selectedMataKuliah = account.detailDaftarUserMatakuliah!
-            .map((e) => e.idMatakuliah.toString())
-            .toList();
+        selectedJenisKelamin.value = account.jenisKelamin ?? '';
       } else {
         changeProfiles.clear();
       }
@@ -95,16 +78,6 @@ class ChangeProfileController extends BaseController {
       print("Error in loadChangeProfiles: $e");
     } finally {
       isLoading.value = false;
-    }
-  }
-
-  // Pick image from gallery
-  Future<void> pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      profileImage.value = File(image.path);
     }
   }
 
@@ -118,6 +91,11 @@ class ChangeProfileController extends BaseController {
     if (emailController.text.isEmpty ||
         !GetUtils.isEmail(emailController.text)) {
       Get.snackbar('Error', 'Email tidak valid',
+          snackPosition: SnackPosition.BOTTOM);
+      return false;
+    }
+    if (selectedJenisKelamin.value.isEmpty) {
+      Get.snackbar('Error', 'Jenis Kelamin harus dipilih',
           snackPosition: SnackPosition.BOTTOM);
       return false;
     }
@@ -139,20 +117,10 @@ class ChangeProfileController extends BaseController {
       Map<String, dynamic> updateData = {
         'nama_lengkap': nameController.text,
         'username': usernameController.text,
-        'id_matakuliah': selectedMataKuliah,
-        'id_bidang_minat': selectedBidangMinat,
         'no_telp': noTeleponController.text,
         'email': emailController.text,
-        'jenis_kelamin': jenisKelaminController.text,
+        'jenis_kelamin': selectedJenisKelamin.value,
       };
-
-      // Menambahkan gambar jika ada
-      if (profileImage.value != null) {
-        updateData['avatar'] = await MultipartFile(
-          profileImage.value!.path,
-          filename: profileImage.value!.path.split('/').last,
-        );
-      }
 
       // Memanggil API update profile dan mendapatkan User yang diupdate
       final updatedUser = await _apiProvider.updateProfile(updateData);
@@ -179,34 +147,6 @@ class ChangeProfileController extends BaseController {
       print("Error updating profile: $e");
       Get.snackbar('Error', 'Terjadi kesalahan: $e',
           snackPosition: SnackPosition.BOTTOM);
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  /// Memuat data bidang minat
-  Future<void> loadBidangMinat() async {
-    try {
-      isLoading.value = true;
-      var data = await _myAccountService.getBidangMinat();
-      bidangMinatList.assignAll(data);
-    } catch (e) {
-      print("Error saat mengambil bidang minat: $e");
-      errorMessage.value = 'Gagal memuat data bidang minat.';
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  /// Memuat data mata kuliah
-  Future<void> loadMataKuliah() async {
-    try {
-      isLoading.value = true;
-      var data = await _myAccountService.getMataKuliah();
-      mataKuliahList.assignAll(data);
-    } catch (e) {
-      print("Error saat mengambil mata kuliah: $e");
-      errorMessage.value = 'Gagal memuat data mata kuliah.';
     } finally {
       isLoading.value = false;
     }

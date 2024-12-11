@@ -29,18 +29,16 @@ class BodyProfile extends StatelessWidget {
                 return const Center(child: Text('No data available'));
               }
 
+              final account = controller.myAccount.first;
+
               return Column(
                 children: [
                   CircleAvatar(
                     radius: 60,
-                    backgroundImage: controller.avatarUrl.value.isNotEmpty
-                        ? NetworkImage(controller.avatarUrl.value)
-                        : const AssetImage('assets/images/profile-dosen.jpg')
-                            as ImageProvider,
-                    onBackgroundImageError: (exception, stackTrace) {
-                      debugPrint(
-                          "Failed to load image: ${controller.avatarUrl.value}");
-                    },
+                    backgroundImage: account.avatarUrl.isNotEmpty
+                        ? NetworkImage(account.avatarUrl) // Gambar dari URL
+                        : AssetImage('assets/images/profile-dosen.jpg')
+                            as ImageProvider, // Gambar default
                   ),
                   const SizedBox(height: 10),
                   Text(
