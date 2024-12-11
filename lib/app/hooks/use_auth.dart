@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UseAuth {
   final ApiProvider _apiService = ApiProvider();
   final userLevel = ''.obs;
-  final HomeController userController = Get.put(HomeController());
 
   Future<void> _initIdLevel() async {
     try {
@@ -40,6 +39,7 @@ class UseAuth {
     try {
       final response = await _apiService.login(username, password);
       await _initIdLevel();
+      print(userLevel);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (userLevel == "2") {
           Get.offAllNamed('/homePimpinan');

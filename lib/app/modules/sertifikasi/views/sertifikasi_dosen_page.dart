@@ -6,8 +6,8 @@ import 'package:mobile_smarcerti/app/modules/sertifikasi/views/sertifikasi_body.
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 
 
-class SertifikasiPage extends StatelessWidget {
-  const SertifikasiPage({super.key});
+class SertifikasiDosenPage extends StatelessWidget {
+  const SertifikasiDosenPage({super.key});
 
 
 
@@ -16,7 +16,7 @@ class SertifikasiPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBarCustom(title: 'Daftar Sertifikasi'),
         body: SertifikasiBody(),
-        bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
+        bottomNavigationBar: DosenBottomNavbar(currentIndex: -1),
         
       );
   }

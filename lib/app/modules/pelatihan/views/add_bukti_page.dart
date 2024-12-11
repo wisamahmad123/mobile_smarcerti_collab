@@ -14,7 +14,7 @@ class AddBuktiPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarCustom(title: 'Upload Bukti Pelatihan'),
       body: ListAddBukti(idPelatihan: idPelatihan),// Mengirimkan idSertifikasi
-      bottomNavigationBar: const PimpinanBottomNavBar(currentIndex: -1),
+      bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }
 }

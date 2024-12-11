@@ -21,24 +21,38 @@ class HomeController extends BaseController {
   RxList<Sertifikasi> sertifikasis =
       <Sertifikasi>[].obs; // Untuk data yang ditampilkan
   RxList<Sertifikasi> sertifikasisDosen = <Sertifikasi>[].obs;
+  final userLevel = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
+    getLevelID();
     update(); // Force UI update
     initializeData();
+    
   }
-  
+
   Future<void> initializeData() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+
       await loadNamaLengkap();
       await loadPelatihans(); // Ambil data pelatihan
       await loadSertifikasis(); // Ambil data sertifikasi
       await loadPelatihansDosen();
       await loadSertifikasisDosen();
+      print("init level: ${userLevel.value}");
     } catch (e) {
       handleError(e);
+    }
+  }
+
+  Future<void> getLevelID() async {
+    try {
+      final level = await _apiProvider.getLevelId();
+      userLevel.value = level ?? '';
+      print("level homecc : ${userLevel.value}");
+    } catch (e) {
+      print("Error ${e}");
     }
   }
 

@@ -59,7 +59,6 @@ class SertifikasiService {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<Sertifikasi>((json) => Sertifikasi.fromJson(json))
             .toList();
@@ -95,7 +94,6 @@ class SertifikasiService {
         var json = response.data;
         if (json != null && json['data'] != null) {
           var parsed = json['data'];
-          print("Parsed data: $parsed");
 
           // Mengembalikan objek Sertifikasi
           return Sertifikasi.fromJson(parsed);
@@ -134,7 +132,6 @@ class SertifikasiService {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<VendorSertifikasi>((json) => VendorSertifikasi.fromJson(json))
             .toList();
@@ -168,9 +165,7 @@ class SertifikasiService {
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
-        print("json data : $json");
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<BidangMinatSertifikasi>(
                 (json) => BidangMinatSertifikasi.fromJson(json))
@@ -205,9 +200,7 @@ class SertifikasiService {
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
-        print("json data : $json");
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed.map<Periode>((json) => Periode.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load periode');
@@ -239,9 +232,7 @@ class SertifikasiService {
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
-        print("json data : $json");
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<MataKuliahSertifikasi>(
                 (json) => MataKuliahSertifikasi.fromJson(json))
@@ -276,9 +267,7 @@ class SertifikasiService {
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
-        print("json data : $json");
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<JenisSertifikasi>((json) => JenisSertifikasi.fromJson(json))
             .toList();
@@ -312,9 +301,7 @@ class SertifikasiService {
       if (response.statusCode == 200) {
         // Mengakses data yang berada dalam pelatihans -> data
         var json = response.data;
-        print("json data : $json");
         final parsed = json['data'].cast<Map<String, dynamic>>();
-        print("parsed data : $parsed");
         return parsed
             .map<JenisPelatihan>((json) => JenisPelatihan.fromJson(json))
             .toList();
@@ -367,7 +354,6 @@ class SertifikasiService {
       );
 
       if (response.data['success'] == true) {
-        print('Response: ${response.data}');
         return Sertifikasi.fromJson(response.data['data']);
       } else {
         throw Exception('Failed to create sertifikasi: ${response.data}');
@@ -416,8 +402,6 @@ class SertifikasiService {
           },
         ),
       );
-
-      print('Response: ${response.data}');
 
       if (response.statusCode == 200 && response.data['success'] == true) {
         return Sertifikasi.fromJson(response.data['data']);

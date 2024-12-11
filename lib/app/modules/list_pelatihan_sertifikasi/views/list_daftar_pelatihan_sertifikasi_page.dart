@@ -19,7 +19,7 @@ class ListDaftarPelatihanSertifikasiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: myTab.length,
-      child: const Scaffold(
+      child:  Scaffold(
         appBar: AppBarTabBar(title: 'Daftar Pelatihan & Sertifikasi'),
         body: ListDaftarPelatihanSertifikasiBody(),
         bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
