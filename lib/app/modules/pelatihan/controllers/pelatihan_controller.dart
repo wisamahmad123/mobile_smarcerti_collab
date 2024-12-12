@@ -603,6 +603,8 @@ class PelatihanController extends BaseController {
           'Berhasil',
           'Pelatihan berhasil diperbarui.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
         );
       } else {
         errorMessage.value = 'Gagal memperbarui Pelatihan.';
