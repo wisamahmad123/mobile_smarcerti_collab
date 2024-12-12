@@ -28,6 +28,7 @@ class User {
   String? namaLengkap;
   String? noTelp;
   String? email;
+  String? nip;
   String? jenisKelamin;
   String? avatar;
   String? createdAt;
@@ -42,6 +43,7 @@ class User {
     this.namaLengkap,
     this.noTelp,
     this.email,
+    this.nip,
     this.jenisKelamin,
     this.avatar,
     this.createdAt,
@@ -57,6 +59,7 @@ class User {
     namaLengkap = json['nama_lengkap'];
     noTelp = json['no_telp'];
     email = json['email'];
+    nip = json['nip'];
     jenisKelamin = json['jenis_kelamin'];
     avatar = json['avatar'];
     createdAt = json['created_at'];
@@ -82,6 +85,7 @@ class User {
     data['nama_lengkap'] = this.namaLengkap;
     data['no_telp'] = this.noTelp;
     data['email'] = this.email;
+    data['nip'] = this.nip;
     data['jenis_kelamin'] = this.jenisKelamin;
     data['avatar'] = this.avatar;
     data['created_at'] = this.createdAt;

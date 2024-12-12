@@ -1,23 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mobile_smarcerti/app/data/models/bidang_minat_my_account_model.dart';
-import 'package:mobile_smarcerti/app/data/models/mata_kuliah_my_account_model.dart';
-import 'package:mobile_smarcerti/app/data/models/my_account_model.dart';
 import 'package:mobile_smarcerti/app/data/models/user_model.dart';
 import 'package:mobile_smarcerti/app/data/provider/api_provider.dart';
 import 'package:mobile_smarcerti/app/modules/auth/controllers/base_controller.dart';
 import 'package:mobile_smarcerti/app/modules/home/controllers/home_controller.dart';
 import 'package:mobile_smarcerti/app/modules/my_account/controllers/my_account_controller.dart';
-import 'package:mobile_smarcerti/app/modules/profile/controllers/profile_controller.dart';
 import 'package:mobile_smarcerti/services/api_service.dart';
 import 'package:mobile_smarcerti/services/my_account_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangeProfileController extends BaseController {
   final MyAccountService _myAccountService = MyAccountService(ApiService());
-  final ProfileController profileController = Get.put(ProfileController());
   final HomeController homeController = Get.put(HomeController());
   final MyAccountController myAccountController =
       Get.put(MyAccountController());
@@ -33,6 +27,7 @@ class ChangeProfileController extends BaseController {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController noTeleponController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController nipController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
 
   // Observable for profile image
@@ -61,7 +56,7 @@ class ChangeProfileController extends BaseController {
 
       print(User());
 
-      if (data != null && data.isNotEmpty) {
+      if (data.isNotEmpty) {
         changeProfiles.assignAll(data);
         User account = data.first;
 
@@ -70,6 +65,7 @@ class ChangeProfileController extends BaseController {
         usernameController.text = account.username ?? '';
         noTeleponController.text = account.noTelp ?? '';
         emailController.text = account.email ?? '';
+        nipController.text = account.nip ?? '';
         selectedJenisKelamin.value = account.jenisKelamin ?? '';
       } else {
         changeProfiles.clear();
@@ -119,8 +115,11 @@ class ChangeProfileController extends BaseController {
         'username': usernameController.text,
         'no_telp': noTeleponController.text,
         'email': emailController.text,
+        'nip': nipController.text,
         'jenis_kelamin': selectedJenisKelamin.value,
       };
+
+      print("Update Data: $updateData");
 
       // Memanggil API update profile dan mendapatkan User yang diupdate
       final updatedUser = await _apiProvider.updateProfile(updateData);
@@ -133,7 +132,6 @@ class ChangeProfileController extends BaseController {
         Get.snackbar('Success', 'Profile berhasil diupdate');
         await Future.delayed(Duration(seconds: 1));
         await loadChangeProfiles();
-        await profileController.loadProfiles();
         await homeController.loadNamaLengkap();
         await myAccountController.loadMyAccoutns();
         print(
@@ -159,6 +157,7 @@ class ChangeProfileController extends BaseController {
     usernameController.dispose();
     noTeleponController.dispose();
     emailController.dispose();
+    nipController.dispose();
     jenisKelaminController.dispose();
     super.onClose();
   }

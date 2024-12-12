@@ -84,6 +84,11 @@ class _BodyMyAccountDosenState extends State<BodyMyAccountDosen> {
               ),
               const SizedBox(height: 20),
               LabelField(
+                label: 'NIP',
+                initialValue: account.nip ?? "Tidak tersedia",
+              ),
+              const SizedBox(height: 20),
+              LabelField(
                 label: 'Jenis Kelamin',
                 initialValue: account.jenisKelamin ?? "Tidak tersedia",
               ),

@@ -8,7 +8,7 @@ import '../../change_password/views/change_password_page.dart';
 
 class BodyProfile extends StatelessWidget {
   BodyProfile({super.key});
-  final ProfileController controller = Get.put(ProfileController());
+  final MyAccountController controller = Get.put(MyAccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +25,26 @@ class BodyProfile extends StatelessWidget {
               }
 
               // Menampilkan pesan jika tidak ada data
-              if (controller.avatarUrl.isEmpty) {
+              if (controller.myAccounts.isEmpty) {
                 return const Center(child: Text('No data available'));
               }
 
-              final account = controller.avatarUrl.value;
+              final account = controller.myAccounts.first;
 
               return Column(
                 children: [
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundImage: account.isNotEmpty
-                        ? NetworkImage(account) // Gambar dari URL
-                        : AssetImage('assets/images/profile-dosen.jpg')
-                            as ImageProvider, // Gambar default
+                  Center(
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage: account.avatarUrl.isNotEmpty
+                          ? NetworkImage(account.avatarUrl) // Gambar dari URL
+                          : AssetImage('assets/images/profile-dosen.jpg')
+                              as ImageProvider, // Gambar default
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    controller.namaLengkap.value ?? 'Unknown User',
+                    account.namaLengkap ?? 'Unknown User',
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

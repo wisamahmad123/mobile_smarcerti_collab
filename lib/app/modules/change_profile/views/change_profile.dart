@@ -64,6 +64,11 @@ class ChangeProfileScreen extends StatelessWidget {
                     controller: controller.emailController,
                   ),
                   SizedBox(height: 20),
+                  LabelField(
+                    label: 'NIP',
+                    controller: controller.nipController,
+                  ),
+                  SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -85,37 +90,35 @@ class ChangeProfileScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: .5),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: RadioListTile(
-                                  title: Text('Laki-laki'),
-                                  value: 'Laki-laki',
-                                  groupValue:
-                                      controller.selectedJenisKelamin.value,
-                                  onChanged: (value) {
-                                    controller.selectedJenisKelamin.value =
-                                        value.toString();
-                                  },
+                        child: Obx(() => Row(
+                              // Tambahkan Obx di sini
+                              children: [
+                                Expanded(
+                                  child: RadioListTile(
+                                    title: Text('Laki-Laki'),
+                                    value: 'Laki-Laki',
+                                    groupValue:
+                                        controller.selectedJenisKelamin.value,
+                                    onChanged: (value) {
+                                      controller.selectedJenisKelamin.value =
+                                          value.toString();
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: RadioListTile(
-                                  title: Text('Perempuan'),
-                                  value: 'Perempuan',
-                                  groupValue:
-                                      controller.selectedJenisKelamin.value,
-                                  onChanged: (value) {
-                                    controller.selectedJenisKelamin.value =
-                                        value.toString();
-                                  },
+                                Expanded(
+                                  child: RadioListTile(
+                                    title: Text('Perempuan'),
+                                    value: 'Perempuan',
+                                    groupValue:
+                                        controller.selectedJenisKelamin.value,
+                                    onChanged: (value) {
+                                      controller.selectedJenisKelamin.value =
+                                          value.toString();
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
+                              ],
+                            )),
                       ),
                     ],
                   ),

@@ -39,6 +39,7 @@ class MyAccountController extends BaseController {
   Future<void> loadMyAccoutns() async {
     try {
       isLoading.value = true;
+      await Future.delayed(Duration(seconds: 5));
       print("Fetching my accounts data...");
 
       var data = await _myAccountService.getMyAccounts();
