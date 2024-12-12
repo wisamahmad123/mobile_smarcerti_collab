@@ -128,13 +128,16 @@ class TabSertifikasi extends StatelessWidget {
                         title: Text(
                           sertifikasi.namaSertifikasi, // Ambil namaPelatihan
                           style: const TextStyle(
+                            color: Color.fromARGB(255, 55, 94, 151),
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(
                           "Jenis Sertifikasi: ${sertifikasi.jenisSertifikasi.namaJenisSertifikasi}\nTanggal: ${sertifikasi.tanggal.toLocal().toString().substring(0, 10)}",
-                          style: const TextStyle(fontSize: 14),
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 55, 94, 151),
+                            fontSize: 14),
                         ),
                         onTap: () {
                           // Navigasi ke halaman detail pelatihan

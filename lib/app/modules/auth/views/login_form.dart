@@ -56,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
             // Field untuk NIP
             TextFormField(
               controller: _nipController,
-              keyboardType: TextInputType.number,
+              obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Username',
                 hintText: 'Masukkan Username',

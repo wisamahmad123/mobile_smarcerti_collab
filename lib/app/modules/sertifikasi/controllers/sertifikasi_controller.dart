@@ -171,7 +171,7 @@ class SertifikasiController extends BaseController {
         Get.snackbar(
           'Berhasil',
           'Sertifikasi berhasil ditambahkan.',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
         );
       } else {
         errorMessage.value = 'Gagal membuat sertifikasi.';
@@ -203,6 +203,8 @@ class SertifikasiController extends BaseController {
           'Berhasil',
           'Sertifikasi berhasil diperbarui.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
         );
       } else {
         errorMessage.value = 'Gagal memperbarui sertifikasi.';

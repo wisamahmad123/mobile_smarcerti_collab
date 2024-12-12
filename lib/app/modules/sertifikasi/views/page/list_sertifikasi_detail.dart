@@ -281,7 +281,7 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 subtitle: Text(
-                  sertifikasi.masaBerlaku?.toLocal().toString().split(" ")[0] ?? 'Tidak tersedia',
+                  sertifikasi.masaBerlaku?.toLocal().toString().split(" ")[0000] ?? 'Tidak tersedia',
                   style: const TextStyle(
                     fontSize: 14,
                     color: Color.fromARGB(255, 55, 94, 151),

@@ -12,8 +12,8 @@ class DosenBottomNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
       ],
       backgroundColor: Colors.white,
       // Untuk halaman tanpa item yang terpilih, buat warna item yang dipilih dan tidak dipilih sama
@@ -31,7 +31,7 @@ class DosenBottomNavbar extends StatelessWidget {
         }
         if (index == 1) {
           // Navigasi ke halaman Profile
-          Get.offAllNamed('/profile');
+          Get.offAllNamed('/profileDosen');
         }
       },
     );
