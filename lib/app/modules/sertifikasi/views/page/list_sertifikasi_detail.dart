@@ -146,9 +146,9 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 subtitle: Text(
-                  sertifikasi.detailPesertaSertifikasi.isNotEmpty &&
-                      sertifikasi.detailPesertaSertifikasi[0].pivot != null
-                  ? sertifikasi.detailPesertaSertifikasi[0].pivot!.noSertifikasi
+                   (sertifikasi.detailPesertaSertifikasi?.isNotEmpty ?? false) &&
+                      (sertifikasi.detailPesertaSertifikasi?[0].pivot?.noSertifikasi != null)
+                  ? sertifikasi.detailPesertaSertifikasi![0].pivot!.noSertifikasi!
                   : 'Tidak tersedia',
                   style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
                 ),
