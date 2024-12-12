@@ -1,5 +1,3 @@
-
-
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:mobile_smarcerti/app/data/models/pelatihanUser.dart';
@@ -15,7 +13,6 @@
 //   RxBool isLoading = false.obs; // Indikator loading
 //   RxString errorMessage = ''.obs; // Pesan error
 //   Rx<PelatihanUser?> pelatihanDetail = Rx<PelatihanUser?>(null); // Detail pelatihan
-  
 
 //   @override
 //   void onInit() {
@@ -67,7 +64,6 @@
 //     }
 //   }
 
-
 //     /// Fungsi untuk menambahkan pelatihan baru
 //   Future<void> addPelatihan(Map<String, dynamic> newPelatihanData) async {
 //     try {
@@ -98,9 +94,6 @@
 //   }
 // }
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_smarcerti/app/data/models/bidang_minat_pelatihan_model.dart';
@@ -123,7 +116,7 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PelatihanController extends BaseController {
-   final PelatihanService lspService = PelatihanService(ApiService());
+  final PelatihanService lspService = PelatihanService(ApiService());
   final PdfService pdfService = PdfService();
   final PelatihanService pelatihanService = PelatihanService(ApiService());
   final ApiProvider _apiProvider = ApiProvider();
@@ -131,15 +124,15 @@ class PelatihanController extends BaseController {
   RxList<PelatihanUser> pelatihans = <PelatihanUser>[].obs; // Daftar pelatihan
   RxBool isLoading = false.obs; // Indikator loading
   RxString errorMessage = ''.obs; // Pesan error
-  Rx<PelatihanUser?> pelatihanDetail = Rx<PelatihanUser?>(null); // Detail pelatihan
-  
+  Rx<PelatihanUser?> pelatihanDetail =
+      Rx<PelatihanUser?>(null); // Detail pelatihan
 
   // List observables untuk vendor, bidang minat, dan mata kuliah
   var vendorList = <VendorPelatihan>[].obs;
   var bidangMinatList = <BidangMinatPelatihan>[].obs;
   var mataKuliahList = <MataKuliahPelatihan>[].obs;
   var jenisPelatihanList = <JenisPelatihan>[].obs;
-    var tahunPeriode = <Periode>[].obs;
+  var tahunPeriode = <Periode>[].obs;
 
   @override
   void onInit() {
@@ -151,13 +144,13 @@ class PelatihanController extends BaseController {
   // Future<void> initializeData() async {
   //   try {
   //     await loadPelatihans();
-      
+
   //   } catch (e) {
   //     handleError(e);
   //   }
   // }
 
-    Future<void> initializeData() async {
+  Future<void> initializeData() async {
     await Future.wait([
       loadPelatihans(),
       loadVendors(),
@@ -167,11 +160,10 @@ class PelatihanController extends BaseController {
     ]);
   }
 
-     // Fungsi untuk refresh data
+  // Fungsi untuk refresh data
   Future<void> onRefreshPelatihans() async {
-      await loadPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
+    await loadPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
-
 
   /// Fungsi untuk mengambil daftar pelatihan
   Future<void> loadPelatihans() async {
@@ -208,8 +200,7 @@ class PelatihanController extends BaseController {
     }
   }
 
-
-    /// Fungsi untuk menambahkan pelatihan baru
+  //   /// Fungsi untuk menambahkan pelatihan baru
   // Future<void> addPelatihan(Map<String, dynamic> newPelatihanData) async {
   //   try {
   //     isLoading.value = true; // Menandakan proses dimulai
@@ -238,7 +229,9 @@ class PelatihanController extends BaseController {
   //   }
   // }
 
-   /// Mengupdate sertifikasi
+
+
+  /// Mengupdate sertifikasi
   Future<void> updatePelatihan(int id, Map<String, dynamic> data) async {
     isLoading.value = true;
     try {
@@ -301,7 +294,7 @@ class PelatihanController extends BaseController {
     return fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
   }
 
- Future<void> createPelatihan(Map<String, dynamic> data) async {
+  Future<void> createPelatihan(Map<String, dynamic> data) async {
     isLoading.value = true;
 
     try {
@@ -388,9 +381,8 @@ class PelatihanController extends BaseController {
       isLoading.value = false;
     }
   }
-  
 
-    Future<void> loadJenisPelatihan() async {
+  Future<void> loadJenisPelatihan() async {
     try {
       isLoading.value = true;
       var data = await lspService.getJenisPelatihan();

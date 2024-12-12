@@ -311,11 +311,12 @@ class PelatihanService {
     FormData formData = FormData.fromMap({
       "_method": "POST",
       "nama_pelatihan": data['nama_pelatihan'],
-      "no_pelatihan": data['no_pelatihan'],
-      "jenis": data['jenis'],
+      // "no_pelatihan": data['no_pelatihan'],
+      "level_pelatihan": data['level_pelatihan'],
+      "lokasi": data['lokasi'],
       "tanggal": data['tanggal'],
-      // "bukti_pelatihan":
-      //     await MultipartFile.fromFile(data['bukti_pelatihan']),
+      "bukti_pelatihan":
+          await MultipartFile.fromFile(data['bukti_pelatihan']),
       "masa_berlaku": data['masa_berlaku'],
       "kuota_peserta": data['kuota_peserta'],
       "biaya": data['biaya'],

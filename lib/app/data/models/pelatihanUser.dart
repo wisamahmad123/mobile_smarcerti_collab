@@ -7,8 +7,6 @@ import 'package:mobile_smarcerti/app/data/models/mata_kuliah_pelatihan_model.dar
 import 'package:mobile_smarcerti/app/data/models/periode_model.dart';
 import 'package:mobile_smarcerti/app/data/models/vendor_pelatihan_model.dart';
 
-
-
 class PelatihanUser {
   int idPelatihan;
   String idVendorPelatihan;
@@ -26,7 +24,6 @@ class PelatihanUser {
   List<BidangMinatPelatihan> bidangMinatPelatihan;
   List<MataKuliahPelatihan> mataKuliahPelatihan;
   List<DetailPesertaPelatihan> detailPesertaPelatihan;
-  
 
   PelatihanUser({
     required this.idPelatihan,
@@ -47,7 +44,6 @@ class PelatihanUser {
     required this.detailPesertaPelatihan,
   });
 
-
   factory PelatihanUser.fromJson(Map<String, dynamic> json) => PelatihanUser(
         idPelatihan: json["id_pelatihan"],
         idVendorPelatihan: json["id_vendor_pelatihan"].toString(),
@@ -61,22 +57,22 @@ class PelatihanUser {
             : DateTime.parse(json["tanggal"]),
         kuotaPeserta: json["kuota_peserta"].toString(),
         biaya: json["biaya"].toString(),
-        vendorPelatihan: VendorPelatihan.fromJson(json["vendor_pelatihan"] ?? {}),
-        jenisPelatihan:
-            JenisPelatihan.fromJson(json["jenis_pelatihan"] ?? {}),
+        vendorPelatihan:
+            VendorPelatihan.fromJson(json["vendor_pelatihan"] ?? {}),
+        jenisPelatihan: JenisPelatihan.fromJson(json["jenis_pelatihan"] ?? {}),
         periode: Periode.fromJson(json["periode"] ?? {}),
         bidangMinatPelatihan: json["bidang_minat_pelatihan"] == null
             ? []
-            : List<BidangMinatPelatihan>.from(
-                json["bidang_minat_pelatihan"].map((x) => BidangMinatPelatihan.fromJson(x))),
+            : List<BidangMinatPelatihan>.from(json["bidang_minat_pelatihan"]
+                .map((x) => BidangMinatPelatihan.fromJson(x))),
         mataKuliahPelatihan: json["mata_kuliah_pelatihan"] == null
             ? []
-            : List<MataKuliahPelatihan>.from(
-                json["mata_kuliah_pelatihan"].map((x) => MataKuliahPelatihan.fromJson(x))),
+            : List<MataKuliahPelatihan>.from(json["mata_kuliah_pelatihan"]
+                .map((x) => MataKuliahPelatihan.fromJson(x))),
         detailPesertaPelatihan: json["detail_peserta_pelatihan"] == null
             ? []
-            : List<DetailPesertaPelatihan>.from(
-                json["detail_peserta_pelatihan"].map((x) => DetailPesertaPelatihan.fromJson(x))),
+            : List<DetailPesertaPelatihan>.from(json["detail_peserta_pelatihan"]
+                .map((x) => DetailPesertaPelatihan.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -85,8 +81,8 @@ class PelatihanUser {
         "id_jenis_pelatihan": idJenisPelatihan.toString(),
         "id_periode": idPeriode.toString(),
         "nama_pelatihan": namaPelatihan,
-        "lokasi": lokasi,
-        "level_pelatihan": levelPelatihan,
+        "lokasi": lokasi.toString(),
+        "level_pelatihan": levelPelatihan.toString(),
         "tanggal":
             "${tanggal.year.toString().padLeft(4, '0')}-${tanggal.month.toString().padLeft(2, '0')}-${tanggal.day.toString().padLeft(2, '0')}",
         "kuota_peserta": kuotaPeserta.toString(),
@@ -104,8 +100,6 @@ class PelatihanUser {
 
   @override
   String toString() {
-    return 'Datum(idPelatihan: $idPelatihan, namaPelatihan: $namaPelatihan)';
+    return 'PelatihanUser(idPelatihan: $idPelatihan, namaPelatihan: $namaPelatihan)';
   }
 }
-
-
