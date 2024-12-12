@@ -17,8 +17,8 @@ class PimpinanBottomNavBar extends StatelessWidget {
 
     return BottomNavigationBar(
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
       ],
       backgroundColor: Colors.white,
       selectedItemColor: currentIndex == -1
@@ -31,7 +31,7 @@ class PimpinanBottomNavBar extends StatelessWidget {
         if (index == 0) {
           Get.offAllNamed('/homePimpinan');
         } else if (index == 1) {
-          Get.offAllNamed('/profile');
+          Get.offAllNamed('/profilePimpinan');
         }
       },
     );

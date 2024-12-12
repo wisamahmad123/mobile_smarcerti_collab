@@ -117,22 +117,57 @@ class DetailAccPelatihan extends StatelessWidget {
     );
   }
 
-  // Widget untuk menampilkan detail item secara dinamis
+   // Widget untuk menampilkan detail item secara dinamis
   Widget buildDetailItem(String label, String value) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Text(
-        "$label $value",
-        textAlign: TextAlign.left,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Poppins',
-          color: Color(0xFF375E97),
+  if (label == "Status Pengajuan:") {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "$label ",
+          textAlign: TextAlign.left,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+            fontFamily: 'Poppins',
+            color: Color(0xFF375E97), // Warna teks default
+          ),
         ),
-      ),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          decoration: BoxDecoration(
+            color: Colors.yellow.shade700, // Latar belakang kuning
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Text(
+            value,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
+              color: Colors.white, // Warna teks putih
+            ),
+          ),
+        ),
+      ],
     );
   }
+
+  // Default untuk item lainnya
+  return Container(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Text(
+      "$label $value",
+      textAlign: TextAlign.left,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        fontFamily: 'Poppins',
+        color: Color(0xFF375E97), // Warna default biru
+      ),
+    ),
+  );
+}
 
   // Widget untuk tabel dosen dan peserta
   Widget buildPesertaTable(BuildContext context) {
@@ -189,11 +224,11 @@ class DetailAccPelatihan extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text("Email : ${peserta.email}"),
+                                        Text("NIP : ${peserta.nip}"),
                                         const SizedBox(
                                             height: 8), // Jarak antar teks
                                         Text(
-                                            "Jenis Kelamin : ${peserta.jenisKelamin}"),
+                                            "Email : ${peserta.email}"),
                                         const SizedBox(
                                             height: 8), // Jarak antar teks
                                         Text(
