@@ -43,7 +43,8 @@ class AppPages {
         middlewares: [
           AuthMiddleware()
         ]),
-    GetPage(name: Routes.PROFILE, page: () => const ProfilePimpinan()),
+    GetPage(name: Routes.PROFILEPIMPINAN, page: () => const ProfilePimpinan()),
+    GetPage(name: Routes.PROFILEDOSEN, page: () => const ProfileDosen()),
   ];
 }
 
@@ -54,5 +55,6 @@ class Routes {
       '/homePimpinan'; // Arahkan ke home pimpinan jika login
   static const HOMEDOSEN = '/homeDosen'; // Arahkan ke home dosen jika login
   static const HOME = '/home'; // Arahkan ke home dosen jika login
-  static const PROFILE = '/profile';
+  static const PROFILEPIMPINAN = '/profilePimpinan';
+  static const PROFILEDOSEN = '/profileDosen';
 }

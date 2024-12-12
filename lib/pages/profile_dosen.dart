@@ -12,7 +12,7 @@ class ProfileDosen extends StatelessWidget {
     return Scaffold(
       appBar: const AppBarProfile(title: 'Profile'), // AppBar yang dipisahkan
       body: BodyProfile(),               // Body yang dipisahkan
-      bottomNavigationBar:  PimpinanBottomNavBar(currentIndex: 1), // BottomNav yang dipisahkan
+      bottomNavigationBar:  DosenBottomNavbar(currentIndex: 1), // BottomNav yang dipisahkan
     );
   }
 }

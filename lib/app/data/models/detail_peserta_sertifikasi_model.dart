@@ -3,6 +3,7 @@ class DetailPesertaSertifikasi {
     int idLevel;
     String username;
     String namaLengkap;
+    String? nip;
     dynamic noTelp;
     dynamic email;
     dynamic jenisKelamin;
@@ -16,6 +17,7 @@ class DetailPesertaSertifikasi {
         required this.idLevel,
         required this.username,
         required this.namaLengkap,
+        this.nip,
         this.noTelp,
         this.email,
         this.jenisKelamin,
@@ -30,8 +32,9 @@ class DetailPesertaSertifikasi {
         idLevel: json["id_level"] ?? 0,
         username: json["username"] ?? '',
         namaLengkap: json["nama_lengkap"] ?? '',
-        noTelp: json["no_telp"],
-        email: json["email"],
+        nip: json["nip"] ?? '',
+        noTelp: json["no_telp"] ?? '',
+        email: json["email"] ?? '',
         jenisKelamin: json["jenis_kelamin"],
         avatar: json["avatar"],
         createdAt: json["created_at"] != null ? DateTime.tryParse(json["created_at"]) : null,
@@ -44,6 +47,7 @@ class DetailPesertaSertifikasi {
         "id_level": idLevel,
         "username": username,
         "nama_lengkap": namaLengkap,
+        "nip": nip,
         "no_telp": noTelp,
         "email": email,
         "jenis_kelamin": jenisKelamin,
