@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Welcome!',
+                'Selamat Datang!',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 20.0,
@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Text(
-                'Please log in to your account',
+                'Silakan Masuk ke Akun Anda',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 14.0,
