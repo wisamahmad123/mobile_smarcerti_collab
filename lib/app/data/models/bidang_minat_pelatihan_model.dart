@@ -34,6 +34,7 @@ class BidangMinatPelatihan {
     };
 }
 
+
 class BidangMinatPelatihanPivot {
     int idPelatihan;
     int idBidangMinat;
