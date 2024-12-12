@@ -45,7 +45,9 @@ class PelatihanUser {
   });
 
   factory PelatihanUser.fromJson(Map<String, dynamic> json) => PelatihanUser(
+      
         idPelatihan: json["id_pelatihan"],
+        // idPelatihan: int.parse(json["id_pelatihan"].toString()),
         idVendorPelatihan: json["id_vendor_pelatihan"].toString(),
         idJenisPelatihan: json["id_jenis_pelatihan"].toString(),
         idPeriode: json["id_periode"].toString(),

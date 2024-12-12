@@ -22,6 +22,8 @@ import 'package:mobile_smarcerti/app/modules/pelatihan/views/add_pelatihan.dart'
 
 
 class AddPelatihanPage extends StatelessWidget {
+  const AddPelatihanPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Daftarkan binding secara manual jika belum terdaftar
@@ -29,7 +31,7 @@ class AddPelatihanPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Daftar Pelatihan')),
-      body: ListAddPelatihan(),
+      body: const ListAddPelatihan(),
       bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );
   }

@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mobile_smarcerti/app/data/models/pelatihan_model.dart';
+import 'package:mobile_smarcerti/app/data/models/pelatihanUser.dart';
 import 'package:mobile_smarcerti/app/modules/pelatihan/views/add_bukti_page.dart';
 import 'package:mobile_smarcerti/app/utils/constant.dart';
 import 'package:mobile_smarcerti/app/modules/pelatihan/controllers/pelatihan_controller.dart';
