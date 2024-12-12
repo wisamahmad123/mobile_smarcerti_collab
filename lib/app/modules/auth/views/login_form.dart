@@ -58,8 +58,8 @@ class _LoginFormState extends State<LoginForm> {
               controller: _nipController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
-                labelText: 'NIP',
-                hintText: 'Masukkan NIP',
+                labelText: 'Username',
+                hintText: 'Masukkan Username',
                 border: OutlineInputBorder(),
               ),
             ),
