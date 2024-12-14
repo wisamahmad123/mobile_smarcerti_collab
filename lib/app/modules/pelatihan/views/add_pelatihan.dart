@@ -23,7 +23,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
   final TextEditingController lokasiPelatihanController =
       TextEditingController(); //lokasi
   final TextEditingController biayaController = TextEditingController();
-  final TextEditingController masaBerlakuController = TextEditingController();
   final TextEditingController tanggalController = TextEditingController();
   final TextEditingController buktiPelatihanController =
       TextEditingController();
@@ -39,7 +38,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
   List<String> selectedBidangMinat = [];
   List<String> selectedMataKuliah = [];
 
-  final TextEditingController masaBerlaku = TextEditingController();
   final TextEditingController tanggal = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
@@ -71,7 +69,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
         'level_pelatihan': selectedLevelPelatihan,
         'tanggal': tanggal.text,
         'bukti_pelatihan': file!.path,
-        'masa_berlaku': masaBerlaku.text,
         'biaya': biayaController.text,
         'kuota_peserta': kuotaController.text,
       };
@@ -312,18 +309,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
                   },
                   validator: (value) =>
                       value!.isEmpty ? 'Tanggal Pelatihan wajib diisi' : null,
-                ),
-
-                //masa berlaku
-                InputField(
-                  label: 'Masa Berlaku',
-                  controller: masaBerlaku,
-                  readOnly: true,
-                  onTap: () {
-                    _selectDate(context, masaBerlaku);
-                  },
-                  validator: (value) =>
-                      value!.isEmpty ? 'Masa Berlaku wajib diisi' : null,
                 ),
 
                 //kuota
