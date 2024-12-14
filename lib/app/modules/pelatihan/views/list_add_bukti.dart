@@ -42,7 +42,7 @@ class _ListAddBuktiState extends State<ListAddBukti> {
       'id_matakuliah': pelatihan.mataKuliahPelatihan.first.idMatakuliah,
       'user_id': pelatihan.detailPesertaPelatihan.first.userId,
       'nama_pelatihan': pelatihan.namaPelatihan,
-      'jenis': pelatihan.jenisPelatihan,
+      'jenis': pelatihan.jenisPelatihan, //level
       'bukti_pelatihan': file!.path,
       'biaya': pelatihan.biaya,
       'kuota_peserta': pelatihan.kuotaPeserta,
