@@ -571,7 +571,7 @@ class PelatihanController extends BaseController {
         Get.snackbar(
           'Berhasil',
           'Pelatihan berhasil ditambahkan.',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
         );
       } else {
         errorMessage.value = 'Gagal membuat Pelatihan.';
@@ -602,7 +602,7 @@ class PelatihanController extends BaseController {
         Get.snackbar(
           'Berhasil',
           'Pelatihan berhasil diperbarui.',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
