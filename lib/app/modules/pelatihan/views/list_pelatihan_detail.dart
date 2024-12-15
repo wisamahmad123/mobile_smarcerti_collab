@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:mobile_smarcerti/services/pdf_service.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:mobile_smarcerti/app/modules/pelatihan/views/pdf_viewer_page.dart'; 
+import 'package:mobile_smarcerti/app/modules/pelatihan/views/pdf_viewer_page.dart';
 
 class ListPelatihanDetail extends StatefulWidget {
   final int idPelatihan;
@@ -34,7 +34,6 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
   void initState() {
     super.initState();
     initData();
-    
   }
 
   Future<void> initData() async {
@@ -42,8 +41,8 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
       await controller.loadPelatihanById(widget.idPelatihan);
       if (controller.pelatihanDetail.value != null &&
           controller.pelatihanDetail.value!.detailPesertaPelatihan.isNotEmpty) {
-        String? buktiPelatihan =
-            controller.pelatihanDetail.value!.detailPesertaPelatihan[0].pivot!.buktiPelatihan;
+        String? buktiPelatihan = controller.pelatihanDetail.value!
+            .detailPesertaPelatihan[0].pivot!.buktiPelatihan;
         if (buktiPelatihan != null && buktiPelatihan.isNotEmpty) {
           createFileOfPdfUrl().then((f) {
             setState(() {
@@ -59,8 +58,10 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
     Completer<File> completer = Completer();
     try {
       final pelatihan = controller.pelatihanDetail.value;
-      final fileName = pelatihan!.detailPesertaPelatihan[0].pivot!.buktiPelatihan ?? '';
+      final fileName =
+          pelatihan!.detailPesertaPelatihan[0].pivot!.buktiPelatihan ?? '';
       final url = '${ApiConstants.hostname}storage/bukti_pelatihan/$fileName';
+      print('Generated URL: $url');
 
       var request = await HttpClient().getUrl(Uri.parse(url));
       var response = await request.close();
@@ -94,8 +95,6 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
     return completer.future;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,300 +119,312 @@ class _ListPelatihanDetailState extends State<ListPelatihanDetail> {
             children: [
               //Nama Pelatihan
               Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              color: Colors.white,
-              child: ListTile(
-                title: const Text(
-                  'Nama Pelatihan',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Nama Pelatihan',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                  subtitle: Text(
+                    pelatihan.namaPelatihan ?? 'Tidak tersedia',
+                    style: const TextStyle(
+                        fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
                   ),
                 ),
-                subtitle: Text(
-                  pelatihan.namaPelatihan ?? 'Tidak tersedia',
-                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
-                ),
               ),
-            ),
 
-            //Vendor
-             Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              color: Colors.white,
-              child: ListTile(
-                title: const Text(
-                  'Vendor Pelatihan',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
+              //Vendor
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Vendor Pelatihan',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                  subtitle: Text(
+                    pelatihan.vendorPelatihan.nama ?? 'Tidak tersedia',
+                    style: const TextStyle(
+                        fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),
                   ),
                 ),
-                subtitle: Text(
-                   pelatihan.vendorPelatihan.nama ?? 'Tidak tersedia',
-                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 55, 94, 151)),),
               ),
-            ),
 
-            //Level Pelatihan
-            Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            color: Colors.white,
-            child: ListTile(
-              title: const Text(
-                'Level Pelatihan',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 55, 94, 151),
+              //Level Pelatihan
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Level Pelatihan',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                  subtitle: Text(
+                    pelatihan.levelPelatihan,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
                 ),
               ),
-              subtitle: Text(
-                pelatihan.levelPelatihan,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromARGB(255, 55, 94, 151),
-                ),
-              ),
-            ),
-          ),
 
-          //Jenis Bidang Pelatihan
-          Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            color: Colors.white,
-            child: ListTile(
-              title: const Text(
-                'Jenis Bidang',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 55, 94, 151),
+              //Jenis Bidang Pelatihan
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Jenis Bidang',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                  subtitle: Text(
+                    pelatihan.jenisPelatihan.namaJenisPelatihan,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
                 ),
               ),
-              subtitle: Text(
-                pelatihan.jenisPelatihan.namaJenisPelatihan,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromARGB(255, 55, 94, 151),
-                ),
-              ),
-            ),
-          ),
 
-          //Tahun Periode Sertifikasi
-          Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              color: Colors.white,
-              child: ListTile(
-                title: const Text(
-                  'Tahun Periode',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
+              //Tahun Periode Sertifikasi
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Tahun Periode',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  pelatihan.periode.tahunPeriode,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 55, 94, 151),
+                  subtitle: Text(
+                    pelatihan.periode.tahunPeriode,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-          //Tanggal Pelatihan
-            Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              color: Colors.white,
-              child: ListTile(
-                title: const Text(
-                  'Tanggal Pelatihan',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
+              //Tanggal Pelatihan
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Tanggal Pelatihan',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  pelatihan.tanggal?.toLocal().toString() ?? 'Tidak tersedia',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 55, 94, 151),
+                  subtitle: Text(
+                    pelatihan.tanggal?.toLocal().toString() ?? 'Tidak tersedia',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            //Lokasi
-             Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            color: Colors.white,
-            child: ListTile(
-              title: const Text(
-                'Lokasi',
-                style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
+              //Lokasi
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Lokasi',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                 pelatihan.lokasi ?? 'Tidak tersedia',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 55, 94, 151),
-                  ),
-                ),
-              ),
-            ),
-            //Biaya
-             Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            color: Colors.white,
-            child: ListTile(
-              title: const Text(
-                'Biaya',
-                style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
-                  ),
-                ),
-                subtitle: Text(
-                  pelatihan.biaya?.isNotEmpty == true ? pelatihan.biaya : 'Tidak tersedia',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 55, 94, 151),
+                  subtitle: Text(
+                    pelatihan.lokasi ?? 'Tidak tersedia',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
                 ),
               ),
-            ),
+              //Biaya
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Biaya',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                  subtitle: Text(
+                    pelatihan.biaya?.isNotEmpty == true
+                        ? pelatihan.biaya
+                        : 'Tidak tersedia',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                ),
+              ),
 
-             //Bidang Minat Sertifikasi
-            Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            color: Colors.white,
-            child: ListTile(
-              title: const Text(
-                'Bidang Minat',
-                style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
+              //Bidang Minat Sertifikasi
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Bidang Minat',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                   pelatihan.bidangMinatPelatihan.isNotEmpty
-                    ? pelatihan.bidangMinatPelatihan
-                        .map((e) => e.namaBidangMinat)
-                        .join(", ")
-                    : 'Tidak tersedia',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 55, 94, 151),
-                  ),
-                ),
-              ),
-            ),
-
-            //Mata Kuliah Sertifikasi
-            Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            color: Colors.white,
-            child: ListTile(
-              title: const Text(
-                'Mata Kuliah',
-                style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 55, 94, 151),
-                  ),
-                ),
-                subtitle: Text(
-                  pelatihan.mataKuliahPelatihan.isNotEmpty
-                    ? pelatihan.mataKuliahPelatihan
-                        .map((e) => e.namaMatakuliah)
-                        .join(", ")
-                  : 'Tidak tersedia',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 55, 94, 151),
+                  subtitle: Text(
+                    pelatihan.bidangMinatPelatihan.isNotEmpty
+                        ? pelatihan.bidangMinatPelatihan
+                            .map((e) => e.namaBidangMinat)
+                            .join(", ")
+                        : 'Tidak tersedia',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // Bukti Pelatihan
-          Column(
-            children: [
-              // Jika ada file PDF, tampilkan file tersebut dalam Card
-              if (remotePDFpath.isNotEmpty) ...[
-                Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  color: Colors.white,
-                  child: GestureDetector(
-                    onTap: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PdfViewerPage(pdfFilePath: remotePDFpath),
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.picture_as_pdf,
-                        color: Color.fromARGB(255, 55, 94, 151),
-                        size: 30,
-                      ),
-                      title: Text(
-                        remotePDFpath.split('/').last,
-                        style: const TextStyle(
-                          fontSize: 16,
+              //Mata Kuliah Sertifikasi
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: ListTile(
+                  title: const Text(
+                    'Mata Kuliah',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                  subtitle: Text(
+                    pelatihan.mataKuliahPelatihan.isNotEmpty
+                        ? pelatihan.mataKuliahPelatihan
+                            .map((e) => e.namaMatakuliah)
+                            .join(", ")
+                        : 'Tidak tersedia',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 55, 94, 151),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Bukti Pelatihan
+              Column(children: [
+                // Jika ada file PDF, tampilkan file tersebut dalam Card
+                if (remotePDFpath.isNotEmpty) ...[
+                  Card(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    color: Colors.white,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PdfViewerPage(pdfFilePath: remotePDFpath),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.picture_as_pdf,
                           color: Color.fromARGB(255, 55, 94, 151),
-                          decoration: TextDecoration.underline,
+                          size: 30,
+                        ),
+                        title: Text(
+                          remotePDFpath.split('/').last,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 55, 94, 151),
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
                     ),
                   ),
+                ],
+
+                const SizedBox(height: 20),
+
+                // Tombol untuk upload bukti sertifikasi, tetap di luar Card
+                SizedBox(
+                  width: 150, // Mengatur lebar tombol
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              AddBuktiPage(idPelatihan: widget.idPelatihan),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                      backgroundColor: const Color.fromARGB(
+                          255, 239, 84, 40), // Warna latar belakang tombol
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10), // Membuat sudut tombol melengkung
+                      ),
+                    ),
+                    child: const Text(
+                      'Upload Bukti',
+                      style: TextStyle(
+                        color: Colors.white, // Warna teks tombol
+                        fontSize: 16, // Ukuran font
+                        fontWeight: FontWeight.bold, // Ketebalan font
+                      ),
+                    ),
+                  ),
                 ),
-              ],
-
-               const SizedBox(height: 20),
-
-          // Tombol untuk upload bukti sertifikasi, tetap di luar Card
-          SizedBox(
-          width: 150, // Mengatur lebar tombol
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddBuktiPage(idPelatihan: widget.idPelatihan),
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 8,),
-              backgroundColor: const Color.fromARGB(255, 239, 84, 40), // Warna latar belakang tombol
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10), // Membuat sudut tombol melengkung
-              ),
-            ),
-            child: const Text(
-              'Upload Bukti',
-              style: TextStyle(
-                color: Colors.white, // Warna teks tombol
-                fontSize: 16, // Ukuran font
-                fontWeight: FontWeight.bold, // Ketebalan font
-              ),
-            ),
-          ),
-        ),
-            ]
-          ),
-
+              ]),
 
               const SizedBox(height: 20),
             ],

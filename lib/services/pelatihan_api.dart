@@ -971,7 +971,7 @@ class PelatihanService {
       // "no_pelatihan": data['no_pelatihan'],
       // "jenis": data['jenis'],
       "bukti_pelatihan": await MultipartFile.fromFile(data['bukti_pelatihan']),
-      "masa_berlaku": data['masa_berlaku'],
+      // "masa_berlaku": data['masa_berlaku'],
       "biaya": data['biaya'],
       "kuota_peserta": data['kuota_peserta'],
     });

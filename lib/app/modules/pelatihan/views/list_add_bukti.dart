@@ -17,7 +17,7 @@ class ListAddBukti extends StatefulWidget {
 class _ListAddBuktiState extends State<ListAddBukti> {
   final PelatihanController controller = Get.put(PelatihanController());
 
-  final TextEditingController masaBerlaku = TextEditingController();
+  // final TextEditingController masaBerlaku = TextEditingController();
   final TextEditingController tanggal = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   File? file;
@@ -42,16 +42,14 @@ class _ListAddBuktiState extends State<ListAddBukti> {
       'id_matakuliah': pelatihan.mataKuliahPelatihan.first.idMatakuliah,
       'user_id': pelatihan.detailPesertaPelatihan.first.userId,
       'nama_pelatihan': pelatihan.namaPelatihan,
-      'jenis': pelatihan.jenisPelatihan, //level
+      'level_pelatihan': pelatihan.levelPelatihan, //level
+      'lokasi': pelatihan.lokasi,
       'bukti_pelatihan': file!.path,
       'biaya': pelatihan.biaya,
       'kuota_peserta': pelatihan.kuotaPeserta,
     };
-    
 
     controller.updatePelatihan(widget.idPelatihan, formData);
-
-   
   }
 
   @override
@@ -79,131 +77,132 @@ class _ListAddBuktiState extends State<ListAddBukti> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                  //upload file bukti
+                //upload file bukti
                 Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Label untuk file
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      'File yang dipilih:',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 55, 94, 151),
-                        fontWeight: FontWeight.bold,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Label untuk file
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        'File yang dipilih:',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color.fromARGB(255, 55, 94, 151),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  
-                  // Tampilan nama file
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      file?.path.split('/').last ?? 'Belum ada file',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                    ),
-                  ),
-                  
-                  // Tombol Pilih File
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          type: FileType.custom,
-                          allowedExtensions: ['pdf'],
-                        );
 
-                        if (result != null) {
-                          setState(() {
-                            file = File(result.files.single.path!);
-                          });
-                          print(file);
-                        } else {
-                          // User canceled the picker
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Tidak ada file yang dipilih.'),
-                            ),
+                    // Tampilan nama file
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        file?.path.split('/').last ?? 'Belum ada file',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                      ),
+                    ),
+
+                    // Tombol Pilih File
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
                           );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        backgroundColor: Color.fromARGB(255, 55, 94, 151),
-                      ),
-                      child: const Text(
-                        'Pilih File',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+
+                          if (result != null) {
+                            setState(() {
+                              file = File(result.files.single.path!);
+                            });
+                            print(file);
+                          } else {
+                            // User canceled the picker
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Tidak ada file yang dipilih.'),
+                              ),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          backgroundColor: Color.fromARGB(255, 55, 94, 151),
+                        ),
+                        child: const Text(
+                          'Pilih File',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 23),
+                  ],
+                ),
+                const SizedBox(height: 23),
 
-
-                  const SizedBox(height: 20),
-                  
+                const SizedBox(height: 20),
 
                 // Tombol Tambah pelatihan
                 Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                SizedBox(
-                width: 80,
-                child: OutlinedButton(
-                  onPressed: () {
-                    // Mengembalikan ke halaman sebelumnya
-                    Navigator.pop(context);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 239, 84, 40),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 239, 84, 40),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-
-               const SizedBox(width: 20), 
-                 SizedBox(
-                  width: 80, // Mengatur lebar yang sama untuk tombol Save
-                  child: ElevatedButton(
-                    onPressed: () => _updateBukti(), 
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 10,),
-                      backgroundColor: const Color.fromARGB(255, 239, 84, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          // Mengembalikan ke halaman sebelumnya
+                          Navigator.pop(context);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 239, 84, 40),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 239, 84, 40),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      width: 80, // Mengatur lebar yang sama untuk tombol Save
+                      child: ElevatedButton(
+                        onPressed: () => _updateBukti(),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 239, 84, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          'Save',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                
-              ],
-            ),
               ],
             ),
           ),
