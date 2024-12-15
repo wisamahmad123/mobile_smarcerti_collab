@@ -205,9 +205,7 @@ class SertifikasiController extends BaseController {
         Get.snackbar(
           'Berhasil',
           'Sertifikasi berhasil diperbarui.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
         );
       } else {
         errorMessage.value = 'Gagal memperbarui sertifikasi.';
