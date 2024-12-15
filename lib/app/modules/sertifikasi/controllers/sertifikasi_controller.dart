@@ -15,14 +15,17 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../my_account/controllers/my_account_controller.dart';
+
 class SertifikasiController extends BaseController {
   final SertifikasiService lspService = SertifikasiService(ApiService());
+  MyAccountController myAccountController = Get.put(MyAccountController());
   final PdfService pdfService = PdfService();
 
   // Observable untuk daftar sertifikasi dan detail sertifikasi
   RxList<Sertifikasi> sertifikasis = <Sertifikasi>[].obs;
   Rx<Sertifikasi?> sertifikasiDetail = Rx<Sertifikasi?>(null);
-   RxList<Sertifikasi> filteredSertifikasi = <Sertifikasi>[].obs; // 
+  RxList<Sertifikasi> filteredSertifikasi = <Sertifikasi>[].obs; //
 
   // List observables untuk vendor, bidang minat, dan mata kuliah
   var vendorList = <VendorSertifikasi>[].obs;
@@ -42,7 +45,6 @@ class SertifikasiController extends BaseController {
     initializeData();
   }
 
-
   /// Inisialisasi data
   Future<void> initializeData() async {
     await Future.wait([
@@ -54,9 +56,9 @@ class SertifikasiController extends BaseController {
     ]);
   }
 
-    // Fungsi untuk refresh data
+  // Fungsi untuk refresh data
   Future<void> onRefreshSertifikasis() async {
-      await loadSertifikasis(); // Panggil fungsi untuk ambil ulang data pelatihan
+    await loadSertifikasis(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
 
   /// Memuat daftar sertifikasi
@@ -64,6 +66,7 @@ class SertifikasiController extends BaseController {
     try {
       isLoading.value = true;
       var data = await lspService.getSertifikasis();
+      print('USER IDNYA: ${myAccountController.myAccounts.first.id}');
       sertifikasis.assignAll(data);
     } catch (e) {
       print("Error saat mengambil sertifikasi: $e");
@@ -258,7 +261,7 @@ class SertifikasiController extends BaseController {
     return fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
   }
 
-void searchSertifikasi(String query) {
+  void searchSertifikasi(String query) {
     if (query.isEmpty) {
       filteredSertifikasi.assignAll(sertifikasis);
     } else {

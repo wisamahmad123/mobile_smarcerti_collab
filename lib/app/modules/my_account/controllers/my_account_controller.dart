@@ -22,12 +22,6 @@ class MyAccountController extends BaseController {
     initializeData(); // Memuat data saat pertama kali diinisialisasi
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    initializeData(); // Memuat ulang data setiap kali halaman ditampilkan kembali
-  }
-
   Future<void> initializeData() async {
     try {
       await loadMyAccoutns();
@@ -39,7 +33,7 @@ class MyAccountController extends BaseController {
   Future<void> loadMyAccoutns() async {
     try {
       isLoading.value = true;
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 3));
       print("Fetching my accounts data...");
 
       var data = await _myAccountService.getMyAccounts();

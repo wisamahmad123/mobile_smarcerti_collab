@@ -829,7 +829,6 @@ class PelatihanService {
     }
   }
 
-
 //satu
   // Future<List<JenisPelatihan>> getJenisPelatihan() async {
   //   final token = await getToken();
@@ -915,15 +914,13 @@ class PelatihanService {
       "level_pelatihan": data['level_pelatihan'],
       "lokasi": data['lokasi'],
       "tanggal": data['tanggal'],
-      "bukti_pelatihan":
-          await MultipartFile.fromFile(data['bukti_pelatihan']),
+      "bukti_pelatihan": await MultipartFile.fromFile(data['bukti_pelatihan']),
       "masa_berlaku": data['masa_berlaku'],
       "kuota_peserta": data['kuota_peserta'],
       "biaya": data['biaya'],
       "id_vendor_pelatihan": int.parse(data['id_vendor_pelatihan']),
       "id_jenis_pelatihan": int.parse(data['id_jenis_pelatihan']),
       "id_periode": int.parse(data['id_periode']),
-            "id_pelatihan": int.parse(data['id_pelatihan']),
       "id_bidang_minat": data['id_bidang_minat'],
       "id_matakuliah": data['id_matakuliah'],
       "user_id": [data['user_id']],
@@ -973,8 +970,7 @@ class PelatihanService {
       "lokasi": data['lokasi'],
       // "no_pelatihan": data['no_pelatihan'],
       // "jenis": data['jenis'],
-      "bukti_pelatihan":
-          await MultipartFile.fromFile(data['bukti_pelatihan']),
+      "bukti_pelatihan": await MultipartFile.fromFile(data['bukti_pelatihan']),
       "masa_berlaku": data['masa_berlaku'],
       "biaya": data['biaya'],
       "kuota_peserta": data['kuota_peserta'],

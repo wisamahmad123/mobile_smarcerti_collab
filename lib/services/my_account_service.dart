@@ -16,6 +16,7 @@ class MyAccountService {
     ..options = BaseOptions(
       validateStatus: (status) {
         return status != null && status <= 500;
+        
       },
       followRedirects: true,
       receiveTimeout: const Duration(seconds: 15),

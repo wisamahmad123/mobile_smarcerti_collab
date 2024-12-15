@@ -455,7 +455,7 @@ class PelatihanController extends BaseController {
   }
 
     // Fungsi untuk refresh data
-  Future<void> onRefreshSertifikasis() async {
+  Future<void> onRefreshPelatihans() async {
       await loadPelatihans(); // Panggil fungsi untuk ambil ulang data pelatihan
   }
 

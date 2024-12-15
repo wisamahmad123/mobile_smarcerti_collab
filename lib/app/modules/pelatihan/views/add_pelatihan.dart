@@ -23,7 +23,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
   final TextEditingController lokasiPelatihanController =
       TextEditingController(); //lokasi
   final TextEditingController biayaController = TextEditingController();
-  final TextEditingController masaBerlakuController = TextEditingController();
   final TextEditingController tanggalController = TextEditingController();
   final TextEditingController buktiPelatihanController =
       TextEditingController();
@@ -39,7 +38,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
   List<String> selectedBidangMinat = [];
   List<String> selectedMataKuliah = [];
 
-  final TextEditingController masaBerlaku = TextEditingController();
   final TextEditingController tanggal = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
@@ -71,85 +69,84 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
         'level_pelatihan': selectedLevelPelatihan,
         'tanggal': tanggal.text,
         'bukti_pelatihan': file!.path,
-        'masa_berlaku': masaBerlaku.text,
         'biaya': biayaController.text,
         'kuota_peserta': kuotaController.text,
       };
 
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 239, 84, 40), // Warna latar belakang
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    "Berhasil menambahkan data Pelatihan",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        height: 40,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              side: const BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          child: const Text(
-                            "OK",
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color.fromARGB(
-                                  255, 239, 84, 40), // Warna teks
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Tutup dialog
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) =>
-                                  PelatihanPage(), // Ganti dengan halaman detail sertifikasi Anda
-                            ));
-                          },
-                          /*onPressed: () {
-                          Navigator.of(context).pop(); // Tutup dialog
-                        },*/
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
+      // showDialog(
+      //   context: context,
+      //   builder: (BuildContext context) {
+      //     return Dialog(
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(10),
+      //       ),
+      //       child: Container(
+      //         padding: const EdgeInsets.all(20),
+      //         decoration: const BoxDecoration(
+      //           color: Color.fromARGB(255, 239, 84, 40), // Warna latar belakang
+      //           borderRadius: BorderRadius.all(Radius.circular(10)),
+      //         ),
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.min,
+      //           children: [
+      //             const Text(
+      //               "Berhasil menambahkan data Pelatihan",
+      //               style: TextStyle(
+      //                 fontFamily: 'Poppins',
+      //                 color: Colors.white,
+      //                 fontSize: 20,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //               textAlign: TextAlign.center,
+      //             ),
+      //             const SizedBox(height: 20),
+      //             Row(
+      //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //               children: [
+      //                 SizedBox(
+      //                   width: 80,
+      //                   height: 40,
+      //                   child: ElevatedButton(
+      //                     style: ElevatedButton.styleFrom(
+      //                       backgroundColor: Colors.white,
+      //                       shape: RoundedRectangleBorder(
+      //                         borderRadius: BorderRadius.circular(8),
+      //                         side: const BorderSide(
+      //                           color: Colors.white,
+      //                         ),
+      //                       ),
+      //                     ),
+      //                     child: const Text(
+      //                       "OK",
+      //                       style: TextStyle(
+      //                         fontFamily: 'Poppins',
+      //                         color: Color.fromARGB(
+      //                             255, 239, 84, 40), // Warna teks
+      //                         fontSize: 18,
+      //                         fontWeight: FontWeight.w600,
+      //                       ),
+      //                     ),
+      //                     onPressed: () {
+      //                       Navigator.of(context).pop(); // Tutup dialog
+      //                       Navigator.of(context)
+      //                           .pushReplacement(MaterialPageRoute(
+      //                         builder: (context) =>
+      //                             PelatihanPage(), // Ganti dengan halaman detail sertifikasi Anda
+      //                       ));
+      //                     },
+      //                     /*onPressed: () {
+      //                     Navigator.of(context).pop(); // Tutup dialog
+      //                   },*/
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // );
 
       print(formData);
       pelatihanController.createPelatihan(formData);
@@ -312,18 +309,6 @@ class _ListAddPelatihanState extends State<ListAddPelatihan> {
                   },
                   validator: (value) =>
                       value!.isEmpty ? 'Tanggal Pelatihan wajib diisi' : null,
-                ),
-
-                //masa berlaku
-                InputField(
-                  label: 'Masa Berlaku',
-                  controller: masaBerlaku,
-                  readOnly: true,
-                  onTap: () {
-                    _selectDate(context, masaBerlaku);
-                  },
-                  validator: (value) =>
-                      value!.isEmpty ? 'Masa Berlaku wajib diisi' : null,
                 ),
 
                 //kuota
@@ -661,7 +646,7 @@ class MultiSelectField extends StatelessWidget {
     required this.items,
     required this.onConfirm,
     this.fieldWidth, // Lebar field input
-    this.fieldHeight = 48.0,
+    this.fieldHeight,
     this.initialValues = const [],
   });
 
