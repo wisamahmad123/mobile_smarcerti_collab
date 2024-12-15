@@ -127,7 +127,7 @@ void filterPeriodeSertifikasi(String periode) {
       print("Error saat update status: $e");
     } finally {
       isLoading.value = false; // Pastikan loading selesai
-      await loadReqPelatihans();
+      await initializeData();
     }
   }
 
@@ -140,7 +140,7 @@ void filterPeriodeSertifikasi(String periode) {
       print("Error saat update status: $e");
     } finally {
       isLoading.value = false; // Pastikan loading selesai
-      await loadReqSertifikasis();
+      await initializeData();
     }
   }
 }
