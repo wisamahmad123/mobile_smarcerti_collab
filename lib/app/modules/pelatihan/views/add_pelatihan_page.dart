@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_smarcerti/app/modules/pelatihan/bindings/pelatihan.dart';
 import 'package:mobile_smarcerti/widgets/pimpinan_bottom_nav_bar.dart';
 import 'package:mobile_smarcerti/app/modules/pelatihan/views/add_pelatihan.dart';
+import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 
 
 class AddPelatihanPage extends StatelessWidget {
@@ -30,7 +31,7 @@ class AddPelatihanPage extends StatelessWidget {
     PelatihanBinding().dependencies();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Pelatihan')),
+      appBar: AppBarCustom(title: 'Tambah Pelatihan'),
       body: const ListAddPelatihan(),
       bottomNavigationBar: PimpinanBottomNavBar(currentIndex: -1),
     );

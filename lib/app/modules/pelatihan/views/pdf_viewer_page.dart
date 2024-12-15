@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:mobile_smarcerti/services/pdf_service.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:mobile_smarcerti/widgets/app_bar_custom.dart';
 
 class PdfViewerPage extends StatefulWidget {
   final String? pdfFilePath;
@@ -26,7 +27,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("PDF Viewer")),
+      appBar: AppBarCustom(title: 'PDF Viewer'),
       body: Stack(children: <Widget>[
         PDFView(
           filePath:
