@@ -510,7 +510,7 @@ class InputField extends StatelessWidget {
     this.onTap,
     this.validator,
     this.fieldWidth, // Lebar field input
-    this.fieldHeight = 48.0, // Tinggi default field input
+    this.fieldHeight, // Tinggi default field input
   });
 
   @override
@@ -576,7 +576,7 @@ class DropdownField extends StatelessWidget {
     this.value,
     this.validator,
     this.fieldWidth, // Lebar field input
-    this.fieldHeight = 48.0, // Tinggi default field input
+    this.fieldHeight, // Tinggi default field input
   });
 
   @override
