@@ -27,7 +27,6 @@ class ChangeProfileController extends BaseController {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController noTeleponController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController nipController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
 
   // Observable for profile image
@@ -65,7 +64,6 @@ class ChangeProfileController extends BaseController {
         usernameController.text = account.username ?? '';
         noTeleponController.text = account.noTelp ?? '';
         emailController.text = account.email ?? '';
-        nipController.text = account.nip ?? '';
         selectedJenisKelamin.value = account.jenisKelamin ?? '';
       } else {
         changeProfiles.clear();
@@ -115,7 +113,6 @@ class ChangeProfileController extends BaseController {
         'username': usernameController.text,
         'no_telp': noTeleponController.text,
         'email': emailController.text,
-        'nip': nipController.text,
         'jenis_kelamin': selectedJenisKelamin.value,
       };
 
@@ -157,7 +154,6 @@ class ChangeProfileController extends BaseController {
     usernameController.dispose();
     noTeleponController.dispose();
     emailController.dispose();
-    nipController.dispose();
     jenisKelaminController.dispose();
     super.onClose();
   }

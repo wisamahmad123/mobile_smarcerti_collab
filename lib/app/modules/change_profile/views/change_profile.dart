@@ -64,11 +64,6 @@ class ChangeProfileScreen extends StatelessWidget {
                     controller: controller.emailController,
                   ),
                   SizedBox(height: 20),
-                  LabelField(
-                    label: 'NIP',
-                    controller: controller.nipController,
-                  ),
-                  SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
